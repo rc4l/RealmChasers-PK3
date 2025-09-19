@@ -17,6 +17,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_DIR="$SCRIPT_DIR/in"
 OUTPUT_DIR="$SCRIPT_DIR/out"
 PK3_OUTPUT="$OUTPUT_DIR/realmchasers.pk3"
+README_PATH="$SCRIPT_DIR/README.maps.md"
 
 echo -e "${GREEN}=== RealmChasers PK3 Builder ===${NC}"
 echo "Building from: $SOURCE_DIR"
