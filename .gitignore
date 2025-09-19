@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Unity meta files (shouldn't be in PK3)
+*.meta
+
+# Backup files
+*.backup
+*~
+*.bak
+
+# Log files
+*.log
