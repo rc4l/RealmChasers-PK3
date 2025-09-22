@@ -1,12 +1,9 @@
 // Realm Chasers actor DoomEdNum assignments
 // Auto-generated from JSON by build_pk3.sh
-// Offset used: 2147483648 (0x80000000)
+// Valid editorNumber range: 15000-31000
 
 DoomEdNums
 {
-    413317495 = RC_Puzzle_Switch_Base_W  // uniqueId: -1734166153
-    1692030026 = RC_Marker  // uniqueId: -455453622
-    2147498648 = RC_Start  // uniqueId: 15000
-    2261239129 = RC_Player  // uniqueId: 113755481
-    3345693624 = RC_Arrow_W  // uniqueId: 1198209976
+    15000 = RC_Start  // uniqueId: 15000
+    15001 = RC_Marker  // uniqueId: -455453622
 }
