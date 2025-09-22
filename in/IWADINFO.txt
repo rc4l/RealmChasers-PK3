@@ -1,0 +1,11 @@
+IWad
+{
+    Name = "Realm Chasers"
+    Autoname = "realmchasers"
+    Game = "Doom"
+    Config = "RealmChasers"
+    IWADName = "realmchasers.ipk3"
+    Mapinfo = "MAPINFO"
+    MustContain = "MAPINFO", "zscript.txt"
+    BannerColors = "00 88 ff", "ff aa 00"
+}
