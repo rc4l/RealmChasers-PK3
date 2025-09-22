@@ -2,10 +2,10 @@ version "4.3"
 
 // Realm Chasers actor stubs for Ultimate Doom Builder
 // Auto-generated from JSON by build_pk3.sh
-// DoomEdNum mapping: sequential assignment starting at 15000
+// Each actor must define editorNumber in range 15000-31000
 
 // From: Lever (Floor)/Lever (Floor).json
-// uniqueId: -1734166153 → DoomEdNum: 15001
+// uniqueId: -1734166153 → DoomEdNum: 15002
 class RC_Puzzle_Switch_Base_W : Actor
 {
     Default
@@ -25,7 +25,7 @@ class RC_Puzzle_Switch_Base_W : Actor
 }
 
 // From: Arrow/Arrow.json
-// uniqueId: 1198209976 → DoomEdNum: 15002
+// uniqueId: 1198209976 → DoomEdNum: 15004
 class RC_Arrow_W : Actor
 {
     Default
@@ -88,7 +88,7 @@ class RC_Marker : Actor
 }
 
 // From: Player/Player.json
-// uniqueId: 113755481 → DoomEdNum: 15004
+// uniqueId: 113755481 → DoomEdNum: 15001
 class RC_Player : Actor
 {
     Default
