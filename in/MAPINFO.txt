@@ -5,8 +5,5 @@
 DoomEdNums
 {
     15000 = RC_Start  // uniqueId: 15000
-    15001 = RC_Player  // uniqueId: 113755481
-    15002 = RC_Puzzle_Switch_Base_W  // uniqueId: -1734166153
-    15003 = RC_Marker  // uniqueId: -455453622
-    15004 = RC_Arrow_W  // uniqueId: 1198209976
+    15001 = RC_Marker  // uniqueId: -455453622
 }

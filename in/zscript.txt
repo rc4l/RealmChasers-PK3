@@ -4,47 +4,6 @@ version "4.3"
 // Auto-generated from JSON by build_pk3.sh
 // Each actor must define editorNumber in range 15000-31000
 
-// From: Lever (Floor)/Lever (Floor).json
-// uniqueId: -1734166153 → DoomEdNum: 15002
-class RC_Puzzle_Switch_Base_W : Actor
-{
-    Default
-    {
-        //$Category "Realm Chasers/Actors"
-        //$Title "Floor Lever"
-        //$Color 8
-        //$NotAngled
-    }
-    
-    States
-    {
-    Spawn:
-        TNT1 A -1;
-        Stop;
-    }
-}
-
-// From: Arrow/Arrow.json
-// uniqueId: 1198209976 → DoomEdNum: 15004
-class RC_Arrow_W : Actor
-{
-    Default
-    {
-        //$Category "Realm Chasers/Actors"
-        //$Title "Arrow"
-        //$Help "Default placeholder arrow for bows"
-        //$Color 8
-        //$NotAngled
-    }
-    
-    States
-    {
-    Spawn:
-        TNT1 A -1;
-        Stop;
-    }
-}
-
 // From: Start/Start.json
 // uniqueId: 15000 → DoomEdNum: 15000
 class RC_Start : Actor
@@ -67,7 +26,7 @@ class RC_Start : Actor
 }
 
 // From: Marker/Marker.json
-// uniqueId: -455453622 → DoomEdNum: 15003
+// uniqueId: -455453622 → DoomEdNum: 15001
 class RC_Marker : Actor
 {
     Default
@@ -76,26 +35,6 @@ class RC_Marker : Actor
         //$Title "Marker"
         //$Help "Helps guide players; visible to everyone"
         //$Color 3
-        //$NotAngled
-    }
-    
-    States
-    {
-    Spawn:
-        TNT1 A -1;
-        Stop;
-    }
-}
-
-// From: Player/Player.json
-// uniqueId: 113755481 → DoomEdNum: 15001
-class RC_Player : Actor
-{
-    Default
-    {
-        //$Category "Realm Chasers/Players"
-        //$Title "Player"
-        //$Color 1
         //$NotAngled
     }
     
