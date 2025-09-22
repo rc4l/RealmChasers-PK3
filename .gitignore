@@ -14,5 +14,6 @@
 # Doom Builder files
 *.dbs
 
-# Log files
+# Log files and folders
 *.log
+logdump/
