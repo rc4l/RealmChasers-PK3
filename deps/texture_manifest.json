@@ -3041,12 +3041,12 @@
       "addressableKey": "wrld370"
     },
     {
-      "name": "lightstonefloor",
-      "path": "Assets/Data/Textures/Stone/Light Stone/lightstonefloor.png",
+      "name": "lgtstnfl",
+      "path": "Assets/Data/Textures/Stone/Light Stone/lgtstnfl.png",
       "width": 24,
       "height": 24,
       "labels": [],
-      "addressableKey": "lightstonefloor"
+      "addressableKey": "lgtstnfl"
     },
     {
       "name": "wrld290",
@@ -4569,5 +4569,5 @@
       "addressableKey": "WTRNRML"
     }
   ],
-  "exportDate": "2025-09-26 20:41:06"
+  "exportDate": "2025-09-26 20:42:59"
 }
