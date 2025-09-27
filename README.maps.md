@@ -1,5 +1,5 @@
 # UDMF Map Support
-*Auto-generated on 2025-09-22*
+*Auto-generated on 2025-09-26*
 
 ## Supported Properties
 
@@ -32,6 +32,7 @@
 - `z`
 - `angle`
 - `type`
+- `id`
 
 ## Notes
 - Properties not listed above are not supported
