@@ -1,4 +1,4573 @@
 {
-  "textures": [],
-  "exportDate": "2025-09-26 20:36:58"
+  "textures": [
+    {
+      "name": "black",
+      "path": "Assets/Data/Blocks/black.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "black"
+    },
+    {
+      "name": "blank",
+      "path": "Assets/Data/Blocks/blank.png",
+      "width": 16,
+      "height": 16,
+      "labels": [],
+      "addressableKey": "blank"
+    },
+    {
+      "name": "watrfncy",
+      "path": "Assets/Data/Blocks/Water/watrfncy.png",
+      "width": 512,
+      "height": 512,
+      "labels": [],
+      "addressableKey": "watrfncy"
+    },
+    {
+      "name": "watrtrans",
+      "path": "Assets/Data/Blocks/Water/watrtrans.png",
+      "width": 64,
+      "height": 64,
+      "labels": [],
+      "addressableKey": "watrtrans"
+    },
+    {
+      "name": "wrld781",
+      "path": "Assets/Data/Blocks/Water/wrld781.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld781"
+    },
+    {
+      "name": "wrld1773",
+      "path": "Assets/Data/Blocks/Water/wrld1773.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1773"
+    },
+    {
+      "name": "wrld62",
+      "path": "Assets/Data/Blocks/wrld62.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld62"
+    },
+    {
+      "name": "wrld65",
+      "path": "Assets/Data/Blocks/wrld65.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld65"
+    },
+    {
+      "name": "wrld97",
+      "path": "Assets/Data/Blocks/wrld97.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld97"
+    },
+    {
+      "name": "wrld116",
+      "path": "Assets/Data/Blocks/wrld116.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld116"
+    },
+    {
+      "name": "wrld119",
+      "path": "Assets/Data/Blocks/wrld119.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld119"
+    },
+    {
+      "name": "wrld120",
+      "path": "Assets/Data/Blocks/wrld120.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld120"
+    },
+    {
+      "name": "wrld173",
+      "path": "Assets/Data/Blocks/wrld173.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld173"
+    },
+    {
+      "name": "wrld243",
+      "path": "Assets/Data/Blocks/wrld243.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld243"
+    },
+    {
+      "name": "wrld244",
+      "path": "Assets/Data/Blocks/wrld244.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld244"
+    },
+    {
+      "name": "wrld255",
+      "path": "Assets/Data/Blocks/wrld255.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld255"
+    },
+    {
+      "name": "wrld256",
+      "path": "Assets/Data/Blocks/wrld256.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld256"
+    },
+    {
+      "name": "wrld344",
+      "path": "Assets/Data/Blocks/wrld344.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld344"
+    },
+    {
+      "name": "wrld345",
+      "path": "Assets/Data/Blocks/wrld345.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld345"
+    },
+    {
+      "name": "wrld346",
+      "path": "Assets/Data/Blocks/wrld346.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld346"
+    },
+    {
+      "name": "wrld401",
+      "path": "Assets/Data/Blocks/wrld401.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld401"
+    },
+    {
+      "name": "wrld402",
+      "path": "Assets/Data/Blocks/wrld402.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld402"
+    },
+    {
+      "name": "wrld435",
+      "path": "Assets/Data/Blocks/wrld435.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld435"
+    },
+    {
+      "name": "wrld436",
+      "path": "Assets/Data/Blocks/wrld436.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld436"
+    },
+    {
+      "name": "wrld458",
+      "path": "Assets/Data/Blocks/wrld458.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld458"
+    },
+    {
+      "name": "wrld459",
+      "path": "Assets/Data/Blocks/wrld459.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld459"
+    },
+    {
+      "name": "wrld460",
+      "path": "Assets/Data/Blocks/wrld460.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld460"
+    },
+    {
+      "name": "wrld515",
+      "path": "Assets/Data/Blocks/wrld515.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld515"
+    },
+    {
+      "name": "wrld516",
+      "path": "Assets/Data/Blocks/wrld516.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld516"
+    },
+    {
+      "name": "wrld517",
+      "path": "Assets/Data/Blocks/wrld517.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld517"
+    },
+    {
+      "name": "wrld521",
+      "path": "Assets/Data/Blocks/wrld521.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld521"
+    },
+    {
+      "name": "wrld575",
+      "path": "Assets/Data/Blocks/wrld575.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld575"
+    },
+    {
+      "name": "wrld576",
+      "path": "Assets/Data/Blocks/wrld576.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld576"
+    },
+    {
+      "name": "wrld578",
+      "path": "Assets/Data/Blocks/wrld578.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld578"
+    },
+    {
+      "name": "wrld773",
+      "path": "Assets/Data/Blocks/wrld773.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld773"
+    },
+    {
+      "name": "wrld778",
+      "path": "Assets/Data/Blocks/wrld778.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld778"
+    },
+    {
+      "name": "wrld779",
+      "path": "Assets/Data/Blocks/wrld779.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld779"
+    },
+    {
+      "name": "wrld803",
+      "path": "Assets/Data/Blocks/wrld803.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld803"
+    },
+    {
+      "name": "wrld805",
+      "path": "Assets/Data/Blocks/wrld805.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld805"
+    },
+    {
+      "name": "wrld806",
+      "path": "Assets/Data/Blocks/wrld806.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld806"
+    },
+    {
+      "name": "wrld828",
+      "path": "Assets/Data/Blocks/wrld828.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld828"
+    },
+    {
+      "name": "wrld830",
+      "path": "Assets/Data/Blocks/wrld830.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld830"
+    },
+    {
+      "name": "wrld831",
+      "path": "Assets/Data/Blocks/wrld831.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld831"
+    },
+    {
+      "name": "wrld832",
+      "path": "Assets/Data/Blocks/wrld832.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld832"
+    },
+    {
+      "name": "wrld833",
+      "path": "Assets/Data/Blocks/wrld833.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld833"
+    },
+    {
+      "name": "wrld834",
+      "path": "Assets/Data/Blocks/wrld834.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld834"
+    },
+    {
+      "name": "wrld835",
+      "path": "Assets/Data/Blocks/wrld835.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld835"
+    },
+    {
+      "name": "wrld942",
+      "path": "Assets/Data/Blocks/wrld942.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld942"
+    },
+    {
+      "name": "wrld943",
+      "path": "Assets/Data/Blocks/wrld943.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld943"
+    },
+    {
+      "name": "wrld1056",
+      "path": "Assets/Data/Blocks/wrld1056.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1056"
+    },
+    {
+      "name": "wrld1057",
+      "path": "Assets/Data/Blocks/wrld1057.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1057"
+    },
+    {
+      "name": "wrld1171",
+      "path": "Assets/Data/Blocks/wrld1171.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1171"
+    },
+    {
+      "name": "wrld1284",
+      "path": "Assets/Data/Blocks/wrld1284.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1284"
+    },
+    {
+      "name": "wrld1285",
+      "path": "Assets/Data/Blocks/wrld1285.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1285"
+    },
+    {
+      "name": "wrld1380",
+      "path": "Assets/Data/Blocks/wrld1380.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1380"
+    },
+    {
+      "name": "wrld1381",
+      "path": "Assets/Data/Blocks/wrld1381.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1381"
+    },
+    {
+      "name": "wrld1382",
+      "path": "Assets/Data/Blocks/wrld1382.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1382"
+    },
+    {
+      "name": "wrld1383",
+      "path": "Assets/Data/Blocks/wrld1383.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1383"
+    },
+    {
+      "name": "wrld1384",
+      "path": "Assets/Data/Blocks/wrld1384.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1384"
+    },
+    {
+      "name": "wrld1385",
+      "path": "Assets/Data/Blocks/wrld1385.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1385"
+    },
+    {
+      "name": "wrld1386",
+      "path": "Assets/Data/Blocks/wrld1386.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1386"
+    },
+    {
+      "name": "wrld1387",
+      "path": "Assets/Data/Blocks/wrld1387.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1387"
+    },
+    {
+      "name": "wrld1388",
+      "path": "Assets/Data/Blocks/wrld1388.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1388"
+    },
+    {
+      "name": "wrld1389",
+      "path": "Assets/Data/Blocks/wrld1389.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1389"
+    },
+    {
+      "name": "wrld1432",
+      "path": "Assets/Data/Blocks/wrld1432.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1432"
+    },
+    {
+      "name": "wrld1435",
+      "path": "Assets/Data/Blocks/wrld1435.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1435"
+    },
+    {
+      "name": "wrld1437",
+      "path": "Assets/Data/Blocks/wrld1437.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1437"
+    },
+    {
+      "name": "wrld1438",
+      "path": "Assets/Data/Blocks/wrld1438.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1438"
+    },
+    {
+      "name": "wrld1439",
+      "path": "Assets/Data/Blocks/wrld1439.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1439"
+    },
+    {
+      "name": "wrld1440",
+      "path": "Assets/Data/Blocks/wrld1440.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1440"
+    },
+    {
+      "name": "wrld1441",
+      "path": "Assets/Data/Blocks/wrld1441.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1441"
+    },
+    {
+      "name": "wrld1442",
+      "path": "Assets/Data/Blocks/wrld1442.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1442"
+    },
+    {
+      "name": "wrld1443",
+      "path": "Assets/Data/Blocks/wrld1443.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1443"
+    },
+    {
+      "name": "wrld1444",
+      "path": "Assets/Data/Blocks/wrld1444.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1444"
+    },
+    {
+      "name": "wrld1445",
+      "path": "Assets/Data/Blocks/wrld1445.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1445"
+    },
+    {
+      "name": "wrld1446",
+      "path": "Assets/Data/Blocks/wrld1446.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1446"
+    },
+    {
+      "name": "wrld1494",
+      "path": "Assets/Data/Blocks/wrld1494.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1494"
+    },
+    {
+      "name": "wrld1495",
+      "path": "Assets/Data/Blocks/wrld1495.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1495"
+    },
+    {
+      "name": "wrld1496",
+      "path": "Assets/Data/Blocks/wrld1496.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1496"
+    },
+    {
+      "name": "wrld1497",
+      "path": "Assets/Data/Blocks/wrld1497.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1497"
+    },
+    {
+      "name": "wrld1498",
+      "path": "Assets/Data/Blocks/wrld1498.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1498"
+    },
+    {
+      "name": "wrld1499",
+      "path": "Assets/Data/Blocks/wrld1499.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1499"
+    },
+    {
+      "name": "wrld1500",
+      "path": "Assets/Data/Blocks/wrld1500.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1500"
+    },
+    {
+      "name": "wrld1501",
+      "path": "Assets/Data/Blocks/wrld1501.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1501"
+    },
+    {
+      "name": "wrld1502",
+      "path": "Assets/Data/Blocks/wrld1502.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1502"
+    },
+    {
+      "name": "wrld1503",
+      "path": "Assets/Data/Blocks/wrld1503.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1503"
+    },
+    {
+      "name": "wrld1552",
+      "path": "Assets/Data/Blocks/wrld1552.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1552"
+    },
+    {
+      "name": "wrld1553",
+      "path": "Assets/Data/Blocks/wrld1553.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1553"
+    },
+    {
+      "name": "wrld1554",
+      "path": "Assets/Data/Blocks/wrld1554.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1554"
+    },
+    {
+      "name": "wrld1555",
+      "path": "Assets/Data/Blocks/wrld1555.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1555"
+    },
+    {
+      "name": "wrld1556",
+      "path": "Assets/Data/Blocks/wrld1556.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1556"
+    },
+    {
+      "name": "wrld1557",
+      "path": "Assets/Data/Blocks/wrld1557.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1557"
+    },
+    {
+      "name": "wrld1558",
+      "path": "Assets/Data/Blocks/wrld1558.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1558"
+    },
+    {
+      "name": "wrld1559",
+      "path": "Assets/Data/Blocks/wrld1559.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1559"
+    },
+    {
+      "name": "wrld1560",
+      "path": "Assets/Data/Blocks/wrld1560.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1560"
+    },
+    {
+      "name": "wrld1627",
+      "path": "Assets/Data/Blocks/wrld1627.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1627"
+    },
+    {
+      "name": "wrld1678",
+      "path": "Assets/Data/Blocks/wrld1678.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1678"
+    },
+    {
+      "name": "wrld1741",
+      "path": "Assets/Data/Blocks/wrld1741.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1741"
+    },
+    {
+      "name": "wrld1849",
+      "path": "Assets/Data/Blocks/wrld1849.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1849"
+    },
+    {
+      "name": "wrld1854",
+      "path": "Assets/Data/Blocks/wrld1854.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1854"
+    },
+    {
+      "name": "wrld1855",
+      "path": "Assets/Data/Blocks/wrld1855.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1855"
+    },
+    {
+      "name": "wrld2020",
+      "path": "Assets/Data/Blocks/wrld2020.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld2020"
+    },
+    {
+      "name": "wrld2191",
+      "path": "Assets/Data/Blocks/wrld2191.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld2191"
+    },
+    {
+      "name": "wrld1374",
+      "path": "Assets/Data/Textures/Carpet/wrld1374.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1374"
+    },
+    {
+      "name": "wrld1375",
+      "path": "Assets/Data/Textures/Carpet/wrld1375.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1375"
+    },
+    {
+      "name": "wrld1376",
+      "path": "Assets/Data/Textures/Carpet/wrld1376.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1376"
+    },
+    {
+      "name": "wrld1377",
+      "path": "Assets/Data/Textures/Carpet/wrld1377.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1377"
+    },
+    {
+      "name": "wrld1378",
+      "path": "Assets/Data/Textures/Carpet/wrld1378.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1378"
+    },
+    {
+      "name": "wrld1379",
+      "path": "Assets/Data/Textures/Carpet/wrld1379.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1379"
+    },
+    {
+      "name": "wrld1431",
+      "path": "Assets/Data/Textures/Carpet/wrld1431.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1431"
+    },
+    {
+      "name": "wrld1433",
+      "path": "Assets/Data/Textures/Carpet/wrld1433.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1433"
+    },
+    {
+      "name": "wrld1434",
+      "path": "Assets/Data/Textures/Carpet/wrld1434.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1434"
+    },
+    {
+      "name": "wrld1435",
+      "path": "Assets/Data/Textures/Carpet/wrld1435.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1435"
+    },
+    {
+      "name": "wrld1436",
+      "path": "Assets/Data/Textures/Carpet/wrld1436.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1436"
+    },
+    {
+      "name": "wrld1488",
+      "path": "Assets/Data/Textures/Carpet/wrld1488.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1488"
+    },
+    {
+      "name": "wrld1489",
+      "path": "Assets/Data/Textures/Carpet/wrld1489.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1489"
+    },
+    {
+      "name": "wrld1490",
+      "path": "Assets/Data/Textures/Carpet/wrld1490.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1490"
+    },
+    {
+      "name": "wrld1491",
+      "path": "Assets/Data/Textures/Carpet/wrld1491.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1491"
+    },
+    {
+      "name": "wrld1492",
+      "path": "Assets/Data/Textures/Carpet/wrld1492.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1492"
+    },
+    {
+      "name": "wrld1493",
+      "path": "Assets/Data/Textures/Carpet/wrld1493.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1493"
+    },
+    {
+      "name": "prpwatbt",
+      "path": "Assets/Data/Textures/Liquids/prpwatbt.png",
+      "width": 64,
+      "height": 64,
+      "labels": [],
+      "addressableKey": "prpwatbt"
+    },
+    {
+      "name": "prpwatsd",
+      "path": "Assets/Data/Textures/Liquids/prpwatsd.png",
+      "width": 64,
+      "height": 64,
+      "labels": [],
+      "addressableKey": "prpwatsd"
+    },
+    {
+      "name": "prpwattp",
+      "path": "Assets/Data/Textures/Liquids/prpwattp.png",
+      "width": 64,
+      "height": 64,
+      "labels": [],
+      "addressableKey": "prpwattp"
+    },
+    {
+      "name": "prpwtr01",
+      "path": "Assets/Data/Textures/Liquids/prpwtr01.png",
+      "width": 64,
+      "height": 64,
+      "labels": [],
+      "addressableKey": "prpwtr01"
+    },
+    {
+      "name": "trnswatr",
+      "path": "Assets/Data/Textures/Liquids/trnswatr.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "trnswatr"
+    },
+    {
+      "name": "miscgrn",
+      "path": "Assets/Data/Textures/Misc/miscgrn.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "miscgrn"
+    },
+    {
+      "name": "miscred",
+      "path": "Assets/Data/Textures/Misc/miscred.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "miscred"
+    },
+    {
+      "name": "wrld771",
+      "path": "Assets/Data/Textures/Misc/wrld771.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld771"
+    },
+    {
+      "name": "wrld836",
+      "path": "Assets/Data/Textures/Misc/wrld836.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld836"
+    },
+    {
+      "name": "wrld971",
+      "path": "Assets/Data/Textures/Misc/wrld971.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld971"
+    },
+    {
+      "name": "wrld972",
+      "path": "Assets/Data/Textures/Misc/wrld972.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld972"
+    },
+    {
+      "name": "wrld973",
+      "path": "Assets/Data/Textures/Misc/wrld973.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld973"
+    },
+    {
+      "name": "wrld974",
+      "path": "Assets/Data/Textures/Misc/wrld974.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld974"
+    },
+    {
+      "name": "wrld975",
+      "path": "Assets/Data/Textures/Misc/wrld975.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld975"
+    },
+    {
+      "name": "wrld976",
+      "path": "Assets/Data/Textures/Misc/wrld976.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld976"
+    },
+    {
+      "name": "wrld977",
+      "path": "Assets/Data/Textures/Misc/wrld977.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld977"
+    },
+    {
+      "name": "wrld978",
+      "path": "Assets/Data/Textures/Misc/wrld978.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld978"
+    },
+    {
+      "name": "wrld979",
+      "path": "Assets/Data/Textures/Misc/wrld979.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld979"
+    },
+    {
+      "name": "wrld348",
+      "path": "Assets/Data/Textures/Nature/wrld348.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld348"
+    },
+    {
+      "name": "wrld774",
+      "path": "Assets/Data/Textures/Nature/wrld774.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld774"
+    },
+    {
+      "name": "wrld775",
+      "path": "Assets/Data/Textures/Nature/wrld775.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld775"
+    },
+    {
+      "name": "wrld776",
+      "path": "Assets/Data/Textures/Nature/wrld776.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld776"
+    },
+    {
+      "name": "wrld782",
+      "path": "Assets/Data/Textures/Nature/wrld782.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld782"
+    },
+    {
+      "name": "wrld783",
+      "path": "Assets/Data/Textures/Nature/wrld783.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld783"
+    },
+    {
+      "name": "wrld784",
+      "path": "Assets/Data/Textures/Nature/wrld784.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld784"
+    },
+    {
+      "name": "wrld804",
+      "path": "Assets/Data/Textures/Nature/wrld804.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld804"
+    },
+    {
+      "name": "wrld829",
+      "path": "Assets/Data/Textures/Nature/wrld829.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld829"
+    },
+    {
+      "name": "wrld838",
+      "path": "Assets/Data/Textures/Nature/wrld838.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld838"
+    },
+    {
+      "name": "wrld1398",
+      "path": "Assets/Data/Textures/Nature/wrld1398.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1398"
+    },
+    {
+      "name": "wrld1399",
+      "path": "Assets/Data/Textures/Nature/wrld1399.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1399"
+    },
+    {
+      "name": "wrld1512",
+      "path": "Assets/Data/Textures/Nature/wrld1512.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1512"
+    },
+    {
+      "name": "wrld1513",
+      "path": "Assets/Data/Textures/Nature/wrld1513.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1513"
+    },
+    {
+      "name": "wrld1968",
+      "path": "Assets/Data/Textures/Nature/wrld1968.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1968"
+    },
+    {
+      "name": "wrld1969",
+      "path": "Assets/Data/Textures/Nature/wrld1969.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1969"
+    },
+    {
+      "name": "wrld2036",
+      "path": "Assets/Data/Textures/Nature/wrld2036.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld2036"
+    },
+    {
+      "name": "wrld2037",
+      "path": "Assets/Data/Textures/Nature/wrld2037.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld2037"
+    },
+    {
+      "name": "sandgry1",
+      "path": "Assets/Data/Textures/Sand/sandgry1.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "sandgry1"
+    },
+    {
+      "name": "sandgry2",
+      "path": "Assets/Data/Textures/Sand/sandgry2.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "sandgry2"
+    },
+    {
+      "name": "sandgry3",
+      "path": "Assets/Data/Textures/Sand/sandgry3.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "sandgry3"
+    },
+    {
+      "name": "sandgry4",
+      "path": "Assets/Data/Textures/Sand/sandgry4.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "sandgry4"
+    },
+    {
+      "name": "wrld772",
+      "path": "Assets/Data/Textures/Sand/wrld772.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld772"
+    },
+    {
+      "name": "wrld839",
+      "path": "Assets/Data/Textures/Sand/wrld839.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld839"
+    },
+    {
+      "name": "wrld840",
+      "path": "Assets/Data/Textures/Sand/wrld840.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld840"
+    },
+    {
+      "name": "wrld841",
+      "path": "Assets/Data/Textures/Sand/wrld841.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld841"
+    },
+    {
+      "name": "wrld1124",
+      "path": "Assets/Data/Textures/Sand/wrld1124.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1124"
+    },
+    {
+      "name": "wrld1125",
+      "path": "Assets/Data/Textures/Sand/wrld1125.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1125"
+    },
+    {
+      "name": "wrld1145",
+      "path": "Assets/Data/Textures/Sand/wrld1145.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1145"
+    },
+    {
+      "name": "wrld1146",
+      "path": "Assets/Data/Textures/Sand/wrld1146.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1146"
+    },
+    {
+      "name": "wrld1147",
+      "path": "Assets/Data/Textures/Sand/wrld1147.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1147"
+    },
+    {
+      "name": "wrld1148",
+      "path": "Assets/Data/Textures/Sand/wrld1148.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1148"
+    },
+    {
+      "name": "wrld1170",
+      "path": "Assets/Data/Textures/Sand/wrld1170.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1170"
+    },
+    {
+      "name": "wrld1238",
+      "path": "Assets/Data/Textures/Sand/wrld1238.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1238"
+    },
+    {
+      "name": "wrld1239",
+      "path": "Assets/Data/Textures/Sand/wrld1239.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1239"
+    },
+    {
+      "name": "wrld1740",
+      "path": "Assets/Data/Textures/Sand/wrld1740.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1740"
+    },
+    {
+      "name": "wrld1808",
+      "path": "Assets/Data/Textures/Sand/wrld1808.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1808"
+    },
+    {
+      "name": "wrld1809",
+      "path": "Assets/Data/Textures/Sand/wrld1809.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1809"
+    },
+    {
+      "name": "world-777",
+      "path": "Assets/Data/Textures/Snow/world-777.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-777"
+    },
+    {
+      "name": "world-914",
+      "path": "Assets/Data/Textures/Snow/world-914.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-914"
+    },
+    {
+      "name": "world-915",
+      "path": "Assets/Data/Textures/Snow/world-915.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-915"
+    },
+    {
+      "name": "world-916",
+      "path": "Assets/Data/Textures/Snow/world-916.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-916"
+    },
+    {
+      "name": "world-1028",
+      "path": "Assets/Data/Textures/Snow/world-1028.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1028"
+    },
+    {
+      "name": "world-1029",
+      "path": "Assets/Data/Textures/Snow/world-1029.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1029"
+    },
+    {
+      "name": "world-1030",
+      "path": "Assets/Data/Textures/Snow/world-1030.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1030"
+    },
+    {
+      "name": "world-1031",
+      "path": "Assets/Data/Textures/Snow/world-1031.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1031"
+    },
+    {
+      "name": "world-1032",
+      "path": "Assets/Data/Textures/Snow/world-1032.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1032"
+    },
+    {
+      "name": "world-1033",
+      "path": "Assets/Data/Textures/Snow/world-1033.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1033"
+    },
+    {
+      "name": "world-1034",
+      "path": "Assets/Data/Textures/Snow/world-1034.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1034"
+    },
+    {
+      "name": "world-1041",
+      "path": "Assets/Data/Textures/Snow/world-1041.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1041"
+    },
+    {
+      "name": "world-1085",
+      "path": "Assets/Data/Textures/Snow/world-1085.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1085"
+    },
+    {
+      "name": "world-1086",
+      "path": "Assets/Data/Textures/Snow/world-1086.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1086"
+    },
+    {
+      "name": "world-1087",
+      "path": "Assets/Data/Textures/Snow/world-1087.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1087"
+    },
+    {
+      "name": "world-1088",
+      "path": "Assets/Data/Textures/Snow/world-1088.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1088"
+    },
+    {
+      "name": "world-1089",
+      "path": "Assets/Data/Textures/Snow/world-1089.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1089"
+    },
+    {
+      "name": "world-1090",
+      "path": "Assets/Data/Textures/Snow/world-1090.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1090"
+    },
+    {
+      "name": "world-1626",
+      "path": "Assets/Data/Textures/Snow/world-1626.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "world-1626"
+    },
+    {
+      "name": "wrld404",
+      "path": "Assets/Data/Textures/Stone/Blue/Floor/wrld404.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld404"
+    },
+    {
+      "name": "wrld406",
+      "path": "Assets/Data/Textures/Stone/Blue/Floor/wrld406.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld406"
+    },
+    {
+      "name": "wrld407",
+      "path": "Assets/Data/Textures/Stone/Blue/Floor/wrld407.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld407"
+    },
+    {
+      "name": "wrld403",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld403.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld403"
+    },
+    {
+      "name": "wrld410",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld410.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld410"
+    },
+    {
+      "name": "wrld411",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld411.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld411"
+    },
+    {
+      "name": "wrld412",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld412.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld412"
+    },
+    {
+      "name": "wrld413",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld413.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld413"
+    },
+    {
+      "name": "wrld414",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld414.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld414"
+    },
+    {
+      "name": "wrld415",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld415.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld415"
+    },
+    {
+      "name": "wrld416",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld416.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld416"
+    },
+    {
+      "name": "wrld417",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld417.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld417"
+    },
+    {
+      "name": "wrld418",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld418.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld418"
+    },
+    {
+      "name": "wrld419",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld419.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld419"
+    },
+    {
+      "name": "wrld420",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld420.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld420"
+    },
+    {
+      "name": "wrld421",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld421.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld421"
+    },
+    {
+      "name": "wrld422",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld422.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld422"
+    },
+    {
+      "name": "wrld423",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld423.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld423"
+    },
+    {
+      "name": "wrld424",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld424.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld424"
+    },
+    {
+      "name": "wrld425",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld425.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld425"
+    },
+    {
+      "name": "wrld426",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld426.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld426"
+    },
+    {
+      "name": "wrld427",
+      "path": "Assets/Data/Textures/Stone/Blue/Wall/wrld427.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld427"
+    },
+    {
+      "name": "wrld691",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Floor/wrld691.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld691"
+    },
+    {
+      "name": "wrld692",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Floor/wrld692.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld692"
+    },
+    {
+      "name": "wrld686",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld686.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld686"
+    },
+    {
+      "name": "wrld687",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld687.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld687"
+    },
+    {
+      "name": "wrld688",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld688.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld688"
+    },
+    {
+      "name": "wrld695",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld695.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld695"
+    },
+    {
+      "name": "wrld696",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld696.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld696"
+    },
+    {
+      "name": "wrld697",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld697.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld697"
+    },
+    {
+      "name": "wrld698",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld698.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld698"
+    },
+    {
+      "name": "wrld699",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld699.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld699"
+    },
+    {
+      "name": "wrld700",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld700.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld700"
+    },
+    {
+      "name": "wrld701",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld701.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld701"
+    },
+    {
+      "name": "wrld702",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld702.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld702"
+    },
+    {
+      "name": "wrld703",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld703.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld703"
+    },
+    {
+      "name": "wrld704",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld704.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld704"
+    },
+    {
+      "name": "wrld705",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld705.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld705"
+    },
+    {
+      "name": "wrld706",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld706.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld706"
+    },
+    {
+      "name": "wrld707",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld707.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld707"
+    },
+    {
+      "name": "wrld708",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld708.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld708"
+    },
+    {
+      "name": "wrld709",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld709.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld709"
+    },
+    {
+      "name": "wrld710",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld710.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld710"
+    },
+    {
+      "name": "wrld711",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld711.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld711"
+    },
+    {
+      "name": "wrld712",
+      "path": "Assets/Data/Textures/Stone/Dirty_Gray/Wall/wrld712.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld712"
+    },
+    {
+      "name": "wrld518",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld518.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld518"
+    },
+    {
+      "name": "wrld519",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld519.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld519"
+    },
+    {
+      "name": "wrld520",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld520.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld520"
+    },
+    {
+      "name": "wrld522",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld522.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld522"
+    },
+    {
+      "name": "wrld523",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld523.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld523"
+    },
+    {
+      "name": "wrld524",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld524.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld524"
+    },
+    {
+      "name": "wrld525",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld525.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld525"
+    },
+    {
+      "name": "wrld526",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld526.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld526"
+    },
+    {
+      "name": "wrld527",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld527.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld527"
+    },
+    {
+      "name": "wrld528",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld528.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld528"
+    },
+    {
+      "name": "wrld529",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld529.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld529"
+    },
+    {
+      "name": "wrld530",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld530.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld530"
+    },
+    {
+      "name": "wrld531",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld531.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld531"
+    },
+    {
+      "name": "wrld532",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld532.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld532"
+    },
+    {
+      "name": "wrld533",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld533.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld533"
+    },
+    {
+      "name": "wrld534",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld534.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld534"
+    },
+    {
+      "name": "wrld535",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld535.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld535"
+    },
+    {
+      "name": "wrld536",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld536.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld536"
+    },
+    {
+      "name": "wrld537",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld537.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld537"
+    },
+    {
+      "name": "wrld538",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld538.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld538"
+    },
+    {
+      "name": "wrld539",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld539.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld539"
+    },
+    {
+      "name": "wrld540",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld540.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld540"
+    },
+    {
+      "name": "wrld541",
+      "path": "Assets/Data/Textures/Stone/Gold/Wall/wrld541.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld541"
+    },
+    {
+      "name": "wrld63",
+      "path": "Assets/Data/Textures/Stone/Gray/Floor/wrld63.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld63"
+    },
+    {
+      "name": "wrld64",
+      "path": "Assets/Data/Textures/Stone/Gray/Floor/wrld64.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld64"
+    },
+    {
+      "name": "wrld122",
+      "path": "Assets/Data/Textures/Stone/Gray/Floor/wrld122.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld122"
+    },
+    {
+      "name": "wrld577",
+      "path": "Assets/Data/Textures/Stone/Gray/Floor/wrld577.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld577"
+    },
+    {
+      "name": "wrld860",
+      "path": "Assets/Data/Textures/Stone/Gray/Floor/wrld860.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld860"
+    },
+    {
+      "name": "wrld861",
+      "path": "Assets/Data/Textures/Stone/Gray/Floor/wrld861.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld861"
+    },
+    {
+      "name": "wrld862",
+      "path": "Assets/Data/Textures/Stone/Gray/Floor/wrld862.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld862"
+    },
+    {
+      "name": "wrld863",
+      "path": "Assets/Data/Textures/Stone/Gray/Floor/wrld863.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld863"
+    },
+    {
+      "name": "wrld66",
+      "path": "Assets/Data/Textures/Stone/Gray/Stairs/wrld66.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld66"
+    },
+    {
+      "name": "wrld67",
+      "path": "Assets/Data/Textures/Stone/Gray/Stairs/wrld67.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld67"
+    },
+    {
+      "name": "wrld123",
+      "path": "Assets/Data/Textures/Stone/Gray/Stairs/wrld123.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld123"
+    },
+    {
+      "name": "wrld124",
+      "path": "Assets/Data/Textures/Stone/Gray/Stairs/wrld124.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld124"
+    },
+    {
+      "name": "wrld579",
+      "path": "Assets/Data/Textures/Stone/Gray/Stairs/wrld579.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld579"
+    },
+    {
+      "name": "wrld580",
+      "path": "Assets/Data/Textures/Stone/Gray/Stairs/wrld580.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld580"
+    },
+    {
+      "name": "wrld59",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld59.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld59"
+    },
+    {
+      "name": "wrld60",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld60.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld60"
+    },
+    {
+      "name": "wrld61",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld61.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld61"
+    },
+    {
+      "name": "wrld68",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld68.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld68"
+    },
+    {
+      "name": "wrld69",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld69.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld69"
+    },
+    {
+      "name": "wrld70",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld70.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld70"
+    },
+    {
+      "name": "wrld71",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld71.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld71"
+    },
+    {
+      "name": "wrld72",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld72.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld72"
+    },
+    {
+      "name": "wrld73",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld73.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld73"
+    },
+    {
+      "name": "wrld74",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld74.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld74"
+    },
+    {
+      "name": "wrld75",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld75.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld75"
+    },
+    {
+      "name": "wrld76",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld76.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld76"
+    },
+    {
+      "name": "wrld77",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld77.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld77"
+    },
+    {
+      "name": "wrld78",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld78.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld78"
+    },
+    {
+      "name": "wrld79",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld79.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld79"
+    },
+    {
+      "name": "wrld80",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld80.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld80"
+    },
+    {
+      "name": "wrld81",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld81.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld81"
+    },
+    {
+      "name": "wrld82",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld82.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld82"
+    },
+    {
+      "name": "wrld83",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld83.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld83"
+    },
+    {
+      "name": "wrld84",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld84.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld84"
+    },
+    {
+      "name": "wrld85",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld85.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld85"
+    },
+    {
+      "name": "wrld117",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld117.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld117"
+    },
+    {
+      "name": "wrld118",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld118.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld118"
+    },
+    {
+      "name": "wrld125",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld125.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld125"
+    },
+    {
+      "name": "wrld126",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld126.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld126"
+    },
+    {
+      "name": "wrld127",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld127.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld127"
+    },
+    {
+      "name": "wrld128",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld128.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld128"
+    },
+    {
+      "name": "wrld129",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld129.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld129"
+    },
+    {
+      "name": "wrld130",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld130.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld130"
+    },
+    {
+      "name": "wrld131",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld131.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld131"
+    },
+    {
+      "name": "wrld132",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld132.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld132"
+    },
+    {
+      "name": "wrld133",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld133.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld133"
+    },
+    {
+      "name": "wrld134",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld134.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld134"
+    },
+    {
+      "name": "wrld135",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld135.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld135"
+    },
+    {
+      "name": "wrld136",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld136.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld136"
+    },
+    {
+      "name": "wrld137",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld137.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld137"
+    },
+    {
+      "name": "wrld138",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld138.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld138"
+    },
+    {
+      "name": "wrld139",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld139.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld139"
+    },
+    {
+      "name": "wrld140",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld140.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld140"
+    },
+    {
+      "name": "wrld141",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld141.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld141"
+    },
+    {
+      "name": "wrld142",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld142.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld142"
+    },
+    {
+      "name": "wrld572",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld572.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld572"
+    },
+    {
+      "name": "wrld573",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld573.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld573"
+    },
+    {
+      "name": "wrld574",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld574.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld574"
+    },
+    {
+      "name": "wrld581",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld581.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld581"
+    },
+    {
+      "name": "wrld582",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld582.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld582"
+    },
+    {
+      "name": "wrld583",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld583.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld583"
+    },
+    {
+      "name": "wrld584",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld584.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld584"
+    },
+    {
+      "name": "wrld585",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld585.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld585"
+    },
+    {
+      "name": "wrld586",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld586.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld586"
+    },
+    {
+      "name": "wrld587",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld587.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld587"
+    },
+    {
+      "name": "wrld588",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld588.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld588"
+    },
+    {
+      "name": "wrld589",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld589.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld589"
+    },
+    {
+      "name": "wrld590",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld590.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld590"
+    },
+    {
+      "name": "wrld591",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld591.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld591"
+    },
+    {
+      "name": "wrld592",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld592.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld592"
+    },
+    {
+      "name": "wrld593",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld593.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld593"
+    },
+    {
+      "name": "wrld594",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld594.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld594"
+    },
+    {
+      "name": "wrld595",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld595.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld595"
+    },
+    {
+      "name": "wrld596",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld596.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld596"
+    },
+    {
+      "name": "wrld597",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld597.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld597"
+    },
+    {
+      "name": "wrld598",
+      "path": "Assets/Data/Textures/Stone/Gray/Wall/wrld598.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld598"
+    },
+    {
+      "name": "wrld747",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Floor/wrld747.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld747"
+    },
+    {
+      "name": "wrld743",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld743.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld743"
+    },
+    {
+      "name": "wrld744",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld744.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld744"
+    },
+    {
+      "name": "wrld745",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld745.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld745"
+    },
+    {
+      "name": "wrld752",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld752.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld752"
+    },
+    {
+      "name": "wrld753",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld753.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld753"
+    },
+    {
+      "name": "wrld754",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld754.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld754"
+    },
+    {
+      "name": "wrld755",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld755.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld755"
+    },
+    {
+      "name": "wrld756",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld756.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld756"
+    },
+    {
+      "name": "wrld757",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld757.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld757"
+    },
+    {
+      "name": "wrld758",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld758.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld758"
+    },
+    {
+      "name": "wrld759",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld759.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld759"
+    },
+    {
+      "name": "wrld760",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld760.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld760"
+    },
+    {
+      "name": "wrld761",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld761.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld761"
+    },
+    {
+      "name": "wrld762",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld762.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld762"
+    },
+    {
+      "name": "wrld763",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld763.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld763"
+    },
+    {
+      "name": "wrld764",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld764.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld764"
+    },
+    {
+      "name": "wrld765",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld765.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld765"
+    },
+    {
+      "name": "wrld766",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld766.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld766"
+    },
+    {
+      "name": "wrld767",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld767.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld767"
+    },
+    {
+      "name": "wrld768",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld768.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld768"
+    },
+    {
+      "name": "wrld769",
+      "path": "Assets/Data/Textures/Stone/Gray_Viney/Wall/wrld769.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld769"
+    },
+    {
+      "name": "wrld349",
+      "path": "Assets/Data/Textures/Stone/Green/Floor/wrld349.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld349"
+    },
+    {
+      "name": "wrld350",
+      "path": "Assets/Data/Textures/Stone/Green/Floor/wrld350.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld350"
+    },
+    {
+      "name": "wrld353",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld353.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld353"
+    },
+    {
+      "name": "wrld354",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld354.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld354"
+    },
+    {
+      "name": "wrld355",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld355.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld355"
+    },
+    {
+      "name": "wrld357",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld357.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld357"
+    },
+    {
+      "name": "wrld358",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld358.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld358"
+    },
+    {
+      "name": "wrld359",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld359.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld359"
+    },
+    {
+      "name": "wrld360",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld360.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld360"
+    },
+    {
+      "name": "wrld361",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld361.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld361"
+    },
+    {
+      "name": "wrld362",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld362.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld362"
+    },
+    {
+      "name": "wrld363",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld363.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld363"
+    },
+    {
+      "name": "wrld364",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld364.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld364"
+    },
+    {
+      "name": "wrld365",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld365.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld365"
+    },
+    {
+      "name": "wrld366",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld366.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld366"
+    },
+    {
+      "name": "wrld367",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld367.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld367"
+    },
+    {
+      "name": "wrld368",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld368.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld368"
+    },
+    {
+      "name": "wrld369",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld369.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld369"
+    },
+    {
+      "name": "wrld370",
+      "path": "Assets/Data/Textures/Stone/Green/Wall/wrld370.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld370"
+    },
+    {
+      "name": "lightstonefloor",
+      "path": "Assets/Data/Textures/Stone/Light Stone/lightstonefloor.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "lightstonefloor"
+    },
+    {
+      "name": "wrld290",
+      "path": "Assets/Data/Textures/Stone/Misc/Floor/wrld290.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld290"
+    },
+    {
+      "name": "wrld689",
+      "path": "Assets/Data/Textures/Stone/Misc/Floor/wrld689.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld689"
+    },
+    {
+      "name": "wrld690",
+      "path": "Assets/Data/Textures/Stone/Misc/Floor/wrld690.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld690"
+    },
+    {
+      "name": "wrld746",
+      "path": "Assets/Data/Textures/Stone/Misc/Floor/wrld746.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld746"
+    },
+    {
+      "name": "wrld748",
+      "path": "Assets/Data/Textures/Stone/Misc/Floor/wrld748.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld748"
+    },
+    {
+      "name": "wrld749",
+      "path": "Assets/Data/Textures/Stone/Misc/Floor/wrld749.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld749"
+    },
+    {
+      "name": "wrld461",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Floor/wrld461.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld461"
+    },
+    {
+      "name": "wrld462",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Floor/wrld462.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld462"
+    },
+    {
+      "name": "wrld463",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Floor/wrld463.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld463"
+    },
+    {
+      "name": "wrld464",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Floor/wrld464.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld464"
+    },
+    {
+      "name": "wrld467",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld467.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld467"
+    },
+    {
+      "name": "wrld468",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld468.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld468"
+    },
+    {
+      "name": "wrld469",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld469.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld469"
+    },
+    {
+      "name": "wrld470",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld470.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld470"
+    },
+    {
+      "name": "wrld471",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld471.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld471"
+    },
+    {
+      "name": "wrld472",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld472.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld472"
+    },
+    {
+      "name": "wrld473",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld473.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld473"
+    },
+    {
+      "name": "wrld474",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld474.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld474"
+    },
+    {
+      "name": "wrld475",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld475.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld475"
+    },
+    {
+      "name": "wrld476",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld476.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld476"
+    },
+    {
+      "name": "wrld477",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld477.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld477"
+    },
+    {
+      "name": "wrld478",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld478.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld478"
+    },
+    {
+      "name": "wrld479",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld479.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld479"
+    },
+    {
+      "name": "wrld480",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld480.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld480"
+    },
+    {
+      "name": "wrld481",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld481.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld481"
+    },
+    {
+      "name": "wrld482",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld482.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld482"
+    },
+    {
+      "name": "wrld483",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld483.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld483"
+    },
+    {
+      "name": "wrld484",
+      "path": "Assets/Data/Textures/Stone/Night_Blue/Wall/wrld484.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld484"
+    },
+    {
+      "name": "wrld917",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld917.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld917"
+    },
+    {
+      "name": "wrld918",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld918.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld918"
+    },
+    {
+      "name": "wrld919",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld919.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld919"
+    },
+    {
+      "name": "wrld920",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld920.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld920"
+    },
+    {
+      "name": "wrld1256",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld1256.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1256"
+    },
+    {
+      "name": "wrld1257",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld1257.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1257"
+    },
+    {
+      "name": "wrld1258",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld1258.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1258"
+    },
+    {
+      "name": "wrld1259",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld1259.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1259"
+    },
+    {
+      "name": "wrld1260",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld1260.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1260"
+    },
+    {
+      "name": "wrld1261",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld1261.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1261"
+    },
+    {
+      "name": "wrld1262",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Floor/wrld1262.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1262"
+    },
+    {
+      "name": "wrld1265",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1265.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1265"
+    },
+    {
+      "name": "wrld1266",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1266.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1266"
+    },
+    {
+      "name": "wrld1267",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1267.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1267"
+    },
+    {
+      "name": "wrld1268",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1268.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1268"
+    },
+    {
+      "name": "wrld1269",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1269.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1269"
+    },
+    {
+      "name": "wrld1270",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1270.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1270"
+    },
+    {
+      "name": "wrld1271",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1271.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1271"
+    },
+    {
+      "name": "wrld1272",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1272.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1272"
+    },
+    {
+      "name": "wrld1273",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1273.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1273"
+    },
+    {
+      "name": "wrld1274",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1274.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1274"
+    },
+    {
+      "name": "wrld1275",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1275.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1275"
+    },
+    {
+      "name": "wrld1276",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1276.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1276"
+    },
+    {
+      "name": "wrld1277",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1277.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1277"
+    },
+    {
+      "name": "wrld1278",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1278.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1278"
+    },
+    {
+      "name": "wrld1279",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1279.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1279"
+    },
+    {
+      "name": "wrld1280",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1280.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1280"
+    },
+    {
+      "name": "wrld1281",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1281.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1281"
+    },
+    {
+      "name": "wrld1282",
+      "path": "Assets/Data/Textures/Stone/Old_Stone/Wall/wrld1282.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1282"
+    },
+    {
+      "name": "wrld1319",
+      "path": "Assets/Data/Textures/Stone/Red/Floor/wrld1319.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1319"
+    },
+    {
+      "name": "wrld1322",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1322.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1322"
+    },
+    {
+      "name": "wrld1323",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1323.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1323"
+    },
+    {
+      "name": "wrld1324",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1324.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1324"
+    },
+    {
+      "name": "wrld1325",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1325.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1325"
+    },
+    {
+      "name": "wrld1326",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1326.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1326"
+    },
+    {
+      "name": "wrld1327",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1327.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1327"
+    },
+    {
+      "name": "wrld1328",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1328.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1328"
+    },
+    {
+      "name": "wrld1329",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1329.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1329"
+    },
+    {
+      "name": "wrld1330",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1330.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1330"
+    },
+    {
+      "name": "wrld1331",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1331.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1331"
+    },
+    {
+      "name": "wrld1332",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1332.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1332"
+    },
+    {
+      "name": "wrld1333",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1333.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1333"
+    },
+    {
+      "name": "wrld1334",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1334.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1334"
+    },
+    {
+      "name": "wrld1335",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1335.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1335"
+    },
+    {
+      "name": "wrld1336",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1336.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1336"
+    },
+    {
+      "name": "wrld1337",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1337.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1337"
+    },
+    {
+      "name": "wrld1338",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1338.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1338"
+    },
+    {
+      "name": "wrld1339",
+      "path": "Assets/Data/Textures/Stone/Red/Walls/wrld1339.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1339"
+    },
+    {
+      "name": "wrld176",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld176.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld176"
+    },
+    {
+      "name": "wrld177",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld177.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld177"
+    },
+    {
+      "name": "wrld178",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld178.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld178"
+    },
+    {
+      "name": "wrld179",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld179.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld179"
+    },
+    {
+      "name": "wrld287",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld287.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld287"
+    },
+    {
+      "name": "wrld288",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld288.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld288"
+    },
+    {
+      "name": "wrld289",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld289.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld289"
+    },
+    {
+      "name": "wrld291",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld291.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld291"
+    },
+    {
+      "name": "wrld292",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld292.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld292"
+    },
+    {
+      "name": "wrld293",
+      "path": "Assets/Data/Textures/Stone/Tan/Floor/wrld293.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld293"
+    },
+    {
+      "name": "wrld174",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld174.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld174"
+    },
+    {
+      "name": "wrld175",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld175.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld175"
+    },
+    {
+      "name": "wrld182",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld182.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld182"
+    },
+    {
+      "name": "wrld183",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld183.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld183"
+    },
+    {
+      "name": "wrld184",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld184.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld184"
+    },
+    {
+      "name": "wrld185",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld185.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld185"
+    },
+    {
+      "name": "wrld186",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld186.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld186"
+    },
+    {
+      "name": "wrld187",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld187.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld187"
+    },
+    {
+      "name": "wrld188",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld188.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld188"
+    },
+    {
+      "name": "wrld189",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld189.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld189"
+    },
+    {
+      "name": "wrld190",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld190.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld190"
+    },
+    {
+      "name": "wrld191",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld191.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld191"
+    },
+    {
+      "name": "wrld192",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld192.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld192"
+    },
+    {
+      "name": "wrld193",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld193.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld193"
+    },
+    {
+      "name": "wrld194",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld194.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld194"
+    },
+    {
+      "name": "wrld195",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld195.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld195"
+    },
+    {
+      "name": "wrld196",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld196.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld196"
+    },
+    {
+      "name": "wrld197",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld197.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld197"
+    },
+    {
+      "name": "wrld198",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld198.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld198"
+    },
+    {
+      "name": "wrld199",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld199.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld199"
+    },
+    {
+      "name": "wrld296",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld296.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld296"
+    },
+    {
+      "name": "wrld297",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld297.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld297"
+    },
+    {
+      "name": "wrld298",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld298.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld298"
+    },
+    {
+      "name": "wrld299",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld299.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld299"
+    },
+    {
+      "name": "wrld300",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld300.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld300"
+    },
+    {
+      "name": "wrld301",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld301.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld301"
+    },
+    {
+      "name": "wrld302",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld302.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld302"
+    },
+    {
+      "name": "wrld303",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld303.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld303"
+    },
+    {
+      "name": "wrld304",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld304.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld304"
+    },
+    {
+      "name": "wrld305",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld305.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld305"
+    },
+    {
+      "name": "wrld306",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld306.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld306"
+    },
+    {
+      "name": "wrld307",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld307.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld307"
+    },
+    {
+      "name": "wrld308",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld308.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld308"
+    },
+    {
+      "name": "wrld309",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld309.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld309"
+    },
+    {
+      "name": "wrld310",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld310.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld310"
+    },
+    {
+      "name": "wrld311",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld311.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld311"
+    },
+    {
+      "name": "wrld312",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld312.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld312"
+    },
+    {
+      "name": "wrld313",
+      "path": "Assets/Data/Textures/Stone/Tan/Wall/wrld313.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld313"
+    },
+    {
+      "name": "wrld632",
+      "path": "Assets/Data/Textures/Stone/Teal/Floor/wrld632.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld632"
+    },
+    {
+      "name": "wrld633",
+      "path": "Assets/Data/Textures/Stone/Teal/Floor/wrld633.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld633"
+    },
+    {
+      "name": "wrld634",
+      "path": "Assets/Data/Textures/Stone/Teal/Floor/wrld634.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld634"
+    },
+    {
+      "name": "wrld635",
+      "path": "Assets/Data/Textures/Stone/Teal/Floor/wrld635.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld635"
+    },
+    {
+      "name": "wrld629",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld629.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld629"
+    },
+    {
+      "name": "wrld630",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld630.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld630"
+    },
+    {
+      "name": "wrld631",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld631.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld631"
+    },
+    {
+      "name": "wrld638",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld638.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld638"
+    },
+    {
+      "name": "wrld639",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld639.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld639"
+    },
+    {
+      "name": "wrld640",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld640.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld640"
+    },
+    {
+      "name": "wrld641",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld641.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld641"
+    },
+    {
+      "name": "wrld642",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld642.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld642"
+    },
+    {
+      "name": "wrld643",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld643.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld643"
+    },
+    {
+      "name": "wrld644",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld644.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld644"
+    },
+    {
+      "name": "wrld645",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld645.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld645"
+    },
+    {
+      "name": "wrld646",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld646.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld646"
+    },
+    {
+      "name": "wrld647",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld647.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld647"
+    },
+    {
+      "name": "wrld648",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld648.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld648"
+    },
+    {
+      "name": "wrld649",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld649.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld649"
+    },
+    {
+      "name": "wrld650",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld650.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld650"
+    },
+    {
+      "name": "wrld651",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld651.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld651"
+    },
+    {
+      "name": "wrld652",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld652.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld652"
+    },
+    {
+      "name": "wrld653",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld653.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld653"
+    },
+    {
+      "name": "wrld654",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld654.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld654"
+    },
+    {
+      "name": "wrld655",
+      "path": "Assets/Data/Textures/Stone/Teal/Wall/wrld655.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld655"
+    },
+    {
+      "name": "wrld121",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld121.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld121"
+    },
+    {
+      "name": "wrld347",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld347.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld347"
+    },
+    {
+      "name": "wrld405",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld405.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld405"
+    },
+    {
+      "name": "wrld1390",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1390.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1390"
+    },
+    {
+      "name": "wrld1391",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1391.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1391"
+    },
+    {
+      "name": "wrld1392",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1392.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1392"
+    },
+    {
+      "name": "wrld1394",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1394.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1394"
+    },
+    {
+      "name": "wrld1395",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1395.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1395"
+    },
+    {
+      "name": "wrld1396",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1396.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1396"
+    },
+    {
+      "name": "wrld1447",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1447.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1447"
+    },
+    {
+      "name": "wrld1448",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1448.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1448"
+    },
+    {
+      "name": "wrld1449",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1449.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1449"
+    },
+    {
+      "name": "wrld1451",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1451.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1451"
+    },
+    {
+      "name": "wrld1452",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1452.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1452"
+    },
+    {
+      "name": "wrld1453",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1453.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1453"
+    },
+    {
+      "name": "wrld1561",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1561.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1561"
+    },
+    {
+      "name": "wrld1562",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1562.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1562"
+    },
+    {
+      "name": "wrld1563",
+      "path": "Assets/Data/Textures/Wood/Floor/wrld1563.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld1563"
+    },
+    {
+      "name": "wrld230",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld230.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld230"
+    },
+    {
+      "name": "wrld231",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld231.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld231"
+    },
+    {
+      "name": "wrld232",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld232.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld232"
+    },
+    {
+      "name": "wrld233",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld233.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld233"
+    },
+    {
+      "name": "wrld234",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld234.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld234"
+    },
+    {
+      "name": "wrld235",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld235.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld235"
+    },
+    {
+      "name": "wrld236",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld236.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld236"
+    },
+    {
+      "name": "wrld239",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld239.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld239"
+    },
+    {
+      "name": "wrld240",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld240.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld240"
+    },
+    {
+      "name": "wrld241",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld241.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld241"
+    },
+    {
+      "name": "wrld242",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld242.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld242"
+    },
+    {
+      "name": "wrld245",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld245.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld245"
+    },
+    {
+      "name": "wrld246",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld246.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld246"
+    },
+    {
+      "name": "wrld247",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld247.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld247"
+    },
+    {
+      "name": "wrld248",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld248.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld248"
+    },
+    {
+      "name": "wrld249",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld249.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld249"
+    },
+    {
+      "name": "wrld250",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld250.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld250"
+    },
+    {
+      "name": "wrld251",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld251.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld251"
+    },
+    {
+      "name": "wrld252",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld252.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld252"
+    },
+    {
+      "name": "wrld253",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld253.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld253"
+    },
+    {
+      "name": "wrld254",
+      "path": "Assets/Data/Textures/Wood/Wall/wrld254.png",
+      "width": 24,
+      "height": 24,
+      "labels": [],
+      "addressableKey": "wrld254"
+    },
+    {
+      "name": "WTRDISP",
+      "path": "Assets/Data/Textures/WTRDISP.png",
+      "width": 512,
+      "height": 512,
+      "labels": [],
+      "addressableKey": "WTRDISP"
+    },
+    {
+      "name": "WTRNRML",
+      "path": "Assets/Data/Textures/WTRNRML.png",
+      "width": 512,
+      "height": 512,
+      "labels": [],
+      "addressableKey": "WTRNRML"
+    }
+  ],
+  "exportDate": "2025-09-26 20:37:51"
 }
