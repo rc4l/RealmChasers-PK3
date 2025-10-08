@@ -36,6 +36,14 @@
 - `heightfloor`
 - `texturefloor`
 - `heightceiling`
+- `xscalefloor`
+- `yscalefloor`
+- `xscaleceiling`
+- `yscaleceiling`
+- `xpanningfloor`
+- `ypanningfloor`
+- `xpanningceiling`
+- `ypanningceiling`
 
 ### Things
 - `x`
