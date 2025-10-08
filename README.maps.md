@@ -1,5 +1,5 @@
 # UDMF Map Support
-*Auto-generated on 2025-09-26*
+*Auto-generated on 2025-10-08*
 
 ## Supported Properties
 
@@ -19,6 +19,18 @@
 - `sector`
 - `texturemiddle`
 - `texturebottom`
+- `offsetx_top`
+- `offsety_top`
+- `offsetx_middle`
+- `offsety_middle`
+- `offsetx_bottom`
+- `offsety_bottom`
+- `scalex_top`
+- `scaley_top`
+- `scalex_middle`
+- `scaley_middle`
+- `scalex_bottom`
+- `scaley_bottom`
 
 ### Sectors
 - `heightfloor`
