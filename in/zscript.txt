@@ -15,6 +15,7 @@ class RC_Start : Actor
         //$Help "This is what the player spawns on"
         //$Color 8
         //$NotAngled
+        Height 16;  // From physicsRadius: 1.0
     }
     
     States
@@ -36,6 +37,7 @@ class RC_Marker : Actor
         //$Help "Helps guide players; visible to everyone"
         //$Color 3
         //$NotAngled
+        Height 16;  // From physicsRadius: 1.0
     }
     
     States

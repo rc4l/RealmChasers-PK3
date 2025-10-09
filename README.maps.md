@@ -44,6 +44,8 @@
 - `ypanningfloor`
 - `xpanningceiling`
 - `ypanningceiling`
+- `rotationfloor`
+- `rotationceiling`
 
 ### Things
 - `x`
