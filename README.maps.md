@@ -1,9 +1,5 @@
 # UDMF Map Support
-<<<<<<< HEAD
 *Auto-generated on 2025-10-09*
-=======
-*Auto-generated on 2025-09-22*
->>>>>>> c8a0ace3144fc76b21afdc3bc0a03f02522cb772
 
 ## Supported Properties
 

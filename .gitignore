@@ -11,14 +11,11 @@
 *~
 *.bak
 
-<<<<<<< HEAD
 # Autosave files
 *.autosave
 *.autosave[0-9]
 *.autosave[0-9][0-9]
 
-=======
->>>>>>> c8a0ace3144fc76b21afdc3bc0a03f02522cb772
 # Doom Builder files
 *.dbs
 
