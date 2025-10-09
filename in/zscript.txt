@@ -16,7 +16,7 @@ class RC_Start : Actor
         //$Color 8
         //$NotAngled
         Height 16;  // From physicsRadius: 1.0
-        Radius 16;  // From physicsRadius: 1.0
+        Radius 8;  // From physicsRadius: 1.0
     }
     
     States
@@ -39,7 +39,7 @@ class RC_Marker : Actor
         //$Color 3
         //$NotAngled
         Height 16;  // From physicsRadius: 1.0
-        Radius 16;  // From physicsRadius: 1.0
+        Radius 8;  // From physicsRadius: 1.0
     }
     
     States
