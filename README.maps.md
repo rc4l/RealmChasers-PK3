@@ -1,5 +1,5 @@
 # UDMF Map Support
-*Auto-generated on 2025-10-15*
+*Auto-generated on 2025-11-28*
 
 ## Supported Properties
 

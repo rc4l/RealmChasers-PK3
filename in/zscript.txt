@@ -27,6 +27,29 @@ class RC_Start : Actor
     }
 }
 
+// From: Marker/Arrow White Marker.json
+// uniqueId: -455453621 → DoomEdNum: 15002
+class RC_Markerarrowwhite : Actor
+{
+    Default
+    {
+        //$Category "Realm Chasers/Markers"
+        //$Title "Marker Arrow (White)"
+        //$Help "Helps guide players; visible to everyone"
+        //$Color 3
+        //$NotAngled
+        Height 8.0;  // From physicsHeight: 1.0
+        Radius 4.0;  // From physicsRadius: 1.0
+    }
+    
+    States
+    {
+    Spawn:
+        TNT1 A -1;
+        Stop;
+    }
+}
+
 // From: Marker/Marker.json
 // uniqueId: -455453622 → DoomEdNum: 15001
 class RC_Marker : Actor
