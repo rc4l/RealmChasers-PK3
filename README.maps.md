@@ -1,5 +1,5 @@
 # UDMF Map Support
-*Auto-generated on 2026-02-03*
+*Auto-generated on 2026-02-04*
 
 ## Supported Properties
 
@@ -68,6 +68,7 @@
 
 | Number | Name | Description |
 |--------|------|-------------|
+| 9 | Line_Horizon | Extends sector floor/ceiling to visual infinity for outdoor/skybox areas |
 | 160 | Sector_Set3DFloor | Creates a 3D floor from a control sector |
 
 ## Notes
