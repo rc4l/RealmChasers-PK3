@@ -50,7 +50,30 @@ class RC_Markerarrowwhite : Actor
     }
 }
 
-// From: Marker/Marker.json
+// From: Marker/Marker Networked.json
+// uniqueId: -451453622 → DoomEdNum: 15005
+class RC_Marker_Networked : Actor
+{
+    Default
+    {
+        //$Category "Realm Chasers/Markers"
+        //$Title "Marker (Networked)"
+        //$Help "Networked marker that isnt always cold. Has dontRender set to true so gameobject exists but cant be seen by the camera."
+        //$Color 3
+        //$NotAngled
+        Height 8.0;  // From physicsHeight: 1.0
+        Radius 4.0;  // From physicsRadius: 1.0
+    }
+    
+    States
+    {
+    Spawn:
+        TNT1 A -1;
+        Stop;
+    }
+}
+
+// From: Marker/Marker (Serverside Only).json
 // uniqueId: -455453622 → DoomEdNum: 15001
 class RC_Marker : Actor
 {

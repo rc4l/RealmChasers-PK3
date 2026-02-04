@@ -7,4 +7,5 @@ DoomEdNums
     15000 = RC_Start  // uniqueId: 15000
     15001 = RC_Marker  // uniqueId: -455453622
     15002 = RC_Markerarrowwhite  // uniqueId: -455453621
+    15005 = RC_Marker_Networked  // uniqueId: -451453622
 }
