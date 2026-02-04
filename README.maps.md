@@ -63,6 +63,13 @@
 - `type`
 - `id`
 
+## Supported Linedef Specials
+
+| Number | Name | Description |
+|--------|------|-------------|
+| 160 | Sector_Set3DFloor | Creates a 3D floor from a control sector |
+
 ## Notes
 - Properties not listed above are not supported
 - Position values are scaled by `RendererMain.MasterScale`
+- Linedef specials not listed above will generate a warning
