@@ -53,6 +53,7 @@
 - `rotationfloor`
 - `rotationceiling`
 - `id`
+- `textureceiling`
 
 ### Things
 - `x`
