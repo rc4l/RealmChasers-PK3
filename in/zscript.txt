@@ -34,25 +34,21 @@ class RC_Parkour_Start : Actor
     Default
     {
         //$Category "Realm Chasers/Parkour"
-        //$Title "Parkour Start"
-        //$Help "Player-interactable entry point for a scripted parkour route. Place at the start (or end) of the path and set arg0 to the tid of the head ParkourAnchor. Spawns a real network actor at runtime that owns the route and shows the interact prompt."
+        //$Title "Parkour Start (Forward)"
+        //$Help "Player-interactable entry point for a scripted parkour route, traversing the chain from head to tail. Place at the start of the path and set First Anchor to the tid of the head ParkourAnchor."
         //$Color 14
         //$Arg0 "First Anchor"
         //$Arg0Type 14
         //$Arg0Tooltip "Tid of the head ParkourAnchor in this chain. Hover this thing in UDB to see the arrow to the chain head."
-        //$Arg1 "Direction"
-        //$Arg1Type 11
-        //$Arg1Tooltip "Forward walks the chain in the order anchors are linked. Reverse traverses the same chain in reverse order, using each anchor's reverse animation."
-        //$Arg1Enum { 0 = "Forward (head -> tail)"; 1 = "Reverse (tail -> head)"; }
-        //$Arg2 "Default Duration (ms)"
+        //$Arg1 "Default Windup Duration (ms)"
+        //$Arg1Type 0
+        //$Arg1Tooltip "Used for any anchor whose own Windup Duration is 0. 0 = no windup."
+        //$Arg2 "Default Travel Duration (ms)"
         //$Arg2Type 0
-        //$Arg2Tooltip "Used for any anchor whose own duration is 0. Convenient for routes with uniform per-segment timing."
-        //$Arg3 "Interruptible"
-        //$Arg3Type 3
-        //$Arg3Tooltip "Reserved. 0 = uninterruptible (recommended). 1 = future use."
-        //$Arg4 "Route Tag"
-        //$Arg4Type 0
-        //$Arg4Tooltip "Optional integer tag for scripts/quests to reference this route. 0 = unused."
+        //$Arg2Tooltip "Used for any anchor whose own Travel Duration is 0. Must be > 0 — validated at boot."
+        //$Arg3 "Default Winddown Duration (ms)"
+        //$Arg3Type 0
+        //$Arg3Tooltip "Used for any anchor whose own Winddown Duration is 0. 0 = no winddown."
         Height 8.0;  // From physicsHeight: 1.0
         Radius 1.2;  // From physicsRadius: 0.3
     }
@@ -65,30 +61,132 @@ class RC_Parkour_Start : Actor
     }
 }
 
-// From: Parkour/parkour_anchor.json
-// uniqueId: -460000001 → DoomEdNum: 15010
-class RC_Parkour_Anchor : Actor
+// From: Parkour/parkour_anchor_jump.json
+// uniqueId: -460000012 → DoomEdNum: 15014
+class RC_Parkour_Anchor_Jump : Actor
 {
     Default
     {
-        //$Category "Realm Chasers/Parkour"
-        //$Title "Parkour Anchor"
-        //$Help "Path point for a scripted parkour route. Place a sequence of these along the path; chain them via arg0 = next anchor's tid. Consumed at map load: positions are baked into a ParkourRoute and these things do not exist at runtime."
+        //$Category "Realm Chasers/Parkour/Anchors"
+        //$Title "Parkour Anchor: Jump Forward"
+        //$Help "Path point reached by a single full-body jump from the previous anchor. Use for big gaps (creek crossings, ledge-to-ledge). Consumed at map load — does not spawn as a runtime actor."
         //$Color 14
         //$Arg0 "Next Anchor"
         //$Arg0Type 14
         //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
-        //$Arg1 "Forward Animation Id"
+        //$Arg1 "Windup Duration (ms)"
         //$Arg1Type 0
-        //$Arg1Tooltip "Animation index played when traversing this segment in the forward direction."
-        //$Arg2 "Reverse Animation Id"
+        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Windup Duration)."
+        //$Arg2 "Travel Duration (ms)"
         //$Arg2Type 0
-        //$Arg2Tooltip "Animation index played when traversing this segment in reverse. Ignored if no ParkourStartReverse references this chain."
-        //$Arg3 "Duration (ms)"
+        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Travel Duration)."
+        //$Arg3 "Winddown Duration (ms)"
         //$Arg3Type 0
-        //$Arg3Tooltip "Time to traverse this segment, in milliseconds. 0 = use the route's default duration from the ParkourStart."
+        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
         Height 8.0;  // From physicsHeight: 1.0
-        Radius 0.4;  // From physicsRadius: 0.1
+        Radius 4.0;  // From physicsRadius: 1.0
+    }
+    
+    States
+    {
+    Spawn:
+        TNT1 A -1;
+        Stop;
+    }
+}
+
+// From: Parkour/parkour_start_reverse.json
+// uniqueId: -460000003 → DoomEdNum: 15015
+class RC_Parkour_Start_Reverse : Actor
+{
+    Default
+    {
+        //$Category "Realm Chasers/Parkour"
+        //$Title "Parkour Start (Reverse)"
+        //$Help "Player-interactable entry point for a scripted parkour route, traversing the chain from tail to head. Place at the FAR end of the path and set First Anchor to the tid of the head ParkourAnchor (same value as the forward Start). The runtime walks the baked chain in reverse order."
+        //$Color 14
+        //$Arg0 "First Anchor"
+        //$Arg0Type 14
+        //$Arg0Tooltip "Tid of the head ParkourAnchor in this chain (same value as the forward Parkour Start). Hover this thing in UDB to see the arrow to the chain head."
+        //$Arg1 "Default Windup Duration (ms)"
+        //$Arg1Type 0
+        //$Arg1Tooltip "Used for any anchor whose own Windup Duration is 0. 0 = no windup."
+        //$Arg2 "Default Travel Duration (ms)"
+        //$Arg2Type 0
+        //$Arg2Tooltip "Used for any anchor whose own Travel Duration is 0. Must be > 0 — validated at boot."
+        //$Arg3 "Default Winddown Duration (ms)"
+        //$Arg3Type 0
+        //$Arg3Tooltip "Used for any anchor whose own Winddown Duration is 0. 0 = no winddown."
+        Height 8.0;  // From physicsHeight: 1.0
+        Radius 4.0;  // From physicsRadius: 1.0
+    }
+    
+    States
+    {
+    Spawn:
+        TNT1 A -1;
+        Stop;
+    }
+}
+
+// From: Parkour/parkour_anchor_step_right.json
+// uniqueId: -460000011 → DoomEdNum: 15013
+class RC_Parkour_Anchor_Step_Right : Actor
+{
+    Default
+    {
+        //$Category "Realm Chasers/Parkour/Anchors"
+        //$Title "Parkour Anchor: Step Right"
+        //$Help "Path point where the player lands on their RIGHT foot during alternating-step parkour. Mirror of parkour_anchor_step_left. Consumed at map load — does not spawn as a runtime actor."
+        //$Color 14
+        //$Arg0 "Next Anchor"
+        //$Arg0Type 14
+        //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
+        //$Arg1 "Windup Duration (ms)"
+        //$Arg1Type 0
+        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit from previous anchor (carry-forward), ultimately the ParkourStart's Default Windup Duration."
+        //$Arg2 "Travel Duration (ms)"
+        //$Arg2Type 0
+        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Travel Duration)."
+        //$Arg3 "Winddown Duration (ms)"
+        //$Arg3Type 0
+        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
+        Height 8.0;  // From physicsHeight: 1.0
+        Radius 4.0;  // From physicsRadius: 1.0
+    }
+    
+    States
+    {
+    Spawn:
+        TNT1 A -1;
+        Stop;
+    }
+}
+
+// From: Parkour/parkour_anchor_step_left.json
+// uniqueId: -460000010 → DoomEdNum: 15012
+class RC_Parkour_Anchor_Step_Left : Actor
+{
+    Default
+    {
+        //$Category "Realm Chasers/Parkour/Anchors"
+        //$Title "Parkour Anchor: Step Left"
+        //$Help "Path point where the player lands on their LEFT foot during alternating-step parkour. Use in pairs alternating with Step Right anchors for stepping-stones-style routes. Consumed at map load — does not spawn as a runtime actor."
+        //$Color 14
+        //$Arg0 "Next Anchor"
+        //$Arg0Type 14
+        //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
+        //$Arg1 "Windup Duration (ms)"
+        //$Arg1Type 0
+        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit from previous anchor (carry-forward), ultimately the ParkourStart's Default Windup Duration."
+        //$Arg2 "Travel Duration (ms)"
+        //$Arg2Type 0
+        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Travel Duration)."
+        //$Arg3 "Winddown Duration (ms)"
+        //$Arg3Type 0
+        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
+        Height 8.0;  // From physicsHeight: 1.0
+        Radius 4.0;  // From physicsRadius: 1.0
     }
     
     States

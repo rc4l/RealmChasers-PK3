@@ -8,6 +8,9 @@ DoomEdNums
     15001 = RC_Marker  // uniqueId: -455453622
     15002 = RC_Markerarrowwhite  // uniqueId: -455453621
     15005 = RC_Marker_Networked  // uniqueId: -451453622
-    15010 = RC_Parkour_Anchor  // uniqueId: -460000001
     15011 = RC_Parkour_Start  // uniqueId: -460000002
+    15012 = RC_Parkour_Anchor_Step_Left  // uniqueId: -460000010
+    15013 = RC_Parkour_Anchor_Step_Right  // uniqueId: -460000011
+    15014 = RC_Parkour_Anchor_Jump  // uniqueId: -460000012
+    15015 = RC_Parkour_Start_Reverse  // uniqueId: -460000003
 }
