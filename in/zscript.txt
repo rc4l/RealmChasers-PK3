@@ -27,6 +27,78 @@ class RC_Start : Actor
     }
 }
 
+// From: Parkour/parkour_start.json
+// uniqueId: -460000002 → DoomEdNum: 15011
+class RC_Parkour_Start : Actor
+{
+    Default
+    {
+        //$Category "Realm Chasers/Parkour"
+        //$Title "Parkour Start"
+        //$Help "Player-interactable entry point for a scripted parkour route. Place at the start (or end) of the path and set arg0 to the tid of the head ParkourAnchor. Spawns a real network actor at runtime that owns the route and shows the interact prompt."
+        //$Color 14
+        //$Arg0 "First Anchor"
+        //$Arg0Type 14
+        //$Arg0Tooltip "Tid of the head ParkourAnchor in this chain. Hover this thing in UDB to see the arrow to the chain head."
+        //$Arg1 "Direction"
+        //$Arg1Type 11
+        //$Arg1Tooltip "Forward walks the chain in the order anchors are linked. Reverse traverses the same chain in reverse order, using each anchor's reverse animation."
+        //$Arg1Enum { 0 = "Forward (head -> tail)"; 1 = "Reverse (tail -> head)"; }
+        //$Arg2 "Default Duration (ms)"
+        //$Arg2Type 0
+        //$Arg2Tooltip "Used for any anchor whose own duration is 0. Convenient for routes with uniform per-segment timing."
+        //$Arg3 "Interruptible"
+        //$Arg3Type 3
+        //$Arg3Tooltip "Reserved. 0 = uninterruptible (recommended). 1 = future use."
+        //$Arg4 "Route Tag"
+        //$Arg4Type 0
+        //$Arg4Tooltip "Optional integer tag for scripts/quests to reference this route. 0 = unused."
+        Height 8.0;  // From physicsHeight: 1.0
+        Radius 1.2;  // From physicsRadius: 0.3
+    }
+    
+    States
+    {
+    Spawn:
+        TNT1 A -1;
+        Stop;
+    }
+}
+
+// From: Parkour/parkour_anchor.json
+// uniqueId: -460000001 → DoomEdNum: 15010
+class RC_Parkour_Anchor : Actor
+{
+    Default
+    {
+        //$Category "Realm Chasers/Parkour"
+        //$Title "Parkour Anchor"
+        //$Help "Path point for a scripted parkour route. Place a sequence of these along the path; chain them via arg0 = next anchor's tid. Consumed at map load: positions are baked into a ParkourRoute and these things do not exist at runtime."
+        //$Color 14
+        //$Arg0 "Next Anchor"
+        //$Arg0Type 14
+        //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
+        //$Arg1 "Forward Animation Id"
+        //$Arg1Type 0
+        //$Arg1Tooltip "Animation index played when traversing this segment in the forward direction."
+        //$Arg2 "Reverse Animation Id"
+        //$Arg2Type 0
+        //$Arg2Tooltip "Animation index played when traversing this segment in reverse. Ignored if no ParkourStartReverse references this chain."
+        //$Arg3 "Duration (ms)"
+        //$Arg3Type 0
+        //$Arg3Tooltip "Time to traverse this segment, in milliseconds. 0 = use the route's default duration from the ParkourStart."
+        Height 8.0;  // From physicsHeight: 1.0
+        Radius 0.4;  // From physicsRadius: 0.1
+    }
+    
+    States
+    {
+    Spawn:
+        TNT1 A -1;
+        Stop;
+    }
+}
+
 // From: Marker/Arrow White Marker.json
 // uniqueId: -455453621 → DoomEdNum: 15002
 class RC_Markerarrowwhite : Actor
