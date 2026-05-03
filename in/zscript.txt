@@ -40,17 +40,20 @@ class RC_Parkour_Start : Actor
         //$Arg0 "First Anchor"
         //$Arg0Type 14
         //$Arg0Tooltip "Tid of the head ParkourAnchor in this chain. Hover this thing in UDB to see the arrow to the chain head."
-        //$Arg1 "Default Windup Duration (ms)"
+        //$Arg1 "Default Windup Duration (ms, 0 = system default)"
         //$Arg1Type 0
-        //$Arg1Tooltip "Used for any anchor whose own Windup Duration is 0. 0 = no windup."
-        //$Arg2 "Default Travel Duration (ms)"
+        //$Arg1Tooltip "Used for any anchor whose own Windup Duration is 0. 0 here = fall back to ParkourTuning.WindUpDuration (same fixed value used by existing jump-up/down prompts)."
+        //$Arg2 "Default Travel Duration (ms, 0 = dynamic)"
         //$Arg2Type 0
-        //$Arg2Tooltip "Used for any anchor whose own Travel Duration is 0. Must be > 0 — validated at boot."
-        //$Arg3 "Default Winddown Duration (ms)"
+        //$Arg2Tooltip "Used for any anchor whose own Travel Duration is 0. 0 here = let the engine compute travel time dynamically from segment distance + parkour style, matching how existing jump-up/down parkour computes fall time from height + gravity. Set a nonzero value to force a uniform duration across the route."
+        //$Arg3 "Default Winddown Duration (ms, 0 = system default)"
         //$Arg3Type 0
-        //$Arg3Tooltip "Used for any anchor whose own Winddown Duration is 0. 0 = no winddown."
-        Height 4.8;  // From interactible.hitboxSize: 0.6
-        Radius 1.2;  // From interactible.hitboxSize: 0.3
+        //$Arg3Tooltip "Used for any anchor whose own Winddown Duration is 0. 0 here = fall back to ParkourTuning.WindDownDuration."
+        //$Arg4 "Linedef Tag"
+        //$Arg4Type 15
+        //$Arg4Tooltip "Tag of the approach linedef the player must cross to make this prompt appear. Required (must be > 0). The tagged linedef must exist in the same map and the parkour_start Thing must lie inside the sector that linedef bounds — validated at boot."
+        Height 8.0;  // From marker default: 1.0
+        Radius 1.2;  // From physicsRadius: 0.3
     }
     
     States
@@ -76,13 +79,13 @@ class RC_Parkour_Anchor_Jump : Actor
         //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
         //$Arg1 "Windup Duration (ms)"
         //$Arg1Type 0
-        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Windup Duration)."
+        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = use ParkourStart's Default Windup Duration; if that is also 0, fall back to ParkourTuning.WindUpDuration (the same fixed value used by existing jump-up/down prompts)."
         //$Arg2 "Travel Duration (ms)"
         //$Arg2Type 0
-        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Travel Duration)."
+        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = use ParkourStart's Default Travel Duration; if that is also 0, the engine computes the duration dynamically from segment distance + parkour style (same physics-driven approach as existing jump-up/down parkour). Set a nonzero value to override per segment."
         //$Arg3 "Winddown Duration (ms)"
         //$Arg3Type 0
-        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
+        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = use ParkourStart's Default Winddown Duration; if that is also 0, fall back to ParkourTuning.WindDownDuration."
         Height 8.0;  // From marker default: 1.0
         Radius 0.4;  // From physicsRadius: 0.1
     }
@@ -108,17 +111,20 @@ class RC_Parkour_Start_Reverse : Actor
         //$Arg0 "First Anchor"
         //$Arg0Type 14
         //$Arg0Tooltip "Tid of the head ParkourAnchor in this chain (same value as the forward Parkour Start). Hover this thing in UDB to see the arrow to the chain head."
-        //$Arg1 "Default Windup Duration (ms)"
+        //$Arg1 "Default Windup Duration (ms, 0 = system default)"
         //$Arg1Type 0
-        //$Arg1Tooltip "Used for any anchor whose own Windup Duration is 0. 0 = no windup."
-        //$Arg2 "Default Travel Duration (ms)"
+        //$Arg1Tooltip "Used for any anchor whose own Windup Duration is 0. 0 here = fall back to ParkourTuning.WindUpDuration (same fixed value used by existing jump-up/down prompts)."
+        //$Arg2 "Default Travel Duration (ms, 0 = dynamic)"
         //$Arg2Type 0
-        //$Arg2Tooltip "Used for any anchor whose own Travel Duration is 0. Must be > 0 — validated at boot."
-        //$Arg3 "Default Winddown Duration (ms)"
+        //$Arg2Tooltip "Used for any anchor whose own Travel Duration is 0. 0 here = let the engine compute travel time dynamically from segment distance + parkour style, matching how existing jump-up/down parkour computes fall time from height + gravity. Set a nonzero value to force a uniform duration across the route."
+        //$Arg3 "Default Winddown Duration (ms, 0 = system default)"
         //$Arg3Type 0
-        //$Arg3Tooltip "Used for any anchor whose own Winddown Duration is 0. 0 = no winddown."
-        Height 4.8;  // From interactible.hitboxSize: 0.6
-        Radius 1.2;  // From interactible.hitboxSize: 0.3
+        //$Arg3Tooltip "Used for any anchor whose own Winddown Duration is 0. 0 here = fall back to ParkourTuning.WindDownDuration."
+        //$Arg4 "Linedef Tag"
+        //$Arg4Type 15
+        //$Arg4Tooltip "Tag of the approach linedef the player must cross to make this prompt appear. Required (must be > 0). The tagged linedef must exist in the same map and the parkour_start Thing must lie inside the sector that linedef bounds — validated at boot."
+        Height 8.0;  // From marker default: 1.0
+        Radius 1.2;  // From physicsRadius: 0.3
     }
     
     States
@@ -144,13 +150,13 @@ class RC_Parkour_Anchor_Step_Right : Actor
         //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
         //$Arg1 "Windup Duration (ms)"
         //$Arg1Type 0
-        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Windup Duration)."
+        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = use ParkourStart's Default Windup Duration; if that is also 0, fall back to ParkourTuning.WindUpDuration (the same fixed value used by existing jump-up/down prompts)."
         //$Arg2 "Travel Duration (ms)"
         //$Arg2Type 0
-        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Travel Duration)."
+        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = use ParkourStart's Default Travel Duration; if that is also 0, the engine computes the duration dynamically from segment distance + parkour style (same physics-driven approach as existing jump-up/down parkour). Set a nonzero value to override per segment."
         //$Arg3 "Winddown Duration (ms)"
         //$Arg3Type 0
-        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
+        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = use ParkourStart's Default Winddown Duration; if that is also 0, fall back to ParkourTuning.WindDownDuration."
         Height 8.0;  // From marker default: 1.0
         Radius 0.4;  // From physicsRadius: 0.1
     }
@@ -178,13 +184,13 @@ class RC_Parkour_Anchor_Step_Left : Actor
         //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
         //$Arg1 "Windup Duration (ms)"
         //$Arg1Type 0
-        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Windup Duration)."
+        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = use ParkourStart's Default Windup Duration; if that is also 0, fall back to ParkourTuning.WindUpDuration (the same fixed value used by existing jump-up/down prompts)."
         //$Arg2 "Travel Duration (ms)"
         //$Arg2Type 0
-        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Travel Duration)."
+        //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = use ParkourStart's Default Travel Duration; if that is also 0, the engine computes the duration dynamically from segment distance + parkour style (same physics-driven approach as existing jump-up/down parkour). Set a nonzero value to override per segment."
         //$Arg3 "Winddown Duration (ms)"
         //$Arg3Type 0
-        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
+        //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = use ParkourStart's Default Winddown Duration; if that is also 0, fall back to ParkourTuning.WindDownDuration."
         Height 8.0;  // From marker default: 1.0
         Radius 0.4;  // From physicsRadius: 0.1
     }
