@@ -15,7 +15,7 @@ class RC_Start : Actor
         //$Help "This is what the player spawns on"
         //$Color 8
         //$NotAngled
-        Height 8.0;  // From physicsHeight: 1.0
+        Height 8.0;  // From marker default: 1.0
         Radius 4.0;  // From physicsRadius: 1.0
     }
     
@@ -49,8 +49,8 @@ class RC_Parkour_Start : Actor
         //$Arg3 "Default Winddown Duration (ms)"
         //$Arg3Type 0
         //$Arg3Tooltip "Used for any anchor whose own Winddown Duration is 0. 0 = no winddown."
-        Height 8.0;  // From physicsHeight: 1.0
-        Radius 1.2;  // From physicsRadius: 0.3
+        Height 4.8;  // From interactible.hitboxSize: 0.6
+        Radius 1.2;  // From interactible.hitboxSize: 0.3
     }
     
     States
@@ -83,8 +83,8 @@ class RC_Parkour_Anchor_Jump : Actor
         //$Arg3 "Winddown Duration (ms)"
         //$Arg3Type 0
         //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
-        Height 8.0;  // From physicsHeight: 1.0
-        Radius 4.0;  // From physicsRadius: 1.0
+        Height 8.0;  // From marker default: 1.0
+        Radius 0.4;  // From physicsRadius: 0.1
     }
     
     States
@@ -117,8 +117,8 @@ class RC_Parkour_Start_Reverse : Actor
         //$Arg3 "Default Winddown Duration (ms)"
         //$Arg3Type 0
         //$Arg3Tooltip "Used for any anchor whose own Winddown Duration is 0. 0 = no winddown."
-        Height 8.0;  // From physicsHeight: 1.0
-        Radius 4.0;  // From physicsRadius: 1.0
+        Height 4.8;  // From interactible.hitboxSize: 0.6
+        Radius 1.2;  // From interactible.hitboxSize: 0.3
     }
     
     States
@@ -144,15 +144,15 @@ class RC_Parkour_Anchor_Step_Right : Actor
         //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
         //$Arg1 "Windup Duration (ms)"
         //$Arg1Type 0
-        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit from previous anchor (carry-forward), ultimately the ParkourStart's Default Windup Duration."
+        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Windup Duration)."
         //$Arg2 "Travel Duration (ms)"
         //$Arg2Type 0
         //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Travel Duration)."
         //$Arg3 "Winddown Duration (ms)"
         //$Arg3Type 0
         //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
-        Height 8.0;  // From physicsHeight: 1.0
-        Radius 4.0;  // From physicsRadius: 1.0
+        Height 8.0;  // From marker default: 1.0
+        Radius 0.4;  // From physicsRadius: 0.1
     }
     
     States
@@ -178,15 +178,15 @@ class RC_Parkour_Anchor_Step_Left : Actor
         //$Arg0Tooltip "Tid of the next ParkourAnchor in this chain. 0 = end of route. Hover this thing in UDB to see the link arrow."
         //$Arg1 "Windup Duration (ms)"
         //$Arg1Type 0
-        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit from previous anchor (carry-forward), ultimately the ParkourStart's Default Windup Duration."
+        //$Arg1Tooltip "Time spent in the windup animation before traveling to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Windup Duration)."
         //$Arg2 "Travel Duration (ms)"
         //$Arg2Type 0
         //$Arg2Tooltip "Time spent traveling from the previous anchor's position to this anchor. 0 = inherit (carry-forward to ParkourStart's Default Travel Duration)."
         //$Arg3 "Winddown Duration (ms)"
         //$Arg3Type 0
         //$Arg3Tooltip "Time spent in the winddown/landing animation after arriving at this anchor. 0 = inherit (carry-forward to ParkourStart's Default Winddown Duration)."
-        Height 8.0;  // From physicsHeight: 1.0
-        Radius 4.0;  // From physicsRadius: 1.0
+        Height 8.0;  // From marker default: 1.0
+        Radius 0.4;  // From physicsRadius: 0.1
     }
     
     States
@@ -208,7 +208,7 @@ class RC_Markerarrowwhite : Actor
         //$Help "Helps guide players; visible to everyone"
         //$Color 3
         //$NotAngled
-        Height 8.0;  // From physicsHeight: 1.0
+        Height 8.0;  // From marker default: 1.0
         Radius 4.0;  // From physicsRadius: 1.0
     }
     
@@ -231,7 +231,7 @@ class RC_Marker_Networked : Actor
         //$Help "Networked marker that isnt always cold. Has dontRender set to true so gameobject exists but cant be seen by the camera."
         //$Color 3
         //$NotAngled
-        Height 8.0;  // From physicsHeight: 1.0
+        Height 8.0;  // From marker default: 1.0
         Radius 4.0;  // From physicsRadius: 1.0
     }
     
@@ -250,11 +250,11 @@ class RC_Marker : Actor
     Default
     {
         //$Category "Realm Chasers/Markers"
-        //$Title "Marker"
-        //$Help "Helps guide players; visible to everyone"
+        //$Title "Marker (Serverside Only)"
+        //$Help "Helps guide players on the server only — not networked to clients. Use marker_networked if clients need to see it."
         //$Color 3
         //$NotAngled
-        Height 8.0;  // From physicsHeight: 1.0
+        Height 8.0;  // From marker default: 1.0
         Radius 4.0;  // From physicsRadius: 1.0
     }
     
