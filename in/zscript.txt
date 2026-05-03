@@ -53,7 +53,7 @@ class RC_Parkour_Start : Actor
         //$Arg4Type 15
         //$Arg4Tooltip "Tag of the approach linedef the player must cross to make this prompt appear. Required (must be > 0). The tagged linedef must exist in the same map and the parkour_start Thing must lie inside the sector that linedef bounds — validated at boot."
         Height 8.0;  // From marker default: 1.0
-        Radius 1.2;  // From physicsRadius: 0.3
+        Radius 0.4;  // From physicsRadius: 0.1
     }
     
     States
@@ -124,7 +124,7 @@ class RC_Parkour_Start_Reverse : Actor
         //$Arg4Type 15
         //$Arg4Tooltip "Tag of the approach linedef the player must cross to make this prompt appear. Required (must be > 0). The tagged linedef must exist in the same map and the parkour_start Thing must lie inside the sector that linedef bounds — validated at boot."
         Height 8.0;  // From marker default: 1.0
-        Radius 1.2;  // From physicsRadius: 0.3
+        Radius 0.4;  // From physicsRadius: 0.1
     }
     
     States
