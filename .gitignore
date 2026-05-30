@@ -22,3 +22,23 @@
 # Log files and folders
 *.log
 logdump/
+# --- Unity project scaffolding ---
+# This repo is an asset/source repo (maps/, sprites/, in/, out/, deps/), NOT a Unity
+# project. If a Unity editor is ever pointed at this folder it scaffolds a full project
+# here; ignore all of it so it never gets tracked and download_pk3.sh's clean-repo check
+# doesn't trip on it.
+/Assets/
+/Library/
+/Temp/
+/Obj/
+/Build/
+/Builds/
+/Logs/
+/UserSettings/
+/Packages/
+/ProjectSettings/
+/.vscode/
+/.idea/
+*.sln
+*.csproj
+*.unityproj
