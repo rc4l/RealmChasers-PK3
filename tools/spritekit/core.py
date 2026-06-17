@@ -1,0 +1,114 @@
+"""Shared helpers for spritekit: pixel-art sprite splitting and outline tooling."""
+import numpy as np
+from PIL import Image
+from scipy import ndimage
+from math import gcd
+from functools import reduce
+
+
+def load_rgba(path):
+    return np.array(Image.open(path).convert("RGBA"))
+
+
+def save_rgba(arr, path):
+    Image.fromarray(arr.astype(np.uint8)).save(path)
+
+
+def lum(c):
+    """Rec.601 luminance of an (r,g,b) tuple/array."""
+    return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
+
+
+def detect_scale(arr):
+    """Detect the integer upscale factor (art-pixel block size) of a sprite by
+    taking the GCD of all horizontal/vertical constant-color run lengths."""
+    runs = []
+    for line in list(arr) + list(arr.transpose(1, 0, 2)):
+        d = np.any(line[1:] != line[:-1], axis=1)
+        bounds = np.concatenate(([0], np.flatnonzero(d) + 1, [len(line)]))
+        runs += list(np.diff(bounds))
+    return max(1, reduce(gcd, runs)) if runs else 1
+
+
+def downscale(arr, s):
+    """Sample one pixel per s x s block (block-aligned, uniform-block art)."""
+    return arr[s // 2::s, s // 2::s]
+
+
+def upscale(arr, s):
+    return np.repeat(np.repeat(arr, s, axis=0), s, axis=1)
+
+
+def crop_tight(arr):
+    """Crop to the bounding box of non-transparent pixels."""
+    ys, xs = np.where(arr[:, :, 3] > 0)
+    if len(ys) == 0:
+        return arr
+    return arr[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
+def border_ring(opaque):
+    """Boolean mask of opaque pixels that touch a transparent pixel or the edge."""
+    pad = np.pad(opaque, 1, constant_values=False)
+    t = (~pad[:-2, 1:-1]) | (~pad[2:, 1:-1]) | (~pad[1:-1, :-2]) | (~pad[1:-1, 2:])
+    return opaque & t
+
+
+def conn_structure(connectivity):
+    """3x3 structuring element: 4 = plus (no diagonals), 8 = full square."""
+    if connectivity == 4:
+        return np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], int)
+    return np.ones((3, 3), int)
+
+
+def demo_sprite(scale=6):
+    """A small procedurally-built sample sprite (upscaled) for the startup preview."""
+    palette = {".": (0, 0, 0, 0), "r": (200, 30, 30, 255), "d": (150, 18, 18, 255),
+               "w": (240, 235, 230, 255), "s": (225, 215, 180, 255)}
+    rows = ["..rrrr..",
+            ".rwrrwr.",
+            "rrrrrrrr",
+            "rdrrrrdr",
+            "..ssss..",
+            "..ssss..",
+            "..ssss.."]
+    art = np.zeros((len(rows), len(rows[0]), 4), np.uint8)
+    for y, row in enumerate(rows):
+        for x, ch in enumerate(row):
+            art[y, x] = palette[ch]
+    return upscale(art, scale)
+
+
+def demo_sheet():
+    """A tiny sample sheet (three separated blobs) for the startup split preview."""
+    a = np.zeros((28, 64, 4), np.uint8)
+    for y0, y1, x0, x1, col in [(4, 12, 4, 12, (200, 30, 30)),
+                                (4, 12, 26, 34, (40, 160, 60)),
+                                (4, 14, 48, 60, (60, 90, 210))]:
+        a[y0:y1, x0:x1, :3] = col
+        a[y0:y1, x0:x1, 3] = 255
+    return a
+
+
+def contact_sheet(pairs, names, cols=6, cell=58, pad=120, scale_cap=4):
+    """Build a before/after review image. `pairs` = list of (before_arr, after_arr)."""
+    from PIL import ImageDraw
+    rows = (len(pairs) + cols - 1) // cols
+    sheet = Image.new("RGBA", (cols * pad, rows * (cell + 14) + 14), (60, 60, 60, 255))
+    draw = ImageDraw.Draw(sheet)
+
+    def place(arr, cx, cy):
+        im = Image.fromarray(arr.astype(np.uint8))
+        s = min(cell / im.size[0], cell / im.size[1], scale_cap)
+        w, h = max(1, int(im.size[0] * s)), max(1, int(im.size[1] * s))
+        im = im.resize((w, h), Image.NEAREST)
+        sheet.alpha_composite(im, (cx + (cell - w) // 2, cy + (cell - h) // 2))
+
+    for i, (before, after) in enumerate(pairs):
+        r, c = divmod(i, cols)
+        x, y = c * pad, r * (cell + 14) + 14
+        if before is not None:
+            place(before, x + 2, y)
+        place(after, x + cell + 4, y)
+        draw.text((x + 2, y + cell + 1), names[i][:18], fill=(230, 230, 230, 255))
+    return sheet.convert("RGB")

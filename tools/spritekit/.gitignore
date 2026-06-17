@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.coverage
+spritekit_preview.png
+spritekit_split_preview.png

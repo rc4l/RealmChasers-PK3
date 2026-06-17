@@ -1,0 +1,163 @@
+"""GUI tests. A single Tk root is shared across the module (creating/destroying
+many Tk roots in one process is flaky). Skipped entirely with no display."""
+import numpy as np
+import pytest
+
+import core
+from conftest import block_sprite
+
+gui = pytest.importorskip("gui")
+import tkinter as tk
+from tkinter import ttk
+
+
+@pytest.fixture(scope="module")
+def app():
+    try:
+        a = gui.App()
+    except tk.TclError:  # pragma: no cover - headless without a display
+        pytest.skip("no display for tkinter")
+    a.withdraw()
+    yield a
+    a.destroy()
+
+
+@pytest.fixture(autouse=True)
+def reset(app):
+    app.files = []; app.cur = None; app.cur_path = None; app.sheet_path = None
+    app.target_lum.set(16); app.conn.set(4); app.thick_idx.set(2)
+    yield
+
+
+@pytest.fixture
+def png(tmp_path):
+    p = tmp_path / "m.png"
+    core.save_rgba(block_sprite(5), p)
+    return p
+
+
+@pytest.fixture
+def sheet_png(tmp_path):
+    a = np.zeros((20, 40, 4), np.uint8)
+    a[2:8, 2:8, :3] = (200, 0, 0); a[2:8, 2:8, 3] = 255
+    a[2:8, 30:36, :3] = (0, 200, 0); a[2:8, 30:36, 3] = 255
+    p = tmp_path / "s.png"; core.save_rgba(a, p)
+    return p
+
+
+def find(widget, cls):
+    out = []
+    for c in widget.winfo_children():
+        if isinstance(c, cls):
+            out.append(c)
+        out += find(c, cls)
+    return out
+
+
+def test_load_sample(app):
+    app._load_sample()
+    assert app.cur is not None and app.sheet_path is not None
+
+
+def test_tooltip_lifecycle(app):
+    tip = gui.ToolTip(ttk.Label(app, text="x"), "hello")
+    tip._show(); tip._show()        # second call: already shown -> early return
+    assert tip.tip is not None
+    tip._hide()
+    assert tip.tip is None
+    tip._hide()                     # hide when nothing shown -> no-op
+    empty = gui.ToolTip(ttk.Label(app), "")
+    empty._show()                   # no text -> early return
+    tip._schedule(); tip._cancel()  # schedule then cancel
+
+
+def test_open_file_and_cancel(app, png, monkeypatch):
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
+    app._open_file()
+    assert app.cur is not None
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: "")
+    app._open_file()                # cancel branch: no change
+
+
+def test_open_folder_empty_populated_cancel(app, tmp_path, png, monkeypatch):
+    seen = {}
+    monkeypatch.setattr(gui.messagebox, "showinfo", lambda *a, **k: seen.setdefault("info", a))
+    empty = tmp_path / "empty"; empty.mkdir()
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: str(empty))
+    app._open_folder()
+    assert "info" in seen            # "no PNGs" branch
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: str(png.parent))
+    app._open_folder()
+    assert app.files                 # populated branch
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: "")
+    app._open_folder()               # cancel branch
+
+
+def test_refresh_without_image(app):
+    assert app.cur is None
+    app._refresh()                   # early-return branch (no image loaded)
+
+
+def test_sliders_and_radios_fire(app, png, sheet_png, monkeypatch):
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
+    app._open_file()
+    app.sheet_path = sheet_png
+    app._split_preview()
+    for s in find(app, ttk.Scale):
+        lo, hi = float(s.cget("from")), float(s.cget("to"))
+        s.set(hi if float(s.get()) != hi else lo)   # change value -> fires slider command
+    for r in find(app, ttk.Radiobutton):
+        r.invoke()
+
+
+def test_thickness_warning_toggles(app, png, monkeypatch):
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
+    app._open_file()
+    app.thick_idx.set(0); app._on_thickness()      # 0.25 -> warning shown
+    assert app.thick_warn.cget("text")
+    app.thick_idx.set(2); app._on_thickness()      # 1.0 -> no warning
+    assert app.thick_warn.cget("text") == ""
+
+
+def test_apply_outline_file_folder_and_none(app, png, monkeypatch):
+    msgs = []
+    monkeypatch.setattr(gui.messagebox, "showinfo", lambda *a, **k: msgs.append(a))
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
+    app._open_file()
+    app._apply_outline(False)
+    app._apply_outline(True)
+    app.files = []
+    app._apply_outline(True)                       # no-files branch -> info
+    assert msgs
+
+
+def test_split_open_preview_export(app, sheet_png, tmp_path, monkeypatch):
+    msgs = []
+    monkeypatch.setattr(gui.messagebox, "showinfo", lambda *a, **k: msgs.append(a))
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(sheet_png))
+    app._open_sheet()
+    assert app.sheet_path is not None
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: "")
+    app._open_sheet()                              # cancel branch
+    out = tmp_path / "out"
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: str(out))
+    app._export_split()
+    assert list(out.glob("sprite_*.png"))
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: "")
+    app._export_split()                            # cancel branch
+    app.sheet_path = None
+    app._export_split()                            # no-sheet branch -> info
+    app._split_preview()                           # no-sheet early return
+    assert msgs
+
+
+def test_launch_runs_mainloop(monkeypatch):
+    ran = {}
+
+    class FakeApp:
+        def mainloop(self):
+            ran["mainloop"] = True
+
+    monkeypatch.setattr(gui, "App", FakeApp)       # avoid a second real Tk root
+    gui.launch()
+    assert ran["mainloop"]

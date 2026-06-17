@@ -1,0 +1,5 @@
+numpy>=1.21
+Pillow>=9.0
+scipy>=1.7
+# tkinter ships with Python (GUI only). On some Linux distros install it via the
+# system package manager, e.g. Debian/Ubuntu: sudo apt install python3-tk
