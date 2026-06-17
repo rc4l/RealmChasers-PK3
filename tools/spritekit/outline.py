@@ -41,11 +41,12 @@ def _strip_band(a, mask):
         a[np.isin(lbl, list(touch)), 3] = 0
 
 
-def _strip_outline(a, outline_colors, target_lum):
-    """Remove any existing outline -> clean fill. Strips, as boundary-connected
-    bands: (1) known palette outline colors, (2) the dominant dark boundary color,
-    (3) any very-dark band (<= target_lum+8) so the tool's OWN output is stripped on
-    re-run, making the operation idempotent."""
+def _strip_outline(a, outline_colors):
+    """Remove the SOURCE art's existing outline -> clean fill, so a fresh outline can
+    be added. Strips, as boundary-connected bands: (1) known palette outline colors,
+    (2) the dominant dark boundary color -- but only when it is largely absent from
+    the interior, so an authored fill/shading color is never mistaken for an outline
+    and darkness only ever affects the outline."""
     op = a[:, :, 3] > 0
     ring = border_ring(op)
     if not ring.any():
@@ -66,21 +67,6 @@ def _strip_outline(a, outline_colors, target_lum):
         targets.add(dom)
     for c in targets:
         _strip_band(a, np.all(a[:, :, :3] == c, axis=2) & (a[:, :, 3] > 0))
-
-    # (3) per-color very-dark strip: remove dark boundary colors that are absent from
-    # the interior (the tool's own outline, for idempotency) but keep dark FILL colors
-    # that also appear inside -- so it never erodes fills, even at a high target_lum.
-    op = a[:, :, 3] > 0
-    ring = border_ring(op)
-    interior = op & ~ring
-    rgb = a[:, :, :3]
-    L = 0.299 * rgb[:, :, 0] + 0.587 * rgb[:, :, 1] + 0.114 * rgb[:, :, 2]
-    dark = (L <= target_lum + 8) & op
-    interior_colors = {tuple(int(x) for x in c)
-                       for c in np.unique(a[interior][:, :3], axis=0)}
-    for c in np.unique(a[ring & dark][:, :3], axis=0):
-        if tuple(int(x) for x in c) not in interior_colors:
-            _strip_band(a, np.all(rgb == c, axis=2) & op)
     return a
 
 
@@ -127,7 +113,7 @@ def _add_tinted_outline(a, iters, connectivity, target_lum):
 
 
 def process_array(arr, params=None):
-    """Full pipeline for one sprite -> new RGBA array (idempotent for thickness >= 1).
+    """Full pipeline for one sprite -> new RGBA array.
 
     thickness < 1 (e.g. 0.5, 0.25) draws a sub-art-pixel outline by subdividing each
     art pixel, which ENLARGES the output by `image_growth(thickness)`x."""
@@ -135,7 +121,7 @@ def process_array(arr, params=None):
     a = arr.copy()
     s = p.scale or detect_scale(a)
     art = downscale(a, s) if s > 1 else a
-    art = _strip_outline(art, p.outline_colors, p.target_lum)
+    art = _strip_outline(art, p.outline_colors)
 
     sub = image_growth(p.thickness)               # 2 for 0.5, 4 for 0.25, else 1
     work = upscale(art, sub) if sub > 1 else art   # subdivide each art pixel

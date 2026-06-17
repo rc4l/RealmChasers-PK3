@@ -58,7 +58,7 @@ def test_strips_dominant_dark_non_palette():
 
 def test_strip_outline_all_transparent_returns_input():
     a = np.zeros((4, 4, 4), np.uint8)
-    assert o._strip_outline(a.copy(), o.DEFAULT_OUTLINE_COLORS, 16).shape == a.shape
+    assert o._strip_outline(a.copy(), o.DEFAULT_OUTLINE_COLORS).shape == a.shape
 
 
 def test_scale_one_path():
@@ -108,6 +108,16 @@ def test_solid_fill_not_stripped_as_outline():
     assert cap.sum() >= 10                 # the red cap survives processing
 
 
+def test_darkness_does_not_strip_authored_shading():
+    # Regression: a dark authored shading color (the cap's (150,18,18), lum ~57) that
+    # sits only on the boundary must NOT be stripped at any darkness -- changing
+    # Darkness only ever affects the outline, never authored colors.
+    for tl in (50, 55, 65):
+        out = o.process_array(__import__("core").demo_sprite(), o.OutlineParams(target_lum=tl))
+        kept = (out[:, :, :3] == [150, 18, 18]).all(axis=2) & (out[:, :, 3] > 0)
+        assert kept.any(), f"shading erased at target_lum={tl}"
+
+
 def test_high_darkness_keeps_fill():
     # Regression: at a high target_lum the very-dark strip threshold rises into fill
     # luminance; the red cap (lum ~81) must NOT be eroded when target_lum=80.
@@ -127,13 +137,15 @@ def test_palette_color_interior_only_is_kept():
     assert keep.any()
 
 
+def test_all_outline_color_sprite():
+    # a sprite that is entirely a palette outline color gets fully stripped to
+    # transparency -> nothing left to outline (must not crash).
+    art = np.zeros((4, 4, 4), np.uint8)
+    art[:, :] = (16, 18, 28, 255)
+    out = o.process_array(art, o.OutlineParams(scale=1))
+    assert out.shape[2] == 4   # no crash; nothing to outline
+
+
 def test_strip_outline_no_interior():
     a = np.zeros((2, 2, 4), np.uint8); a[:, :] = (50, 50, 50, 255)   # all-boundary, no interior
-    o._strip_outline(a.copy(), o.DEFAULT_OUTLINE_COLORS, 16)         # interior.any() == False path
-
-
-def test_idempotent_default():
-    s = block_sprite(5)
-    r1 = o.process_array(s)
-    r2 = o.process_array(r1)
-    assert r1.shape == r2.shape and np.array_equal(r1, r2)
+    o._strip_outline(a.copy(), o.DEFAULT_OUTLINE_COLORS)             # interior.any() == False path
