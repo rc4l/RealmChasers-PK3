@@ -99,6 +99,20 @@ def test_bright_dominant_and_interior_dark_band():
     assert keep.any()        # interior dark pixel survived (its band never touched the edge)
 
 
+def test_solid_fill_not_stripped_as_outline():
+    # Regression: a sprite with NO outline whose dominant edge color is a dark-ish
+    # fill (the sample mushroom's red cap) must keep its fill -- the dominant-dark
+    # strip must not mistake fill for an outline and erase it.
+    out = o.process_array(__import__("core").demo_sprite())
+    cap = (out[:, :, :3] == [200, 30, 30]).all(axis=2) & (out[:, :, 3] > 0)
+    assert cap.sum() >= 10                 # the red cap survives processing
+
+
+def test_strip_outline_no_interior():
+    a = np.zeros((2, 2, 4), np.uint8); a[:, :] = (50, 50, 50, 255)   # all-boundary, no interior
+    o._strip_outline(a.copy(), o.DEFAULT_OUTLINE_COLORS, 16)         # interior.any() == False path
+
+
 def test_idempotent_default():
     s = block_sprite(5)
     r1 = o.process_array(s)

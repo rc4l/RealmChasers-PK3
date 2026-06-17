@@ -55,8 +55,14 @@ def _strip_outline(a, outline_colors, target_lum):
     dom = tuple(int(x) for x in cols[int(np.argmax(counts))])
     frac = counts.max() / len(rpix)
 
+    # A real outline hugs the edge and is absent from the interior; a fill color
+    # (e.g. a red cap) appears both on the boundary AND inside. Only strip the
+    # dominant dark boundary color if it is largely missing from the interior.
+    interior = op & ~ring
+    dom_inside = (np.all(a[interior][:, :3] == np.array(dom), axis=1).mean()
+                  if interior.any() else 0.0)
     targets = {tuple(c) for c in outline_colors}
-    if frac >= 0.5 and lum(dom) <= 90:
+    if frac >= 0.5 and lum(dom) <= 90 and dom_inside < 0.2:
         targets.add(dom)
     for c in targets:
         _strip_band(a, np.all(a[:, :, :3] == c, axis=2) & (a[:, :, 3] > 0))
