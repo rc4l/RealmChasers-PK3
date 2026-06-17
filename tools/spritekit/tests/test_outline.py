@@ -108,6 +108,25 @@ def test_solid_fill_not_stripped_as_outline():
     assert cap.sum() >= 10                 # the red cap survives processing
 
 
+def test_high_darkness_keeps_fill():
+    # Regression: at a high target_lum the very-dark strip threshold rises into fill
+    # luminance; the red cap (lum ~81) must NOT be eroded when target_lum=80.
+    out = o.process_array(__import__("core").demo_sprite(), o.OutlineParams(target_lum=80))
+    cap = (out[:, :, :3] == [200, 30, 30]).all(axis=2) & (out[:, :, 3] > 0)
+    assert cap.sum() >= 10
+
+
+def test_palette_color_interior_only_is_kept():
+    # a palette outline color sitting only INSIDE the sprite (not on the boundary)
+    # forms a band that doesn't touch the edge -> must not be stripped.
+    art = np.zeros((5, 5, 4), np.uint8)
+    art[:, :] = (200, 30, 30, 255)
+    art[2, 2, :3] = (16, 18, 28)          # navy (a palette outline color) in the center
+    out = o.process_array(art, o.OutlineParams(scale=1))
+    keep = (out[:, :, :3] == [16, 18, 28]).all(axis=2) & (out[:, :, 3] > 0)
+    assert keep.any()
+
+
 def test_strip_outline_no_interior():
     a = np.zeros((2, 2, 4), np.uint8); a[:, :] = (50, 50, 50, 255)   # all-boundary, no interior
     o._strip_outline(a.copy(), o.DEFAULT_OUTLINE_COLORS, 16)         # interior.any() == False path

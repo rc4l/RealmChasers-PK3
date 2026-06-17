@@ -67,9 +67,20 @@ def _strip_outline(a, outline_colors, target_lum):
     for c in targets:
         _strip_band(a, np.all(a[:, :, :3] == c, axis=2) & (a[:, :, 3] > 0))
 
+    # (3) per-color very-dark strip: remove dark boundary colors that are absent from
+    # the interior (the tool's own outline, for idempotency) but keep dark FILL colors
+    # that also appear inside -- so it never erodes fills, even at a high target_lum.
+    op = a[:, :, 3] > 0
+    ring = border_ring(op)
+    interior = op & ~ring
     rgb = a[:, :, :3]
     L = 0.299 * rgb[:, :, 0] + 0.587 * rgb[:, :, 1] + 0.114 * rgb[:, :, 2]
-    _strip_band(a, (L <= target_lum + 8) & (a[:, :, 3] > 0))
+    dark = (L <= target_lum + 8) & op
+    interior_colors = {tuple(int(x) for x in c)
+                       for c in np.unique(a[interior][:, :3], axis=0)}
+    for c in np.unique(a[ring & dark][:, :3], axis=0):
+        if tuple(int(x) for x in c) not in interior_colors:
+            _strip_band(a, np.all(rgb == c, axis=2) & op)
     return a
 
 
