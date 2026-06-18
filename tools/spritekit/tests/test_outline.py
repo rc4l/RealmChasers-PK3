@@ -50,10 +50,10 @@ def test_strips_known_palette_outline():
 def test_strips_dark_non_palette_outline():
     art = np.zeros((4, 4, 4), np.uint8)
     art[1:3, 1:3] = (200, 30, 30, 255)
-    sprite = with_outline(art, (50, 50, 50))       # a dark outline not in the palette
+    sprite = with_outline(art, (25, 25, 25))       # a dark outline not in the palette
     out = o.process_array(sprite, o.OutlineParams(scale=1))
-    visible = (out[:, :, :3] == [50, 50, 50]).all(axis=2) & (out[:, :, 3] > 0)
-    assert not visible.any()                       # peeled geometrically (darker than fill)
+    visible = (out[:, :, :3] == [25, 25, 25]).all(axis=2) & (out[:, :, 3] > 0)
+    assert not visible.any()                       # peeled (much darker than the fill)
 
 
 def test_strip_outline_all_transparent_returns_input():

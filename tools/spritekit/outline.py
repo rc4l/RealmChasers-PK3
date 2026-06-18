@@ -4,8 +4,8 @@ from dataclasses import dataclass, field
 import numpy as np
 from scipy import ndimage
 
-from core import (lum, detect_scale, downscale, upscale, crop_tight,
-                  border_ring, conn_structure)
+from core import (lum, detect_scale, detect_visual_block, downscale, upscale,
+                  crop_tight, border_ring, conn_structure)
 
 # Dark "outline-role" colors observed across the vegetation art. Any of these
 # forming a band that touches the silhouette boundary is treated as an existing
@@ -51,36 +51,29 @@ def _strip_outline(a, outline_colors):
 
 
 def _strip_dark_border(a):
-    """Remove an EXISTING outline so a fresh one can be (re)built from the base art:
-    peel off successive boundary rings that are clearly darker than the content just
-    inside them. Stops as soon as a ring is not darker than the interior, so it
-    reaches the base without ever eating into brighter fill (a fresh sprite, whose
-    edge is as bright as its inside, loses nothing). This makes thickening outline
-    the BASE pixels instead of outlining the previous outline."""
-    while True:
-        op = a[:, :, 3] > 0
-        ring = border_ring(op)
-        if not ring.any():
-            break
-        interior = op & ~ring
-        L = 0.299 * a[:, :, 0] + 0.587 * a[:, :, 1] + 0.114 * a[:, :, 2]
-        # brightest interior neighbor of each pixel (the fill a ring pixel covers)
-        bright = np.full(L.shape, -1.0)
-        for dy in (-1, 0, 1):
-            for dx in (-1, 0, 1):
-                if dy == 0 and dx == 0:
-                    continue
-                nl = np.roll(np.roll(L, dy, 0), dx, 1)
-                ni = np.roll(np.roll(interior, dy, 0), dx, 1)
-                bright = np.maximum(bright, np.where(ni, nl, -1.0))
-        # a ring pixel is outline if it is MUCH darker than the fill it borders (a real
-        # outline is; merely darker fill, e.g. a green stem beside a cyan bloom, is
-        # not). Peel the ring only when most of it qualifies -- i.e. it's an outline
-        # band, not authored shading.
-        darker = ring & (bright >= 0) & (L < 0.7 * bright)
-        if darker.sum() < 0.8 * ring.sum():
-            break
-        a[ring, 3] = 0
+    """Remove an EXISTING outline (of any thickness) so a fresh one can be (re)built
+    from the base art. An outline is a connected band, touching the silhouette
+    boundary, that is much DARKER than the sprite body; flood it out in one pass --
+    so thickening/re-processing rebuilds from the base instead of outlining the
+    previous outline. A fresh sprite, whose edge is about as bright as its body, has a
+    boundary that isn't 'much darker', so nothing is removed (no erosion)."""
+    op = a[:, :, 3] > 0
+    L = 0.299 * a[:, :, 0] + 0.587 * a[:, :, 1] + 0.114 * a[:, :, 2]
+    ring = border_ring(op)
+    if not ring.any():
+        return a
+    interior = op & ~ring
+    if not interior.any():
+        return a
+    ring_lum = float(L[ring].mean())
+    body_lum = float(np.median(L[interior]))   # the fill under the boundary
+    if ring_lum >= 0.6 * body_lum:          # boundary not clearly an outline -> keep all
+        return a
+    band = op & (L <= ring_lum + 24)        # the uniform dark outline band
+    lbl, _ = ndimage.label(band, structure=np.ones((3, 3), int))
+    touch = set(np.unique(lbl[ring & band]))
+    touch.discard(0)
+    a[np.isin(lbl, list(touch)), 3] = 0
     return a
 
 
@@ -133,14 +126,18 @@ def process_array(arr, params=None):
     art pixel, which ENLARGES the output by `image_growth(thickness)`x."""
     p = params or OutlineParams()
     a = arr.copy()
-    s = p.scale or detect_scale(a)
+    s = p.scale or detect_scale(a)                 # exact block size (lossless downscale)
     art = downscale(a, s) if s > 1 else a
     art = _strip_outline(art, p.outline_colors)
     art = _strip_dark_border(art)                  # peel any existing outline -> base
 
+    # On chunky-but-imperfect art (e.g. rocks) the apparent block is bigger than the
+    # exact scale, so widen the outline to match instead of drawing a too-thin 1px.
+    # Measured on the peeled BASE so re-processing an outlined sprite stays stable.
+    factor = 1 if p.scale else detect_visual_block(art)
     sub = image_growth(p.thickness)               # 2 for 0.5, 4 for 0.25, else 1
     work = upscale(art, sub) if sub > 1 else art   # subdivide each art pixel
-    iters = max(1, round(p.thickness * sub))       # outline thickness in work pixels
+    iters = max(1, round(p.thickness * sub * factor))   # outline thickness in work pixels
     work = _add_tinted_outline(work, iters, p.connectivity, p.target_lum)
 
     big = upscale(work, s) if s > 1 else work      # back to (enlarged) output resolution

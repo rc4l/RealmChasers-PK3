@@ -30,6 +30,25 @@ def detect_scale(arr):
     return max(1, reduce(gcd, runs)) if runs else 1
 
 
+def detect_visual_block(arr, min_fidelity=0.9, max_scale=8):
+    """Estimate the apparent pixel-block size, tolerant of fine detail that defeats
+    the exact GCD `detect_scale`. Returns the largest S (>=1) for which the image is
+    at least `min_fidelity` an S-block upscale -- used to size the outline so it
+    matches chunky art whose blocks aren't perfectly uniform (e.g. detailed rocks).
+    For clean upscaled art it equals detect_scale."""
+    h, w = arr.shape[:2]
+    best = 1
+    for s in range(2, max_scale + 1):
+        if h < s or w < s:
+            break
+        rep = arr[s // 2::s, s // 2::s]
+        up = np.repeat(np.repeat(rep, s, axis=0), s, axis=1)
+        hh, ww = min(up.shape[0], h), min(up.shape[1], w)
+        if np.all(up[:hh, :ww] == arr[:hh, :ww], axis=2).mean() >= min_fidelity:
+            best = s
+    return best
+
+
 def downscale(arr, s):
     """Sample one pixel per s x s block (block-aligned, uniform-block art)."""
     return arr[s // 2::s, s // 2::s]

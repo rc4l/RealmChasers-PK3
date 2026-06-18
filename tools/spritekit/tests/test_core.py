@@ -27,6 +27,15 @@ def test_detect_scale_empty_returns_one():
     assert core.detect_scale(np.zeros((0, 0, 4), np.uint8)) == 1
 
 
+def test_detect_visual_block():
+    assert core.detect_visual_block(block_sprite(5)) == 5      # clean upscale -> exact
+    a = block_sprite(2).copy()
+    a[0, 0] = (1, 2, 3, 255)                                   # one odd pixel breaks the GCD
+    assert core.detect_scale(a) == 1                           # exact detector gives up
+    assert core.detect_visual_block(a) == 2                    # apparent block still ~2
+    assert core.detect_visual_block(np.full((3, 3, 4), 200, np.uint8)) >= 1   # size-break path
+
+
 def test_downscale_upscale_roundtrip():
     art = np.arange(2 * 2 * 4, dtype=np.uint8).reshape(2, 2, 4)
     big = core.upscale(art, 5)

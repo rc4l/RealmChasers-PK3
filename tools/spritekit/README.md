@@ -78,16 +78,19 @@ sprite they sit beside, regardless of color.
 
 ## How outline works
 
-1. **Detect upscale factor** (each art pixel is an N×N block) and downscale to
-   native art resolution so the outline is exactly 1 art-pixel and grid-aligned.
+1. **Detect the pixel scale** (each art pixel is an N×N block) and downscale to
+   native art resolution so the outline is grid-aligned. The outline width matches
+   the *apparent* block size, so chunky-but-imperfect art (e.g. detailed rocks whose
+   blocks aren't perfectly uniform) gets a proportional outline rather than a
+   too-thin 1px line.
 2. **Strip** any existing outline so a fresh one rebuilds from the base art:
    - known **palette** outline colors (boundary-connected bands), and
-   - a geometric **dark-border peel** — successive boundary rings whose pixels are
-     darker than the fill they cover, stopping at the base. A fresh sprite's edge is
-     as bright as its inside, so nothing is peeled; an already-outlined sprite (incl.
-     the tool's own output) has its outline removed and rebuilt — so re-applying and
-     **thickening outline the base, never the previous outline**, and changing
-     Darkness only ever affects the outline.
+   - a **dark-border peel** — flood-remove the connected boundary band that is much
+     darker than the sprite body (an outline of any thickness). A fresh sprite's edge
+     is about as bright as its body, so nothing is peeled; an already-outlined sprite
+     (incl. the tool's own output) is rebuilt — so re-applying and **thickening
+     outline the base, never the previous outline**, and changing Darkness only ever
+     affects the outline.
 3. **Rebuild** a `connectivity`-respecting ring and color each pixel as the
    strongest (highest-chroma) neighboring fill color, **darkened to a fixed
    luminance** so light source colors get a properly dark outline while keeping
