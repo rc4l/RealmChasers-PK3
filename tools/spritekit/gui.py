@@ -24,7 +24,7 @@ import split as split_mod
 
 CHECK = (90, 90, 90, 255)
 ACCENT = "#1a66cc"
-THICKNESS_STOPS = [0.25, 0.5, 1.0, 2.0, 3.0]   # discrete outline-thickness slider stops
+THICKNESS_STOPS = [0.25, 0.5, 1.0, 2.0, 3.0, 4.0]   # discrete outline-thickness slider stops
 GALLERY_CELL = 70        # thumbnail cell size (px)
 GALLERY_CHUNK = 12       # thumbnails rendered per UI tick (keeps the UI responsive)
 GALLERY_DEBOUNCE = 200   # ms to wait after a settings change before rebuilding
@@ -67,10 +67,12 @@ class ToolTip:
             self.tip = None
 
 
-def labeled_slider(parent, label, var, lo, hi, tip, on_change, unit="", fmt=None, hint=None):
+def labeled_slider(parent, label, var, lo, hi, tip, on_change, unit="", fmt=None,
+                   hint=None, ticks=None):
     """A slider row with a live value readout on the right and a tooltip. `var` is an
     integer-snapping IntVar; `fmt(value)->str` customizes the readout (e.g. discrete
-    thickness stops); `hint` overrides the small range caption underneath."""
+    thickness stops); `hint` overrides the small range caption underneath; `ticks` is a
+    list of labels spread evenly under the slider, aligned to each stop position."""
     show = fmt or (lambda v: f"{v}{unit}")
     frame = ttk.Frame(parent)
     frame.pack(fill="x", pady=(10, 0))
@@ -89,8 +91,17 @@ def labeled_slider(parent, label, var, lo, hi, tip, on_change, unit="", fmt=None
 
     scale = ttk.Scale(frame, from_=lo, to=hi, variable=var, command=handle)
     scale.pack(fill="x")
-    ttk.Label(frame, text=hint if hint is not None else f"{lo}–{hi}", foreground="#888",
-              font=("TkDefaultFont", 7)).pack(anchor="e")
+    if ticks:
+        row = ttk.Frame(frame, height=14); row.pack(fill="x"); row.pack_propagate(False)
+        n = len(ticks)
+        for i, t in enumerate(ticks):     # each label under its stop position
+            relx = i / (n - 1) if n > 1 else 0.5
+            anchor = "nw" if i == 0 else ("ne" if i == n - 1 else "n")
+            ttk.Label(row, text=t, foreground="#888", font=("TkDefaultFont", 7)).place(
+                relx=relx, y=0, anchor=anchor)
+    else:
+        ttk.Label(frame, text=hint if hint is not None else f"{lo}–{hi}", foreground="#888",
+                  font=("TkDefaultFont", 7)).pack(anchor="e")
     for w in (name, value, scale):
         ToolTip(w, tip)
     return scale
@@ -199,7 +210,7 @@ class App(tk.Tk):
         labeled_slider(side, "Thickness (art px)", self.thick_idx, 0, len(THICKNESS_STOPS) - 1,
                        TIPS["thick"], self._on_thickness,
                        fmt=lambda i: f"{THICKNESS_STOPS[i]:g} px",
-                       hint=" · ".join(f"{t:g}" for t in THICKNESS_STOPS))
+                       ticks=[f"{t:g}" for t in THICKNESS_STOPS])
         self.thick_warn = ttk.Label(side, text="", foreground="#cc6600",
                                     wraplength=190, font=("TkDefaultFont", 8))
         self.thick_warn.pack(fill="x")

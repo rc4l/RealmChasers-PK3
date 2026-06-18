@@ -124,6 +124,12 @@ def test_sliders_and_radios_fire(app, png, sheet_png, monkeypatch):
         r.invoke()
 
 
+def test_thickness_slider_reaches_4(app):
+    assert gui.THICKNESS_STOPS[-1] == 4.0                         # slider goes up to 4 px
+    app.thick_idx.set(len(gui.THICKNESS_STOPS) - 1); app._on_thickness()
+    assert app._params().thickness == 4.0
+
+
 def test_thickness_warning_toggles(app, png, monkeypatch):
     monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
     app._open_file()
