@@ -42,31 +42,43 @@ def _strip_band(a, mask):
 
 
 def _strip_outline(a, outline_colors):
-    """Remove the SOURCE art's existing outline -> clean fill, so a fresh outline can
-    be added. Strips, as boundary-connected bands: (1) known palette outline colors,
-    (2) the dominant dark boundary color -- but only when it is largely absent from
-    the interior, so an authored fill/shading color is never mistaken for an outline
-    and darkness only ever affects the outline."""
-    op = a[:, :, 3] > 0
-    ring = border_ring(op)
-    if not ring.any():
-        return a
-    rpix = a[ring][:, :3]
-    cols, counts = np.unique(rpix, axis=0, return_counts=True)
-    dom = tuple(int(x) for x in cols[int(np.argmax(counts))])
-    frac = counts.max() / len(rpix)
-
-    # A real outline hugs the edge and is absent from the interior; a fill color
-    # (e.g. a red cap) appears both on the boundary AND inside. Only strip the
-    # dominant dark boundary color if it is largely missing from the interior.
-    interior = op & ~ring
-    dom_inside = (np.all(a[interior][:, :3] == np.array(dom), axis=1).mean()
-                  if interior.any() else 0.0)
-    targets = {tuple(c) for c in outline_colors}
-    if frac >= 0.5 and lum(dom) <= 90 and dom_inside < 0.2:
-        targets.add(dom)
-    for c in targets:
+    """Strip the source art's known palette outline colors (as boundary-connected
+    bands). Unknown dark outlines -- including the tool's own output -- are handled
+    geometrically by _strip_dark_border."""
+    for c in outline_colors:
         _strip_band(a, np.all(a[:, :, :3] == c, axis=2) & (a[:, :, 3] > 0))
+    return a
+
+
+def _strip_dark_border(a):
+    """Remove an EXISTING outline so a fresh one can be (re)built from the base art:
+    peel off successive boundary rings that are clearly darker than the content just
+    inside them. Stops as soon as a ring is not darker than the interior, so it
+    reaches the base without ever eating into brighter fill (a fresh sprite, whose
+    edge is as bright as its inside, loses nothing). This makes thickening outline
+    the BASE pixels instead of outlining the previous outline."""
+    while True:
+        op = a[:, :, 3] > 0
+        ring = border_ring(op)
+        if not ring.any():
+            break
+        interior = op & ~ring
+        L = 0.299 * a[:, :, 0] + 0.587 * a[:, :, 1] + 0.114 * a[:, :, 2]
+        # brightest interior neighbor of each pixel (the fill a ring pixel covers)
+        bright = np.full(L.shape, -1.0)
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                if dy == 0 and dx == 0:
+                    continue
+                nl = np.roll(np.roll(L, dy, 0), dx, 1)
+                ni = np.roll(np.roll(interior, dy, 0), dx, 1)
+                bright = np.maximum(bright, np.where(ni, nl, -1.0))
+        # a ring pixel is outline if it is clearly darker than the fill it borders;
+        # peel the ring only when MOST of it is (i.e. it's really an outline band).
+        darker = ring & (bright >= 0) & (L < 0.8 * bright)
+        if darker.sum() < 0.7 * ring.sum():
+            break
+        a[ring, 3] = 0
     return a
 
 
@@ -122,6 +134,7 @@ def process_array(arr, params=None):
     s = p.scale or detect_scale(a)
     art = downscale(a, s) if s > 1 else a
     art = _strip_outline(art, p.outline_colors)
+    art = _strip_dark_border(art)                  # peel any existing outline -> base
 
     sub = image_growth(p.thickness)               # 2 for 0.5, 4 for 0.25, else 1
     work = upscale(art, sub) if sub > 1 else art   # subdivide each art pixel

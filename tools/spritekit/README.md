@@ -80,12 +80,14 @@ sprite they sit beside, regardless of color.
 
 1. **Detect upscale factor** (each art pixel is an N×N block) and downscale to
    native art resolution so the outline is exactly 1 art-pixel and grid-aligned.
-2. **Strip** the source art's existing outline — a boundary-connected band that is a
-   known palette outline color, or the dominant dark boundary color *only when it is
-   largely absent from the interior* (so an authored fill/shading color is never
-   mistaken for an outline). Changing **Darkness** therefore only ever affects the
-   outline, never authored colors. (Re-applying the tool stacks an outline; the GUI
-   preview always works from the original, so it is unaffected.)
+2. **Strip** any existing outline so a fresh one rebuilds from the base art:
+   - known **palette** outline colors (boundary-connected bands), and
+   - a geometric **dark-border peel** — successive boundary rings whose pixels are
+     darker than the fill they cover, stopping at the base. A fresh sprite's edge is
+     as bright as its inside, so nothing is peeled; an already-outlined sprite (incl.
+     the tool's own output) has its outline removed and rebuilt — so re-applying and
+     **thickening outline the base, never the previous outline**, and changing
+     Darkness only ever affects the outline.
 3. **Rebuild** a `connectivity`-respecting ring and color each pixel as the
    strongest (highest-chroma) neighboring fill color, **darkened to a fixed
    luminance** so light source colors get a properly dark outline while keeping

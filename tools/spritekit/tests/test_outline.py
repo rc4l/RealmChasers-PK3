@@ -47,13 +47,13 @@ def test_strips_known_palette_outline():
     assert (out[:, :, :3] == [0, 0, 0]).all(axis=2).sum() >= 1   # rebuilt, still dark
 
 
-def test_strips_dominant_dark_non_palette():
+def test_strips_dark_non_palette_outline():
     art = np.zeros((4, 4, 4), np.uint8)
     art[1:3, 1:3] = (200, 30, 30, 255)
-    sprite = with_outline(art, (50, 50, 50))       # dark, not in palette, dominant
+    sprite = with_outline(art, (50, 50, 50))       # a dark outline not in the palette
     out = o.process_array(sprite, o.OutlineParams(scale=1))
     visible = (out[:, :, :3] == [50, 50, 50]).all(axis=2) & (out[:, :, 3] > 0)
-    assert not visible.any()                       # the (50,50,50) outline is gone
+    assert not visible.any()                       # peeled geometrically (darker than fill)
 
 
 def test_strip_outline_all_transparent_returns_input():
@@ -87,16 +87,33 @@ def test_connectivity_8_fills_corners():
     assert n8 >= n4   # filled corners add at least as many pixels
 
 
-def test_bright_dominant_and_interior_dark_band():
-    # dominant boundary color is bright (lum > 90) -> dom NOT added to strip targets;
-    # the lone interior dark pixel forms a band that doesn't touch the boundary ->
-    # not stripped. Covers both those branches.
+def test_reprocessing_outlines_base_not_outline():
+    # Regression: an ALREADY-outlined sprite must be re-outlined from its base, not
+    # have a second outline stacked around the first. Re-processing is stable, and
+    # thickening grows from the base shape (a thicker outline, not nested outlines).
+    base = __import__("core").demo_sprite()
+    once = o.process_array(base)
+    twice = o.process_array(once)
+    assert once.shape == twice.shape and np.array_equal(once, twice)
+    thick = o.process_array(once, o.OutlineParams(thickness=2))
+    # the red cap survives intact (outline did not eat into the base)
+    assert ((thick[:, :, :3] == [200, 30, 30]).all(axis=2) & (thick[:, :, 3] > 0)).sum() >= 10
+
+
+def test_strip_dark_border_no_interior():
+    a = np.zeros((2, 2, 4), np.uint8); a[:, :] = (10, 10, 10, 255)   # all-boundary, no interior
+    o._strip_dark_border(a.copy())                                   # no interior to compare against
+
+
+def test_interior_dark_pixel_kept():
+    # a lone dark pixel INSIDE a bright sprite must survive: it never touches the
+    # boundary, so neither the palette strip nor the dark-border peel removes it.
     art = np.zeros((5, 5, 4), np.uint8)
     art[:, :] = (200, 200, 200, 255)
     art[2, 2, :3] = (5, 5, 5)
     out = o.process_array(art, o.OutlineParams(scale=1))
     keep = (out[:, :, :3] == [5, 5, 5]).all(axis=2) & (out[:, :, 3] > 0)
-    assert keep.any()        # interior dark pixel survived (its band never touched the edge)
+    assert keep.any()
 
 
 def test_solid_fill_not_stripped_as_outline():
