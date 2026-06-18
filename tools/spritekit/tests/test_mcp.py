@@ -23,15 +23,6 @@ def test_outline_tools(tmp_path):
     assert out.exists() and "wrote" in msg
 
 
-def test_serve_in_thread_skips_busy_port():
-    import socket
-    s = socket.socket(); s.bind(("127.0.0.1", 0)); port = s.getsockname()[1]
-    try:
-        assert m.serve_in_thread(port=port) is None      # port busy -> no server started
-    finally:
-        s.close()
-
-
 def test_split_preview_tool(tmp_path):
     import numpy as np
     a = np.zeros((20, 40, 4), np.uint8)

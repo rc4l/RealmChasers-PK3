@@ -13,11 +13,6 @@ from tkinter import ttk
 
 @pytest.fixture(scope="module")
 def app():
-    try:                                  # don't bind a real MCP port during tests
-        import mcp_server
-        mcp_server.serve_in_thread = lambda *a, **k: None
-    except Exception:
-        pass
     try:
         a = gui.App()
     except tk.TclError:  # pragma: no cover - headless without a display

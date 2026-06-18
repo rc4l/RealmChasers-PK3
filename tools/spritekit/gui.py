@@ -155,16 +155,6 @@ class App(tk.Tk):
         self._build_outline(self.outline_tab)
         self._build_split(self.split_tab)
         self._load_sample()
-        self._start_mcp()
-
-    def _start_mcp(self):  # pragma: no cover - optional MCP integration (see mcp_server.py)
-        """Auto-start the HTTP MCP server so an assistant can drive the tool while the
-        app is open. Best-effort: silently does nothing if `mcp` isn't installed."""
-        try:
-            import mcp_server
-            mcp_server.serve_in_thread()
-        except Exception:
-            pass
 
     def _load_sample(self):
         """Populate both tabs with a built-in sample so startup isn't blank."""

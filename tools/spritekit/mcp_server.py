@@ -6,15 +6,10 @@ through ad-hoc scripts and screenshots.
 Run (Claude Code launches this via .mcp.json):  python tools/spritekit/mcp_server.py
 """
 import os
-import socket
 import sys
-import threading
 from io import BytesIO
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
-MCP_HOST = "127.0.0.1"
-MCP_PORT = int(os.environ.get("SPRITEKIT_MCP_PORT", "8765"))
 
 import core                       # noqa: E402
 import outline as outline_mod     # noqa: E402
@@ -85,35 +80,5 @@ def split_preview(sheet_path: str, hgap: int = 6, vgap: int = 8,
     return Image(data=_png(sheet), format="png")
 
 
-_thread = None
-
-
-def _port_free(host, port):
-    s = socket.socket()
-    try:
-        s.bind((host, port))
-        return True
-    except OSError:
-        return False
-    finally:
-        s.close()
-
-
-def serve_in_thread(host=MCP_HOST, port=MCP_PORT):
-    """Start the HTTP MCP server in a daemon thread, once. No-op if it's already
-    running here or the port is taken by another spritekit instance. Best-effort:
-    used to auto-start the server when the GUI launches."""
-    global _thread
-    if _thread is not None or not _port_free(host, port):
-        return _thread
-    mcp.settings.host = host
-    mcp.settings.port = port
-    _thread = threading.Thread(
-        target=lambda: mcp.run(transport="streamable-http"), daemon=True, name="spritekit-mcp")
-    _thread.start()
-    return _thread
-
-
 if __name__ == "__main__":
-    # stdio when launched directly (e.g. via .mcp.json command), else serve HTTP.
-    mcp.run()
+    mcp.run()   # stdio transport; Claude Code launches this via .mcp.json and connects

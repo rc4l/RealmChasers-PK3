@@ -122,19 +122,21 @@ scripts. Tools: `outline_debug` (returns the labelled pipeline-stage sheet),
 python -m pip install -r tools/spritekit/requirements-mcp.txt
 ```
 
-**The GUI auto-starts it** (no toggle): launching spritekit hosts the server over HTTP
-at `http://127.0.0.1:8765/mcp`, the same way the Unity MCP works. Point your client at
-that URL — the repo `.mcp.json` already does:
+**Claude Code launches it automatically** (stdio) — no GUI, no port, nothing to start.
+The repo `.mcp.json` registers it with a relative path so it works on any machine
+(no hardcoded paths):
 
 ```json
-{ "mcpServers": { "spritekit": { "type": "http", "url": "http://127.0.0.1:8765/mcp" } } }
+{ "mcpServers": { "spritekit": { "command": "python",
+                                 "args": ["tools/spritekit/mcp_server.py"] } } }
 ```
 
-So: open spritekit → in Claude Code approve / `/mcp` the `spritekit` server → ask it to
+So: open Claude Code in this repo → approve / `/mcp` the `spritekit` server → ask it to
 "debug the rock outline" and one `outline_debug` call returns the stages as an image.
-The server is up only while the app is open (set `SPRITEKIT_MCP_PORT` to change the
-port). If you'd rather it always be available without the GUI, point `.mcp.json` at a
-launched process instead: `"command": "python", "args": ["tools/spritekit/mcp_server.py"]`.
+
+Driving spritekit from a session rooted in a **sibling** repo (e.g. the game project
+next to this one)? Point that project's `.mcp.json` at the relative sibling path:
+`"args": ["../RealmChasers-PK3/tools/spritekit/mcp_server.py"]`.
 
 ## Tests
 
