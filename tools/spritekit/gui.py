@@ -5,6 +5,7 @@ a live before/after preview, then apply in place or to a copy folder.
 Split mode: load a sheet, tweak gaps, preview the contact sheet, then export.
 
 Every slider shows its current value and every control has a hover tooltip."""
+import sys
 import tempfile
 from pathlib import Path
 import numpy as np
@@ -115,17 +116,27 @@ def _preview_box(pw, ph):
     return (max(pw // 2 - 20, 380), max(ph - 220, 240))
 
 
-def _to_photo(arr, box, bg=CHECK):
-    """Render `arr` centered on a FIXED `box`-sized canvas (nearest-neighbour, integer
-    scale to fit). The canvas is always `box` regardless of the sprite's dimensions, so
-    a changing output size (e.g. a thicker outline) never resizes the widget or shifts
-    the layout -- only the content inside the fixed viewport changes."""
+def _fit_scale(w, h, box):
+    """Scale to make a `w`x`h` image fit entirely within `box`. Integer (crisp, pixel-
+    doubled) when there's room to enlarge; a sub-1 fraction when the image is bigger
+    than the box, so a thick outline shrinks to fit rather than being cropped."""
+    fit = min(box[0] / max(w, 1), box[1] / max(h, 1))
+    return float(int(fit)) if fit >= 1 else fit
+
+
+def _to_photo(arr, box, scale, bg=CHECK):
+    """Render `arr` at `scale`, centered on a FIXED `box`-sized canvas. The canvas is
+    always `box` regardless of the sprite's dimensions, so a changing output size (e.g.
+    a thicker outline) never resizes the widget or shifts the layout. `scale` is chosen
+    to fit (see `_fit_scale`) so the image is never cropped; pass the SAME scale for the
+    before/after pair so they stay directly comparable."""
     box = (max(int(box[0]), 1), max(int(box[1]), 1))
-    im = Image.fromarray(arr.astype(np.uint8))
-    s = max(1, min(box[0] // max(im.size[0], 1), box[1] // max(im.size[1], 1)))
-    im = im.resize((im.size[0] * s, im.size[1] * s), Image.NEAREST)
+    w, h = arr.shape[1], arr.shape[0]
+    nw, nh = (w * int(scale), h * int(scale)) if scale >= 1 else (
+        max(1, int(w * scale)), max(1, int(h * scale)))   # floor: never overflow the box
+    im = Image.fromarray(arr.astype(np.uint8)).resize((nw, nh), Image.NEAREST)
     canvas = Image.new("RGBA", box, bg)
-    canvas.alpha_composite(im, ((box[0] - im.size[0]) // 2, (box[1] - im.size[1]) // 2))
+    canvas.alpha_composite(im, ((box[0] - nw) // 2, (box[1] - nh) // 2))
     return ImageTk.PhotoImage(canvas)
 
 
@@ -165,7 +176,9 @@ TIPS = {
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("spritekit")
+        # show whether this instance has hot reload, so it's obvious when edits will
+        # take effect live vs. when a relaunch is needed.
+        self.title("spritekit  —  ⚡ hot reload" if "jurigged" in sys.modules else "spritekit")
         self.geometry("1000x640")
         self.files = []
         self.cur = None
@@ -178,6 +191,11 @@ class App(tk.Tk):
         self.split_tab = ttk.Frame(nb); nb.add(self.split_tab, text="Split sheet")
         self._build_outline(self.outline_tab)
         self._build_split(self.split_tab)
+        # Realize the window NOW so the preview pane has its real size before the first
+        # render. Otherwise the first preview uses the fallback box and the first user
+        # interaction (e.g. a thickness change) snaps it to the real box -- a one-time
+        # layout shift. update_idletasks() is not enough; the window must be mapped.
+        self.update()
         self._load_sample()
 
     def _load_sample(self):
@@ -309,7 +327,12 @@ class App(tk.Tk):
         if self.cur is not None:
             after = outline_mod.process_array(self.cur, self._params())
             box = _preview_box(self.o_preview.winfo_width(), self.o_preview.winfo_height())
-            pb, pa = _to_photo(self.cur, box), _to_photo(after, box)
+            # one scale, sized so the LARGER (outlined) image fits -> neither is cropped
+            # and before/after stay 1:1 comparable.
+            w = max(self.cur.shape[1], after.shape[1])
+            h = max(self.cur.shape[0], after.shape[0])
+            scale = _fit_scale(w, h, box)
+            pb, pa = _to_photo(self.cur, box, scale), _to_photo(after, box, scale)
             self._photos = [pb, pa]
             self.o_before.config(image=pb, text="BEFORE")
             self.o_after.config(image=pa, text="AFTER")

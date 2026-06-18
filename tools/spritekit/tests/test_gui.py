@@ -139,6 +139,28 @@ def test_preview_box_independent_of_content():
     assert gui._preview_box(1000, 5000) == big             # deterministic, content-free
 
 
+def test_fit_scale_never_crops():
+    assert gui._fit_scale(50, 50, (400, 300)) == 6.0        # room to enlarge -> integer
+    assert gui._fit_scale(600, 200, (400, 300)) < 1.0       # too big -> shrink to fit
+    for w, h in [(600, 200), (100, 500), (50, 50), (380, 240)]:
+        s = gui._fit_scale(w, h, (400, 300))
+        nw = w * int(s) if s >= 1 else int(w * s)
+        nh = h * int(s) if s >= 1 else int(h * s)
+        assert 1 <= nw <= 400 and 1 <= nh <= 300            # always within the box
+
+
+def test_preview_large_sprite_not_cropped(app, tmp_path, monkeypatch):
+    # a sprite larger than the box must downscale to FIT (not get cropped at 1x)
+    big = np.zeros((300, 560, 4), np.uint8)
+    big[10:290, 10:550, :3] = (180, 60, 60); big[10:290, 10:550, 3] = 255
+    p = tmp_path / "big.png"; core.save_rgba(big, p)
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(p))
+    app._open_file()
+    pa = app._photos[1]
+    box = gui._preview_box(app.o_preview.winfo_width(), app.o_preview.winfo_height())
+    assert (pa.width(), pa.height()) == tuple(box)          # fills the fixed viewport, fit not cropped
+
+
 def test_preview_viewport_fixed_across_thickness(app, png, monkeypatch):
     # the before/after preview must NOT resize when thickness changes (no layout shift)
     monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))

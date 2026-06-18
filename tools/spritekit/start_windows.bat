@@ -24,8 +24,9 @@ if errorlevel 1 (
     )
 )
 
-REM Launch under jurigged so edits to the engine hot-reload live (no restart).
+REM Launch under jurigged so edits hot-reload live (no restart). -w watches this folder
+REM explicitly. The window title shows "hot reload" so you can confirm it's active.
 echo Launching spritekit (hot reload)...
-python -m jurigged "%~dp0__main__.py" gui
+python -m jurigged -w "%~dp0." "%~dp0__main__.py" gui
 if errorlevel 1 pause
 exit /b 0

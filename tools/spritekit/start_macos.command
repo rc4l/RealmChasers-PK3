@@ -11,5 +11,6 @@ command -v "$PY" >/dev/null 2>&1 || { echo "Python 3 not found. Install from htt
     "$PY" -m pip install -r "$(dirname "$0")/requirements.txt" || { echo "pip install failed."; read -r _; exit 1; }
 }
 
-# Launch under jurigged so edits to the engine hot-reload live (no restart).
-exec "$PY" -m jurigged "$(dirname "$0")/__main__.py" gui
+# Launch under jurigged so edits hot-reload live (no restart). -w watches this folder
+# explicitly. The window title shows "hot reload" so you can confirm it's active.
+exec "$PY" -m jurigged -w "$(dirname "$0")" "$(dirname "$0")/__main__.py" gui

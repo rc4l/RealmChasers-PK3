@@ -148,8 +148,9 @@ running process on save — so edits to `core` / `outline` / `split` take effect
 with **no restart** (and no `/mcp` reconnect for the server). It's in `requirements.txt`;
 zero code changes, stdout-clean (safe for the stdio MCP).
 
-- **GUI** (`start_*` launchers): the window stays open; after editing, nudge a slider to
-  re-render with the new code.
+- **GUI** (`start_*` launchers): the window title shows **"⚡ hot reload"** when it's
+  active (so you can tell a hot-reload instance from a stale one). The window stays open;
+  after editing, nudge a slider to re-render with the new code.
 - **MCP server**: an assistant's edits to the engine are live on the next tool call.
 
 (`gui.py`'s *structure* — new widgets — still needs a restart; jurigged patches
