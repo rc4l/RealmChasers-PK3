@@ -116,11 +116,16 @@ def _preview_box(pw, ph):
     return (max(pw // 2 - 20, 380), max(ph - 220, 240))
 
 
-def _fit_scale(w, h, box):
-    """Scale to make a `w`x`h` image fit entirely within `box`. Integer (crisp, pixel-
-    doubled) when there's room to enlarge; a sub-1 fraction when the image is bigger
-    than the box, so a thick outline shrinks to fit rather than being cropped."""
-    fit = min(box[0] / max(w, 1), box[1] / max(h, 1))
+PREVIEW_PAD = 14   # margin kept around the preview so it never sits flush to the edge
+
+
+def _fit_scale(w, h, box, pad=PREVIEW_PAD):
+    """Scale to make a `w`x`h` image fit entirely within `box`, leaving a `pad` margin on
+    every side (breathing room, and off-by-one safety so it can never crop). Integer
+    (crisp, pixel-doubled) when there's room to enlarge; a sub-1 fraction when the image
+    is bigger than the box, so a thick outline shrinks to fit rather than being cropped."""
+    aw, ah = max(box[0] - 2 * pad, 1), max(box[1] - 2 * pad, 1)
+    fit = min(aw / max(w, 1), ah / max(h, 1))
     return float(int(fit)) if fit >= 1 else fit
 
 
@@ -184,6 +189,8 @@ class App(tk.Tk):
         self.cur = None
         self.cur_path = None
         self._photos = []
+        self._resize_after = None
+        self._last_box = None
 
         nb = ttk.Notebook(self)
         nb.pack(fill="both", expand=True)
@@ -191,12 +198,24 @@ class App(tk.Tk):
         self.split_tab = ttk.Frame(nb); nb.add(self.split_tab, text="Split sheet")
         self._build_outline(self.outline_tab)
         self._build_split(self.split_tab)
+        # Re-fit the preview when the pane is resized (otherwise the old photo stays and
+        # gets cropped when the window shrinks). Debounced so a drag-resize doesn't thrash.
+        self.o_preview.bind("<Configure>", self._on_preview_resize)
         # Realize the window NOW so the preview pane has its real size before the first
         # render. Otherwise the first preview uses the fallback box and the first user
         # interaction (e.g. a thickness change) snaps it to the real box -- a one-time
         # layout shift. update_idletasks() is not enough; the window must be mapped.
         self.update()
         self._load_sample()
+
+    def _on_preview_resize(self, _event=None):
+        box = _preview_box(self.o_preview.winfo_width(), self.o_preview.winfo_height())
+        if box == self._last_box:          # ignore configure events that don't change the fit
+            return
+        self._last_box = box
+        if self._resize_after is not None:
+            self.after_cancel(self._resize_after)
+        self._resize_after = self.after(120, self._refresh)
 
     def _load_sample(self):
         """Populate both tabs with a built-in sample so startup isn't blank."""

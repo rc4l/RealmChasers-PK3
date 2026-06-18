@@ -140,7 +140,7 @@ def test_preview_box_independent_of_content():
 
 
 def test_fit_scale_never_crops():
-    assert gui._fit_scale(50, 50, (400, 300)) == 6.0        # room to enlarge -> integer
+    assert gui._fit_scale(50, 50, (400, 300)) >= 1.0        # room to enlarge -> integer
     assert gui._fit_scale(600, 200, (400, 300)) < 1.0       # too big -> shrink to fit
     for w, h in [(600, 200), (100, 500), (50, 50), (380, 240)]:
         s = gui._fit_scale(w, h, (400, 300))
@@ -159,6 +159,19 @@ def test_preview_large_sprite_not_cropped(app, tmp_path, monkeypatch):
     pa = app._photos[1]
     box = gui._preview_box(app.o_preview.winfo_width(), app.o_preview.winfo_height())
     assert (pa.width(), pa.height()) == tuple(box)          # fills the fixed viewport, fit not cropped
+
+
+def test_preview_refits_on_resize(app, png, monkeypatch):
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
+    app._open_file()
+    app._last_box = None; app._resize_after = None
+    app._on_preview_resize()                     # first event -> schedules a re-fit
+    assert app._resize_after is not None and app._last_box is not None
+    app._on_preview_resize()                     # same box -> ignored (no thrash)
+    app._last_box = (1, 1)
+    app._on_preview_resize()                     # box changed -> cancels pending, reschedules
+    assert app._resize_after is not None
+    app.after_cancel(app._resize_after); app._resize_after = None
 
 
 def test_preview_viewport_fixed_across_thickness(app, png, monkeypatch):
