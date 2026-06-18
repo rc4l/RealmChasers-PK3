@@ -18,7 +18,7 @@ except Exception as e:  # pragma: no cover - only when tkinter/Pillow unavailabl
         "GUI needs tkinter and Pillow. On Debian/Ubuntu: 'sudo apt install python3-tk'.\n"
         f"Import error: {e}")
 
-from core import load_rgba, save_rgba, contact_sheet, demo_sprite, demo_sheet
+from core import load_rgba, save_rgba, contact_sheet, debug_sheet, demo_sprite, demo_sheet
 import outline as outline_mod
 import split as split_mod
 
@@ -119,8 +119,9 @@ def _to_photo_fit(arr, cell, bg=CHECK):
 TIPS = {
     "lum": "How dark the outline is. 0 = pure black; higher keeps more of the\n"
            "tint. Each outline pixel is a darkened shade of the fill color it borders.",
-    "conn": "Off (4-connected): diagonal corner pixels are left empty for a crisp\n"
-            "pixel-art edge. On (8-connected): corners are filled for a solid border.",
+    "conn": "Seal (8-connected): fills diagonal corners so sloped edges get a clean,\n"
+            "solid outline (recommended). Sharp (4-connected): leaves corners empty for\n"
+            "crisp straight edges, but the outline looks thin/notched on diagonals.",
     "thick": "Outline thickness in ART pixels (auto-scaled to the sprite's upscale\n"
              "factor). 1 = one art pixel. 0.5 / 0.25 draw a thinner sub-pixel outline\n"
              "by enlarging the image (2x / 4x) so the thin line can be drawn crisply.",
@@ -182,14 +183,14 @@ class App(tk.Tk):
         self.o_status.pack(fill="x")
 
         self.target_lum = tk.IntVar(value=16)
-        self.conn = tk.IntVar(value=4)
+        self.conn = tk.IntVar(value=8)
         labeled_slider(side, "Darkness", self.target_lum, 0, 80, TIPS["lum"], self._refresh)
 
         cf = ttk.Frame(side); cf.pack(fill="x", pady=(12, 0))
-        clab = ttk.Label(cf, text="Fill diagonal corners"); clab.pack(anchor="w")
+        clab = ttk.Label(cf, text="Diagonal edges"); clab.pack(anchor="w")
         row = ttk.Frame(cf); row.pack(anchor="w")
-        r1 = ttk.Radiobutton(row, text="No (4-conn)", variable=self.conn, value=4, command=self._refresh)
-        r2 = ttk.Radiobutton(row, text="Yes (8-conn)", variable=self.conn, value=8, command=self._refresh)
+        r1 = ttk.Radiobutton(row, text="Seal (8-conn)", variable=self.conn, value=8, command=self._refresh)
+        r2 = ttk.Radiobutton(row, text="Sharp (4-conn)", variable=self.conn, value=4, command=self._refresh)
         r1.pack(side="left"); r2.pack(side="left")
         for w in (clab, r1, r2):
             ToolTip(w, TIPS["conn"])
@@ -209,6 +210,10 @@ class App(tk.Tk):
         a1.pack(fill="x"); a2.pack(fill="x", pady=4)
         ToolTip(a1, "Overwrite the currently loaded PNG with the previewed result.")
         ToolTip(a2, "Apply the current settings to every loaded PNG (overwrites in place).")
+        dbg = ttk.Button(side, text="Dump debug", command=self._dump_debug)
+        dbg.pack(fill="x", pady=(8, 0))
+        ToolTip(dbg, "Write a sheet of every pipeline stage (+ detected scale, iters, "
+                     "etc.) to _debug/ for inspecting exactly what the outline did.")
 
         top = ttk.Frame(self.o_preview); top.pack(side="top", fill="x")
         self.o_before = ttk.Label(top, compound="top"); self.o_before.pack(side="left", expand=True)
@@ -231,6 +236,15 @@ class App(tk.Tk):
         self._gallery_after = None
         self._pending = []
         self._gallery_photos = []
+
+    def _dump_debug(self):
+        if self.cur is None:
+            messagebox.showinfo("spritekit", "Open a file or folder first."); return
+        _, stages, info = outline_mod.run_pipeline(self.cur, self._params())
+        out = Path("_debug") / ((self.cur_path.stem if self.cur_path else "sample") + "_debug.png")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        debug_sheet(stages, info).save(out)
+        messagebox.showinfo("spritekit", f"Debug sheet written to:\n{out.resolve()}")
 
     def _on_thickness(self):
         g = outline_mod.image_growth(THICKNESS_STOPS[self.thick_idx.get()])

@@ -50,13 +50,17 @@ python tools/spritekit outline sprites/flower --target-lum 10 --thickness 2 --co
 
 # Split a sheet (fragment attachment off by default; --attach-h 24 to enable)
 python tools/spritekit split path/to/sheet.png out_dir/ --hgap 6 --vgap 8
+
+# Debug: dump every outline pipeline stage (+ detected scale/iters/etc.) for a sprite
+python tools/spritekit debug sprites/rock/rock_10_w.png --target-lum 16 --thickness 1
+
 ```
 
 ### outline options
 | flag | default | meaning |
 |---|---|---|
 | `--target-lum` | 16 | outline darkness (0 = black, higher = more visible tint) |
-| `--conn` | 4 | 4 = no diagonal corner fill, 8 = filled corners |
+| `--conn` | 8 | 8 = seal diagonals (clean sloped edges), 4 = sharp corners but thin/notched diagonals |
 | `--thickness` | 1 | outline thickness in **art** pixels. `0.5` / `0.25` draw a thinner sub-pixel outline by enlarging the output image **2× / 4×** (a warning is printed) |
 | `--scale` | 0 | upscale factor; 0 = auto-detect per sprite |
 | `--recursive` | off | recurse into subfolders |
@@ -95,6 +99,16 @@ sprite they sit beside, regardless of color.
    strongest (highest-chroma) neighboring fill color, **darkened to a fixed
    luminance** so light source colors get a properly dark outline while keeping
    their hue.
+
+## Debugging
+
+When an outline looks wrong, dump the pipeline instead of guessing. Either click
+**Dump debug** in the GUI (writes `_debug/<name>_debug.png` for the loaded sprite +
+current settings) or run `spritekit debug <sprite>`. The sheet shows every stage —
+input → downscaled art → after palette-strip → after dark-border peel → after
+outline → final — plus the detected `scale`, `visual_block`, outline `iters`,
+connectivity, and sizes. That makes it obvious e.g. when `scale=1, visual_block=3`
+(detailed art) or where a strip/peel removed too much.
 
 ## Tests
 

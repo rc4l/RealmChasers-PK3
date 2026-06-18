@@ -64,6 +64,13 @@ def test_conn_structure():
     assert core.conn_structure(8).sum() == 9
 
 
+def test_debug_sheet():
+    import outline as outline_mod
+    _, stages, info = outline_mod.run_pipeline(block_sprite(5))
+    sheet = core.debug_sheet(stages, info)
+    assert sheet.mode == "RGB" and sheet.size[0] > 0 and sheet.size[1] > 0
+
+
 def test_demo_assets():
     sprite = core.demo_sprite()
     assert sprite.shape[2] == 4 and (sprite[:, :, 3] > 0).any()

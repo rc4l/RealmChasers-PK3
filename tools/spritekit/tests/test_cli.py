@@ -78,6 +78,16 @@ def test_split_default_preview_path(tmp_path, monkeypatch):
     assert (tmp_path / "spritekit_split_preview.png").exists()
 
 
+def test_debug_with_out_and_default(tmp_path, monkeypatch, capsys):
+    f = make_png(tmp_path / "m.png")
+    out = tmp_path / "d.png"
+    cli.main(["debug", str(f), "--out", str(out)])
+    assert out.exists() and "scale" in capsys.readouterr().out
+    monkeypatch.chdir(tmp_path)                       # default path: _debug_<name>.png next to it
+    cli.main(["debug", str(f)])
+    assert (tmp_path / "_debug_m.png").exists()
+
+
 def test_build_parser_requires_command():
     with pytest.raises(SystemExit):
         cli.build_parser().parse_args([])

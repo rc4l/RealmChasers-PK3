@@ -44,7 +44,10 @@ def test_strips_known_palette_outline():
     art[1:3, 1:3] = (200, 30, 30, 255)
     sprite = with_outline(art, (0, 0, 0))          # palette outline color
     out = o.process_array(sprite, o.OutlineParams(scale=1))
-    assert (out[:, :, :3] == [0, 0, 0]).all(axis=2).sum() >= 1   # rebuilt, still dark
+    L = (0.299 * out[:, :, 0] + 0.587 * out[:, :, 1] + 0.114 * out[:, :, 2])
+    dark = (L <= 20) & (out[:, :, 3] > 0)
+    red = (out[:, :, :3] == [200, 30, 30]).all(axis=2) & (out[:, :, 3] > 0)
+    assert dark.any() and red.any()                # old outline stripped, red kept + re-outlined
 
 
 def test_strips_dark_non_palette_outline():
@@ -77,6 +80,14 @@ def test_thickness_enlarges_image():
 def test_thick_ring_uses_nearest_fill():
     out = o.process_array(block_sprite(5), o.OutlineParams(thickness=2))
     assert out.shape[0] > 0   # exercises iters>1 + distance-transform branch
+
+
+def test_run_pipeline_stages():
+    final, stages, info = o.run_pipeline(block_sprite(5))
+    labels = [s[0] for s in stages]
+    assert labels[0] == "input" and labels[-1] == "final"
+    assert np.array_equal(stages[-1][1], final)
+    assert info["scale"] == 5 and "iters" in info
 
 
 def test_connectivity_8_fills_corners():

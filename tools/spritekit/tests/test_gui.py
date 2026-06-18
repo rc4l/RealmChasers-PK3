@@ -206,6 +206,18 @@ def test_single_file_clears_gallery(app, folder, png, monkeypatch):
     app._schedule_gallery()                      # no-op when not in folder mode
 
 
+def test_dump_debug(app, png, tmp_path, monkeypatch):
+    msgs = []
+    monkeypatch.setattr(gui.messagebox, "showinfo", lambda *a, **k: msgs.append(a))
+    app._dump_debug()                                # no image loaded -> info message
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
+    app._open_file()
+    monkeypatch.chdir(tmp_path)
+    app._dump_debug()                                # writes _debug/<name>_debug.png
+    assert (tmp_path / "_debug" / "m_debug.png").exists()
+    assert msgs
+
+
 def test_launch_runs_mainloop(monkeypatch):
     ran = {}
 

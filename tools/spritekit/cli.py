@@ -3,7 +3,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from core import load_rgba, save_rgba, contact_sheet
+from core import load_rgba, save_rgba, contact_sheet, debug_sheet
 import outline as outline_mod
 import split as split_mod
 
@@ -64,6 +64,21 @@ def cmd_split(args):
     return 0
 
 
+def cmd_debug(args):
+    params = outline_mod.OutlineParams(
+        target_lum=args.target_lum, connectivity=args.conn,
+        thickness=args.thickness, scale=args.scale)
+    _, stages, info = outline_mod.run_pipeline(load_rgba(args.sprite), params)
+    out = Path(args.out) if args.out else Path(args.sprite).with_name(
+        "_debug_" + Path(args.sprite).stem + ".png")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    debug_sheet(stages, info).save(out)
+    print(f"debug sheet written to {out}")
+    for k, v in info.items():
+        print(f"  {k} = {v}")
+    return 0
+
+
 def build_parser():
     ap = argparse.ArgumentParser(prog="spritekit", description="Pixel-art sprite tooling")
     sub = ap.add_subparsers(dest="command", required=True)
@@ -96,6 +111,15 @@ def build_parser():
     s.add_argument("--dry-run", action="store_true")
     s.add_argument("--preview", default=None, help="write a contact sheet here")
     s.set_defaults(func=cmd_split)
+
+    d = sub.add_parser("debug", help="dump every outline pipeline stage for one sprite")
+    d.add_argument("sprite", help="path to a sprite PNG")
+    d.add_argument("--target-lum", type=int, default=16)
+    d.add_argument("--conn", type=int, choices=(4, 8), default=4)
+    d.add_argument("--thickness", type=float, default=1.0)
+    d.add_argument("--scale", type=int, default=0)
+    d.add_argument("--out", default=None, help="output PNG path (default: _debug_<name>.png)")
+    d.set_defaults(func=cmd_debug)
 
     return ap
 

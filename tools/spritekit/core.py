@@ -109,6 +109,32 @@ def demo_sheet():
     return a
 
 
+def debug_sheet(stages, info, cell=200):
+    """Render pipeline `stages` [(label, rgba), ...] side by side, each scaled to fit a
+    `cell`-px box on a checker background, with `info` printed underneath. For
+    diagnosing exactly what each step did to a sprite."""
+    from PIL import Image, ImageDraw
+    n = len(stages)
+    foot = 8 + 14 * (len(info) + 1)
+    sheet = Image.new("RGB", (n * (cell + 10) + 10, cell + 40 + foot), (40, 40, 40))
+    draw = ImageDraw.Draw(sheet)
+    for i, (label, arr) in enumerate(stages):
+        im = Image.fromarray(arr.astype(np.uint8))
+        s = min(cell / max(im.size[0], 1), cell / max(im.size[1], 1))
+        im = im.resize((max(1, int(im.size[0] * s)), max(1, int(im.size[1] * s))), Image.NEAREST)
+        bg = Image.new("RGBA", (cell, cell), (90, 90, 90, 255))
+        bg.alpha_composite(im, ((cell - im.size[0]) // 2, (cell - im.size[1]) // 2))
+        x = i * (cell + 10) + 10
+        sheet.paste(bg.convert("RGB"), (x, 24))
+        draw.text((x, 8), f"{label}  {arr.shape[1]}x{arr.shape[0]}", fill=(235, 235, 235))
+    y = cell + 36
+    draw.text((10, y), "info:", fill=(255, 220, 120))
+    for k, v in info.items():
+        y += 14
+        draw.text((10, y), f"  {k} = {v}", fill=(210, 210, 210))
+    return sheet
+
+
 def contact_sheet(pairs, names, cols=6, cell=58, pad=120, scale_cap=4):
     """Build a before/after review image. `pairs` = list of (before_arr, after_arr)."""
     from PIL import ImageDraw

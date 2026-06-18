@@ -19,7 +19,7 @@ DEFAULT_OUTLINE_COLORS = [
 @dataclass
 class OutlineParams:
     target_lum: int = 16          # outline pixels darkened to this luminance
-    connectivity: int = 4         # 4 = no diagonal fill, 8 = filled corners
+    connectivity: int = 8         # 8 = seal diagonals (default), 4 = sharp corners but thin diagonals
     thickness: float = 1.0        # outline thickness in ART pixels (0.25/0.5 enlarge the image)
     scale: int = 0                # upscale factor; 0 = auto-detect per sprite
     outline_colors: list = field(default_factory=lambda: list(DEFAULT_OUTLINE_COLORS))
@@ -119,17 +119,22 @@ def _add_tinted_outline(a, iters, connectivity, target_lum):
     return a
 
 
-def process_array(arr, params=None):
-    """Full pipeline for one sprite -> new RGBA array.
+def run_pipeline(arr, params=None):
+    """Full pipeline -> (final RGBA, stages, info). `stages` is a list of
+    (label, array) snapshots for debugging; `info` is a dict of derived values.
 
     thickness < 1 (e.g. 0.5, 0.25) draws a sub-art-pixel outline by subdividing each
     art pixel, which ENLARGES the output by `image_growth(thickness)`x."""
     p = params or OutlineParams()
     a = arr.copy()
+    stages = [("input", a.copy())]
     s = p.scale or detect_scale(a)                 # exact block size (lossless downscale)
     art = downscale(a, s) if s > 1 else a
+    stages.append(("downscaled art", art.copy()))
     art = _strip_outline(art, p.outline_colors)
+    stages.append(("after palette strip", art.copy()))
     art = _strip_dark_border(art)                  # peel any existing outline -> base
+    stages.append(("after dark-border peel", art.copy()))
 
     # On chunky-but-imperfect art (e.g. rocks) the apparent block is bigger than the
     # exact scale, so widen the outline to match instead of drawing a too-thin 1px.
@@ -139,6 +144,19 @@ def process_array(arr, params=None):
     work = upscale(art, sub) if sub > 1 else art   # subdivide each art pixel
     iters = max(1, round(p.thickness * sub * factor))   # outline thickness in work pixels
     work = _add_tinted_outline(work, iters, p.connectivity, p.target_lum)
+    stages.append(("after outline", work.copy()))
 
     big = upscale(work, s) if s > 1 else work      # back to (enlarged) output resolution
-    return crop_tight(big)
+    final = crop_tight(big)
+    stages.append(("final", final))
+    info = {"scale": s, "visual_block": factor if not p.scale else s, "factor": factor,
+            "sub": sub, "iters": iters, "connectivity": p.connectivity,
+            "target_lum": p.target_lum, "thickness": p.thickness,
+            "input_size": (arr.shape[1], arr.shape[0]),
+            "output_size": (final.shape[1], final.shape[0])}
+    return final, stages, info
+
+
+def process_array(arr, params=None):
+    """Full pipeline for one sprite -> new RGBA array."""
+    return run_pipeline(arr, params)[0]
