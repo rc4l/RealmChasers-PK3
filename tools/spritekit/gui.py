@@ -112,8 +112,14 @@ def _preview_box(pw, ph):
     """The before/after viewport size, as a pure function of the PREVIEW PANE's own
     width/height (`pw`,`ph`). Deliberately independent of the rendered image so the
     viewport can't change with thickness (no layout shift) and can't feed the image
-    height back into its own size (no runaway growth). Floors keep it sane pre-layout."""
-    return (max(pw // 2 - 20, 380), max(ph - 220, 240))
+    height back into its own size (no runaway growth).
+
+    Before the window is realized winfo is 1x1, so fall back to a sensible default. Once
+    realized, the box TRACKS the pane (small floor only) so shrinking the window scales
+    the preview down to fit instead of overflowing a 380-wide box into a tiny pane."""
+    if pw <= 1 or ph <= 1:
+        return (380, 240)
+    return (max(pw // 2 - 20, 40), max(ph - 220, 40))
 
 
 PREVIEW_PAD = 14   # margin kept around the preview so it never sits flush to the edge

@@ -134,7 +134,9 @@ def test_preview_box_independent_of_content():
     # the viewport is a pure function of the preview pane size -- no image input at all,
     # so it can't shift with thickness or feed image height back into itself (no growth)
     assert gui._preview_box(1000, 720) == (480, 500)
-    assert gui._preview_box(1, 1) == (380, 240)            # floors hold pre-layout
+    assert gui._preview_box(1, 1) == (380, 240)            # pre-layout default
+    assert gui._preview_box(300, 300) == (130, 80)         # small window -> box tracks the pane
+    assert gui._preview_box(60, 100) == (40, 40)           # tiny -> small floor keeps it positive
     big = gui._preview_box(1000, 5000)
     assert gui._preview_box(1000, 5000) == big             # deterministic, content-free
 
