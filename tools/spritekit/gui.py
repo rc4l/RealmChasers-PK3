@@ -119,9 +119,9 @@ def _to_photo_fit(arr, cell, bg=CHECK):
 TIPS = {
     "lum": "How dark the outline is. 0 = pure black; higher keeps more of the\n"
            "tint. Each outline pixel is a darkened shade of the fill color it borders.",
-    "conn": "Both seal sloped edges into a solid outline. Sharp (4-conn) keeps 90-degree\n"
-            "corners crisp (default). Rounded (8-conn) also fills the corner pixel for a\n"
-            "softer, rounded look.",
+    "conn": "Sharp (4-conn): the outline protrudes only up/down/left/right -- square,\n"
+            "blocky pixel-art edges (default). Rounded (8-conn): also fills diagonal\n"
+            "corners for a softer, rounded outline.",
     "thick": "Outline thickness in ART pixels (auto-scaled to the sprite's upscale\n"
              "factor). 1 = one art pixel. 0.5 / 0.25 draw a thinner sub-pixel outline\n"
              "by enlarging the image (2x / 4x) so the thin line can be drawn crisply.",

@@ -73,13 +73,6 @@ def border_ring(opaque):
     return opaque & t
 
 
-def conn_structure(connectivity):
-    """3x3 structuring element: 4 = plus (no diagonals), 8 = full square."""
-    if connectivity == 4:
-        return np.array([[0, 1, 0], [1, 1, 1], [0, 1, 0]], int)
-    return np.ones((3, 3), int)
-
-
 def demo_sprite(scale=6):
     """A small procedurally-built sample sprite (upscaled) for the startup preview."""
     palette = {".": (0, 0, 0, 0), "r": (200, 30, 30, 255), "d": (150, 18, 18, 255),

@@ -5,7 +5,7 @@ import numpy as np
 from scipy import ndimage
 
 from core import (lum, detect_scale, detect_visual_block, downscale, upscale,
-                  crop_tight, border_ring, conn_structure)
+                  crop_tight, border_ring)
 
 # Dark "outline-role" colors observed across the vegetation art. Any of these
 # forming a band that touches the silhouette boundary is treated as an existing
@@ -84,32 +84,19 @@ def _darken_to_lum(c, target):
     return np.clip((c * scale[..., None]).round(), 0, 255).astype(np.uint8)
 
 
-def _diagonal_seal(sil):
-    """Fill the outer-corner gaps along sloped (diagonal) edges so a 4-conn outline
-    reads as a solid line there, WITHOUT rounding true convex corners. A body pixel
-    is only treated as a diagonal edge when the diagonal CONTINUES through it (body on
-    both sides); an isolated 90-degree corner has no such continuation, so its outer
-    corner is left empty (stays sharp)."""
-    seal = np.zeros_like(sil)
-    # mid "\" edge: body continues up-left and down-right -> seal the two side corners
-    bk = sil & np.roll(np.roll(sil, 1, 0), 1, 1) & np.roll(np.roll(sil, -1, 0), -1, 1)
-    seal |= np.roll(np.roll(bk, -1, 0), 1, 1) | np.roll(np.roll(bk, 1, 0), -1, 1)
-    # mid "/" edge: body continues up-right and down-left
-    fw = sil & np.roll(np.roll(sil, 1, 0), -1, 1) & np.roll(np.roll(sil, -1, 0), 1, 1)
-    seal |= np.roll(np.roll(fw, -1, 0), -1, 1) | np.roll(np.roll(fw, 1, 0), 1, 1)
-    return seal & ~sil
-
-
 def _grow_outline(sil, iters, connectivity):
-    """Grow the silhouette by `iters` outline layers. 4-conn keeps corners sharp and
-    seals diagonals (per layer); 8-conn fills every corner (rounded)."""
-    g = sil
-    for _ in range(iters):
-        d = ndimage.binary_dilation(g, conn_structure(connectivity))
-        if connectivity == 4:
-            d = d | _diagonal_seal(g)
-        g = d
-    return g
+    """Grow the silhouette to place the outline. ONE dilation straight from the base
+    (never layering outline onto outline): 4-conn uses a cardinal cross of arm `iters`
+    -- the outline protrudes only up/down/left/right, square and blocky, never
+    diagonally. 8-conn uses a square (corners filled = rounded)."""
+    n = iters
+    if connectivity == 8:
+        struct = np.ones((2 * n + 1, 2 * n + 1), bool)            # square (rounded)
+    else:
+        struct = np.zeros((2 * n + 1, 2 * n + 1), bool)           # cross (cardinal only)
+        struct[n, :] = True
+        struct[:, n] = True
+    return ndimage.binary_dilation(sil, struct)
 
 
 def _add_tinted_outline(a, iters, connectivity, target_lum):

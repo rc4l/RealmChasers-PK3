@@ -59,11 +59,6 @@ def test_border_ring():
     assert not ring[0, 0]
 
 
-def test_conn_structure():
-    assert core.conn_structure(4)[0, 0] == 0 and core.conn_structure(4)[1, 1] == 1
-    assert core.conn_structure(8).sum() == 9
-
-
 def test_debug_sheet():
     import outline as outline_mod
     _, stages, info = outline_mod.run_pipeline(block_sprite(5))

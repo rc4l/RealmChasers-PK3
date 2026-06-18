@@ -98,19 +98,15 @@ def test_connectivity_8_fills_corners():
     assert n8 >= n4   # filled corners add at least as many pixels
 
 
-def test_4conn_seals_diagonal_keeps_square_sharp():
-    # a "\" run of body pixels: the mid-edge gaps get sealed (solid diagonal outline)
-    sil = np.zeros((6, 6), bool)
-    for i in range(4):
-        sil[i, i] = True
-    seal = o._diagonal_seal(sil)
-    assert seal[0, 2] and not seal.all()                 # a mid-edge corner gap is filled
-    one = np.zeros((3, 3), bool); one[1, 1] = True
-    assert not o._diagonal_seal(one).any()               # an isolated pixel seals nothing (stays sharp)
-    # and a real square keeps sharp 90-degree corners (bounding-box corners stay empty)
-    sq = np.zeros((9, 9, 4), np.uint8); sq[2:7, 2:7] = (150, 150, 150, 255)
-    so = o.process_array(sq, o.OutlineParams(scale=1, connectivity=4))
-    assert so[0, 0, 3] == 0 and so[0, -1, 3] == 0
+def test_4conn_outline_is_cardinal_only():
+    sil = np.zeros((5, 5), bool); sil[2, 2] = True
+    g1 = o._grow_outline(sil, 1, 4)
+    assert g1[1, 2] and g1[3, 2] and g1[2, 1] and g1[2, 3]   # cardinal neighbours filled
+    assert not g1[1, 1] and not g1[3, 3]                     # diagonal corners stay EMPTY
+    g2 = o._grow_outline(sil, 2, 4)
+    assert g2[0, 2] and g2[2, 0]                             # protrudes 2 straight out
+    assert not g2[1, 1]                                      # still no diagonal protrusion
+    assert o._grow_outline(sil, 1, 8)[1, 1]                  # 8-conn fills the corner (rounded)
 
 
 def test_reprocessing_outlines_base_not_outline():

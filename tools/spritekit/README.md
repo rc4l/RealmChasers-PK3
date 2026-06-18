@@ -60,7 +60,7 @@ python tools/spritekit debug sprites/rock/rock_10_w.png --target-lum 16 --thickn
 | flag | default | meaning |
 |---|---|---|
 | `--target-lum` | 16 | outline darkness (0 = black, higher = more visible tint) |
-| `--conn` | 4 | corner style — both seal sloped edges; 4 = sharp 90° corners (default), 8 = rounded |
+| `--conn` | 4 | 4 = outline protrudes only up/down/left/right — square, blocky pixel-art edges (default); 8 = also fills diagonal corners (rounded) |
 | `--thickness` | 1 | outline thickness in **art** pixels. `0.5` / `0.25` draw a thinner sub-pixel outline by enlarging the output image **2× / 4×** (a warning is printed) |
 | `--scale` | 0 | upscale factor; 0 = auto-detect per sprite |
 | `--recursive` | off | recurse into subfolders |
@@ -95,7 +95,9 @@ sprite they sit beside, regardless of color.
      (incl. the tool's own output) is rebuilt — so re-applying and **thickening
      outline the base, never the previous outline**, and changing Darkness only ever
      affects the outline.
-3. **Rebuild** a `connectivity`-respecting ring and color each pixel as the
+3. **Rebuild** the outline as ONE dilation straight from the base (4-conn = a
+   cardinal cross, so it protrudes only up/down/left/right — square pixel-art edges,
+   never layering onto outline already placed), and color each pixel as the
    strongest (highest-chroma) neighboring fill color, **darkened to a fixed
    luminance** so light source colors get a properly dark outline while keeping
    their hue.
