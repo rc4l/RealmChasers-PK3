@@ -73,10 +73,12 @@ def _strip_dark_border(a):
                 nl = np.roll(np.roll(L, dy, 0), dx, 1)
                 ni = np.roll(np.roll(interior, dy, 0), dx, 1)
                 bright = np.maximum(bright, np.where(ni, nl, -1.0))
-        # a ring pixel is outline if it is clearly darker than the fill it borders;
-        # peel the ring only when MOST of it is (i.e. it's really an outline band).
-        darker = ring & (bright >= 0) & (L < 0.8 * bright)
-        if darker.sum() < 0.7 * ring.sum():
+        # a ring pixel is outline if it is MUCH darker than the fill it borders (a real
+        # outline is; merely darker fill, e.g. a green stem beside a cyan bloom, is
+        # not). Peel the ring only when most of it qualifies -- i.e. it's an outline
+        # band, not authored shading.
+        darker = ring & (bright >= 0) & (L < 0.7 * bright)
+        if darker.sum() < 0.8 * ring.sum():
             break
         a[ring, 3] = 0
     return a
