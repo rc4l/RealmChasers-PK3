@@ -1,3 +1,2 @@
-# Extra dependency for the optional MCP server (tools/spritekit/mcp_server.py).
-# The CLI/GUI/tests do not need this.
+-r requirements.txt
 mcp[cli]>=1.2

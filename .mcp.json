@@ -2,7 +2,7 @@
   "mcpServers": {
     "spritekit": {
       "command": "python",
-      "args": ["tools/spritekit/mcp_server.py"]
+      "args": ["-m", "jurigged", "-w", "tools/spritekit", "tools/spritekit/mcp_server.py"]
     }
   }
 }

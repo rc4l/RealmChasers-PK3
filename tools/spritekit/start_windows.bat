@@ -13,7 +13,7 @@ if errorlevel 1 (
 )
 
 REM Install dependencies only if they are missing.
-python -c "import numpy, scipy, PIL" >nul 2>nul
+python -c "import numpy, scipy, PIL, jurigged" >nul 2>nul
 if errorlevel 1 (
     echo Installing dependencies, one moment...
     python -m pip install -r "%~dp0requirements.txt"
@@ -24,13 +24,8 @@ if errorlevel 1 (
     )
 )
 
-REM Launch the GUI. Prefer pythonw so no console window lingers; fall back to python.
-echo Launching spritekit...
-where pythonw >nul 2>nul
-if errorlevel 1 (
-    python "%~dp0__main__.py" gui
-    if errorlevel 1 pause
-) else (
-    start "" pythonw "%~dp0__main__.py" gui
-)
+REM Launch under jurigged so edits to the engine hot-reload live (no restart).
+echo Launching spritekit (hot reload)...
+python -m jurigged "%~dp0__main__.py" gui
+if errorlevel 1 pause
 exit /b 0

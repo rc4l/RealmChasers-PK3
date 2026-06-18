@@ -125,20 +125,36 @@ python -m pip install -r tools/spritekit/requirements-mcp.txt
 ```
 
 **Claude Code launches it automatically** (stdio) — no GUI, no port, nothing to start.
-The repo `.mcp.json` registers it with a relative path so it works on any machine
-(no hardcoded paths):
+The repo `.mcp.json` registers it with relative paths so it works on any machine, and
+runs it **under jurigged for hot reload** (see below) so engine edits go live with no
+`/mcp` reconnect:
 
 ```json
 { "mcpServers": { "spritekit": { "command": "python",
-                                 "args": ["tools/spritekit/mcp_server.py"] } } }
+    "args": ["-m", "jurigged", "-w", "tools/spritekit", "tools/spritekit/mcp_server.py"] } } }
 ```
 
 So: open Claude Code in this repo → approve / `/mcp` the `spritekit` server → ask it to
 "debug the rock outline" and one `outline_debug` call returns the stages as an image.
 
 Driving spritekit from a session rooted in a **sibling** repo (e.g. the game project
-next to this one)? Point that project's `.mcp.json` at the relative sibling path:
-`"args": ["../RealmChasers-PK3/tools/spritekit/mcp_server.py"]`.
+next to this one)? Point that project's `.mcp.json` at the sibling path (and watch it):
+`"args": ["-m", "jurigged", "-w", "../RealmChasers-PK3/tools/spritekit", "../RealmChasers-PK3/tools/spritekit/mcp_server.py"]`.
+
+## Hot reload (on by default)
+
+The launchers and the MCP server run under **jurigged**, which live-patches the
+running process on save — so edits to `core` / `outline` / `split` take effect in place
+with **no restart** (and no `/mcp` reconnect for the server). It's in `requirements.txt`;
+zero code changes, stdout-clean (safe for the stdio MCP).
+
+- **GUI** (`start_*` launchers): the window stays open; after editing, nudge a slider to
+  re-render with the new code.
+- **MCP server**: an assistant's edits to the engine are live on the next tool call.
+
+(`gui.py`'s *structure* — new widgets — still needs a restart; jurigged patches
+function bodies, which is where the engine logic lives. For full auto-restart-on-save
+instead, `watchfiles`/`tkreload` work but drop window state.)
 
 ## Tests
 
