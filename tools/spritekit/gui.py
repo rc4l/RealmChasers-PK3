@@ -25,6 +25,10 @@ import split as split_mod
 CHECK = (90, 90, 90, 255)
 ACCENT = "#1a66cc"
 THICKNESS_STOPS = [0.25, 0.5, 1.0, 2.0, 3.0]   # discrete outline-thickness slider stops
+GALLERY_CELL = 70        # thumbnail cell size (px)
+GALLERY_CHUNK = 12       # thumbnails rendered per UI tick (keeps the UI responsive)
+GALLERY_DEBOUNCE = 200   # ms to wait after a settings change before rebuilding
+GALLERY_MAX = 600        # cap on thumbnails rendered (avoids pathological folders)
 
 
 class ToolTip:
@@ -101,6 +105,17 @@ def _to_photo(arr, box, bg=CHECK):
     return ImageTk.PhotoImage(canvas.convert("RGBA"))
 
 
+def _to_photo_fit(arr, cell, bg=CHECK):
+    """Thumbnail that fits within a `cell`x`cell` box (scales up or down)."""
+    im = Image.fromarray(arr.astype(np.uint8))
+    s = min(cell / max(im.size[0], 1), cell / max(im.size[1], 1))
+    w, h = max(1, round(im.size[0] * s)), max(1, round(im.size[1] * s))
+    im = im.resize((w, h), Image.NEAREST)
+    canvas = Image.new("RGBA", im.size, bg)
+    canvas.alpha_composite(im)
+    return ImageTk.PhotoImage(canvas.convert("RGBA"))
+
+
 TIPS = {
     "lum": "How dark the outline is. 0 = pure black; higher keeps more of the\n"
            "tint. Each outline pixel is a darkened shade of the fill color it borders.",
@@ -143,6 +158,8 @@ class App(tk.Tk):
     def _load_sample(self):
         """Populate both tabs with a built-in sample so startup isn't blank."""
         self.files = []
+        self._folder_mode = False
+        self._clear_gallery()
         self.cur = demo_sprite()
         self.cur_path = None
         self.o_status.config(text="sample sprite — open a file or folder to replace")
@@ -193,8 +210,27 @@ class App(tk.Tk):
         ToolTip(a1, "Overwrite the currently loaded PNG with the previewed result.")
         ToolTip(a2, "Apply the current settings to every loaded PNG (overwrites in place).")
 
-        self.o_before = ttk.Label(self.o_preview, compound="top"); self.o_before.pack(side="left", expand=True)
-        self.o_after = ttk.Label(self.o_preview, compound="top"); self.o_after.pack(side="right", expand=True)
+        top = ttk.Frame(self.o_preview); top.pack(side="top", fill="x")
+        self.o_before = ttk.Label(top, compound="top"); self.o_before.pack(side="left", expand=True)
+        self.o_after = ttk.Label(top, compound="top"); self.o_after.pack(side="right", expand=True)
+
+        # Scrollable thumbnail gallery (folders only). Built incrementally + debounced.
+        self.gallery_label = ttk.Label(self.o_preview, text="", foreground="#555")
+        self.gallery_label.pack(side="top", anchor="w", pady=(8, 2))
+        wrap = ttk.Frame(self.o_preview); wrap.pack(side="top", fill="both", expand=True)
+        self.gallery_canvas = tk.Canvas(wrap, highlightthickness=0)
+        vsb = ttk.Scrollbar(wrap, orient="vertical", command=self.gallery_canvas.yview)
+        self.gallery = ttk.Frame(self.gallery_canvas)
+        self.gallery.bind("<Configure>", lambda e: self.gallery_canvas.configure(
+            scrollregion=self.gallery_canvas.bbox("all")))
+        self.gallery_canvas.create_window((0, 0), window=self.gallery, anchor="nw")
+        self.gallery_canvas.configure(yscrollcommand=vsb.set)
+        self.gallery_canvas.pack(side="left", fill="both", expand=True)
+        vsb.pack(side="right", fill="y")
+        self._folder_mode = False
+        self._gallery_after = None
+        self._pending = []
+        self._gallery_photos = []
 
     def _on_thickness(self):
         g = outline_mod.image_growth(THICKNESS_STOPS[self.thick_idx.get()])
@@ -210,14 +246,19 @@ class App(tk.Tk):
     def _open_file(self):
         f = filedialog.askopenfilename(filetypes=[("PNG", "*.png")])
         if f:
-            self.files = [Path(f)]; self._load(Path(f))
+            self._folder_mode = False
+            self.files = [Path(f)]
+            self._clear_gallery()
+            self._load(Path(f))
 
     def _open_folder(self):
         d = filedialog.askdirectory()
         if d:
             self.files = sorted(Path(d).glob("*.png"))
             if self.files:
+                self._folder_mode = True
                 self._load(self.files[0])
+                self._rebuild_gallery()
             else:
                 messagebox.showinfo("spritekit", "No PNGs in that folder.")
 
@@ -227,14 +268,63 @@ class App(tk.Tk):
         self._refresh()
 
     def _refresh(self):
-        if self.cur is None:
+        if self.cur is not None:
+            after = outline_mod.process_array(self.cur, self._params())
+            box = (max(self.o_preview.winfo_width() // 2 - 20, 380),
+                   max(self.gallery_label.winfo_rooty() - self.o_preview.winfo_rooty() - 20, 220))
+            pb, pa = _to_photo(self.cur, box), _to_photo(after, box)
+            self._photos = [pb, pa]
+            self.o_before.config(image=pb, text="BEFORE")
+            self.o_after.config(image=pa, text="AFTER")
+        self._schedule_gallery()
+
+    # ---- thumbnail gallery (folder mode) ----
+    def _schedule_gallery(self):
+        """Debounce: rebuild the gallery only once the settings stop changing."""
+        if not self._folder_mode:
             return
-        after = outline_mod.process_array(self.cur, self._params())
-        box = (max(self.o_preview.winfo_width() // 2 - 20, 380), max(self.o_preview.winfo_height() - 40, 500))
-        pb, pa = _to_photo(self.cur, box), _to_photo(after, box)
-        self._photos = [pb, pa]
-        self.o_before.config(image=pb, text="BEFORE")
-        self.o_after.config(image=pa, text="AFTER")
+        if self._gallery_after is not None:
+            self.after_cancel(self._gallery_after)
+        self._gallery_after = self.after(GALLERY_DEBOUNCE, self._rebuild_gallery)
+
+    def _clear_gallery(self):
+        if self._gallery_after is not None:
+            self.after_cancel(self._gallery_after)
+            self._gallery_after = None
+        self._pending = []
+        self._gallery_photos = []
+        for w in self.gallery.winfo_children():
+            w.destroy()
+        self.gallery_label.config(text="")
+
+    def _rebuild_gallery(self):
+        self._clear_gallery()
+        shown = list(self.files)[:GALLERY_MAX]
+        extra = len(self.files) - len(shown)
+        self.gallery_label.config(
+            text=f"{len(self.files)} sprites — click a thumbnail to edit"
+                 + (f"  (showing first {GALLERY_MAX})" if extra > 0 else ""))
+        self._pending = list(enumerate(shown))
+        self._render_next()
+
+    def _render_next(self):
+        """Render one chunk of thumbnails, then yield to the UI before the next."""
+        params = self._params()
+        cols = max(1, self.gallery_canvas.winfo_width() // (GALLERY_CELL + 8))
+        for idx, path in self._pending[:GALLERY_CHUNK]:
+            after = outline_mod.process_array(load_rgba(path), params)
+            photo = _to_photo_fit(after, GALLERY_CELL)
+            self._gallery_photos.append(photo)
+            cell = ttk.Label(self.gallery, image=photo, cursor="hand2", padding=2)
+            cell.grid(row=idx // cols, column=idx % cols, padx=2, pady=2)
+            cell.sprite_path = path
+            cell.bind("<Button-1>", self._on_thumb_click)
+        self._pending = self._pending[GALLERY_CHUNK:]
+        if self._pending:
+            self._gallery_after = self.after(1, self._render_next)
+
+    def _on_thumb_click(self, event):
+        self._load(event.widget.sprite_path)
 
     def _apply_outline(self, whole_folder):
         if not self.files:

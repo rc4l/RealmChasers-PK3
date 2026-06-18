@@ -26,7 +26,21 @@ def app():
 def reset(app):
     app.files = []; app.cur = None; app.cur_path = None; app.sheet_path = None
     app.target_lum.set(16); app.conn.set(4); app.thick_idx.set(2)
+    app._folder_mode = False
+    app._clear_gallery()
     yield
+
+
+@pytest.fixture
+def folder(tmp_path):
+    for i in range(20):
+        core.save_rgba(block_sprite(2), tmp_path / f"s{i:02d}.png")
+    return tmp_path
+
+
+def drain(app):
+    while app._pending:
+        app._render_next()
 
 
 @pytest.fixture
@@ -149,6 +163,47 @@ def test_split_open_preview_export(app, sheet_png, tmp_path, monkeypatch):
     app._export_split()                            # no-sheet branch -> info
     app._split_preview()                           # no-sheet early return
     assert msgs
+
+
+def test_gallery_builds_chunks_and_click(app, folder, monkeypatch):
+    import types
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: str(folder))
+    app._open_folder()
+    assert app._folder_mode and len(app.files) == 20
+    drain(app)                                   # finish chunked rendering (20 > GALLERY_CHUNK)
+    cells = app.gallery.winfo_children()
+    assert len(cells) == 20 and len(app._gallery_photos) == 20
+    app._on_thumb_click(types.SimpleNamespace(widget=cells[3]))   # click loads that sprite
+    assert app.cur_path == cells[3].sprite_path
+
+
+def test_gallery_cap(app, folder, monkeypatch):
+    monkeypatch.setattr(gui, "GALLERY_MAX", 5)
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: str(folder))
+    app._open_folder()
+    drain(app)
+    assert len(app.gallery.winfo_children()) == 5
+    assert "showing first 5" in app.gallery_label.cget("text")
+
+
+def test_gallery_debounce_cancels_pending(app, folder, monkeypatch):
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: str(folder))
+    app._open_folder(); drain(app)
+    app._schedule_gallery()                      # schedules a rebuild
+    assert app._gallery_after is not None
+    app._schedule_gallery()                      # cancels the pending one, schedules anew
+    assert app._gallery_after is not None
+    app.after_cancel(app._gallery_after); app._gallery_after = None
+
+
+def test_single_file_clears_gallery(app, folder, png, monkeypatch):
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: str(folder))
+    app._open_folder(); drain(app)
+    assert app.gallery.winfo_children()
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
+    app._open_file()                             # switching to a single file clears the gallery
+    assert not app._folder_mode and not app.gallery.winfo_children()
+    app._schedule_gallery()                      # no-op when not in folder mode
 
 
 def test_launch_runs_mainloop(monkeypatch):
