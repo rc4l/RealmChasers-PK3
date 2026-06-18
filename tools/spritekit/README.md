@@ -122,9 +122,19 @@ scripts. Tools: `outline_debug` (returns the labelled pipeline-stage sheet),
 python -m pip install -r tools/spritekit/requirements-mcp.txt
 ```
 
-It's registered in the repo's `.mcp.json`, so Claude Code offers to load it on
-startup (approve it, or run `/mcp`). After that, asking it to e.g. "debug the rock
-outline" makes one `outline_debug` call and the stages come back as an image.
+**The GUI auto-starts it** (no toggle): launching spritekit hosts the server over HTTP
+at `http://127.0.0.1:8765/mcp`, the same way the Unity MCP works. Point your client at
+that URL — the repo `.mcp.json` already does:
+
+```json
+{ "mcpServers": { "spritekit": { "type": "http", "url": "http://127.0.0.1:8765/mcp" } } }
+```
+
+So: open spritekit → in Claude Code approve / `/mcp` the `spritekit` server → ask it to
+"debug the rock outline" and one `outline_debug` call returns the stages as an image.
+The server is up only while the app is open (set `SPRITEKIT_MCP_PORT` to change the
+port). If you'd rather it always be available without the GUI, point `.mcp.json` at a
+launched process instead: `"command": "python", "args": ["tools/spritekit/mcp_server.py"]`.
 
 ## Tests
 
