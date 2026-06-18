@@ -161,6 +161,31 @@ def test_preview_large_sprite_not_cropped(app, tmp_path, monkeypatch):
     assert (pa.width(), pa.height()) == tuple(box)          # fills the fixed viewport, fit not cropped
 
 
+def test_hot_reload_rebuild_preserves_state(app, folder, sheet_png, monkeypatch):
+    # a reload rebuilds the widget tree in place (so __init__/structure edits go live)
+    # while keeping the loaded sprite, the open sheet, the gallery and slider values.
+    monkeypatch.setattr(gui.filedialog, "askdirectory", lambda **k: str(folder))
+    app._open_folder(); drain(app)                                 # folder mode + gallery
+    app.sheet_path = sheet_png                                     # and a split sheet open
+    app.target_lum.set(9); app.conn.set(8); app.thick_idx.set(4)
+    path = app.cur_path; nb_old = app.nb
+    app._reload_pending = "refresh"; app._apply_pending_reload()   # engine edit -> just re-render
+    assert app._reload_pending is None
+    app._apply_pending_reload()                                    # nothing pending -> no-op
+    app._reload_pending = "rebuild"; app._apply_pending_reload()   # gui edit -> full rebuild
+    drain(app)
+    assert app.nb is not nb_old                                    # widget tree actually rebuilt
+    assert app.cur_path == path                                    # sprite preserved
+    assert app._folder_mode and app.gallery.winfo_children()      # gallery rebuilt
+    assert app.sheet_path == sheet_png                            # open sheet preserved
+    assert (app.target_lum.get(), app.conn.get(), app.thick_idx.get()) == (9, 8, 4)
+    # rebuild as a single file with no sheet open -> the no-sheet / no-gallery branches
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(folder / "s00.png"))
+    app._open_file(); app.sheet_path = None
+    app._rebuild()
+    assert not app._folder_mode
+
+
 def test_preview_refits_on_resize(app, png, monkeypatch):
     monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
     app._open_file()

@@ -181,32 +181,88 @@ TIPS = {
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
-        # show whether this instance has hot reload, so it's obvious when edits will
-        # take effect live vs. when a relaunch is needed.
-        self.title("spritekit  —  ⚡ hot reload" if "jurigged" in sys.modules else "spritekit")
         self.geometry("1000x640")
+        # Persistent state -- plain attributes survive a hot-reload rebuild (only the
+        # widget tree is torn down and recreated).
         self.files = []
         self.cur = None
         self.cur_path = None
+        self.sheet_path = None
         self._photos = []
         self._resize_after = None
         self._last_box = None
-
-        nb = ttk.Notebook(self)
-        nb.pack(fill="both", expand=True)
-        self.outline_tab = ttk.Frame(nb); nb.add(self.outline_tab, text="Outline")
-        self.split_tab = ttk.Frame(nb); nb.add(self.split_tab, text="Split sheet")
-        self._build_outline(self.outline_tab)
-        self._build_split(self.split_tab)
-        # Re-fit the preview when the pane is resized (otherwise the old photo stays and
-        # gets cropped when the window shrinks). Debounced so a drag-resize doesn't thrash.
-        self.o_preview.bind("<Configure>", self._on_preview_resize)
+        self._reload_pending = None
+        self._build_ui()
+        self._install_hot_reload()
         # Realize the window NOW so the preview pane has its real size before the first
         # render. Otherwise the first preview uses the fallback box and the first user
         # interaction (e.g. a thickness change) snaps it to the real box -- a one-time
         # layout shift. update_idletasks() is not enough; the window must be mapped.
         self.update()
         self._load_sample()
+
+    def _build_ui(self):
+        """Build the entire widget tree. Kept OUT of __init__ so a hot-reload rebuild can
+        re-run it on the existing window -- letting structural / __init__-level edits (new
+        widgets, new bindings) take effect live, not just function-body edits."""
+        self.title("spritekit  —  ⚡ hot reload" if "jurigged" in sys.modules else "spritekit")
+        self.nb = ttk.Notebook(self)
+        self.nb.pack(fill="both", expand=True)
+        self.outline_tab = ttk.Frame(self.nb); self.nb.add(self.outline_tab, text="Outline")
+        self.split_tab = ttk.Frame(self.nb); self.nb.add(self.split_tab, text="Split sheet")
+        self._build_outline(self.outline_tab)
+        self._build_split(self.split_tab)
+        # Re-fit the preview when the pane is resized (else the old photo stays and gets
+        # cropped when the window shrinks). Debounced so a drag-resize doesn't thrash.
+        self.o_preview.bind("<Configure>", self._on_preview_resize)
+
+    # ---------------- hot reload: rebuild the live UI on a code change ----------------
+    def _install_hot_reload(self):
+        """Under jurigged, watch for code reloads and rebuild the UI in place so even
+        __init__ / widget-structure edits go live. jurigged patches method bodies on the
+        EXISTING class, so simply re-running _build_ui picks up the new code."""
+        if "jurigged" not in sys.modules:
+            return
+        import jurigged                                     # pragma: no cover - needs live jurigged
+        def on_activity(event):                             # pragma: no cover - runs on watcher thread
+            fn = getattr(getattr(event, "codefile", None), "filename", "") or ""
+            if fn.endswith("gui.py"):
+                self._reload_pending = "rebuild"            # structural change -> rebuild widgets
+            elif fn.endswith(".py"):
+                self._reload_pending = self._reload_pending or "refresh"   # engine -> re-render only
+        jurigged.registry.activity.register(on_activity)    # pragma: no cover
+        self._poll_reload()                                 # pragma: no cover
+
+    def _poll_reload(self):                                 # pragma: no cover - main-thread pump
+        try:
+            self._apply_pending_reload()
+        except Exception as e:
+            print("spritekit hot-reload failed (edit again or restart):", e)
+        self.after(250, self._poll_reload)
+
+    def _apply_pending_reload(self):
+        mode, self._reload_pending = self._reload_pending, None
+        if mode == "rebuild":
+            self._rebuild()
+        elif mode == "refresh":
+            self._refresh()
+
+    def _rebuild(self):
+        """Tear down and rebuild the widget tree via the (hot-patched) _build_ui, keeping
+        the loaded sprite, the open sheet and every slider/radio value."""
+        saved = {k: v.get() for k, v in vars(self).items() if isinstance(v, tk.Variable)}
+        folder, sheet = getattr(self, "_folder_mode", False), self.sheet_path
+        self.nb.destroy()
+        self._build_ui()           # _build_split resets _folder_mode/sheet_path -> restore below
+        for k, val in saved.items():
+            getattr(self, k).set(val)
+        self._folder_mode, self.sheet_path = folder, sheet
+        self.update_idletasks()
+        self._refresh()
+        if self.sheet_path:
+            self._split_preview()
+        if folder:
+            self._rebuild_gallery()
 
     def _on_preview_resize(self, _event=None):
         box = _preview_box(self.o_preview.winfo_width(), self.o_preview.winfo_height())
