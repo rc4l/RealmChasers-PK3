@@ -110,6 +110,22 @@ outline → final — plus the detected `scale`, `visual_block`, outline `iters`
 connectivity, and sizes. That makes it obvious e.g. when `scale=1, visual_block=3`
 (detailed art) or where a strip/peel removed too much.
 
+## MCP server (drive it from an assistant)
+
+`mcp_server.py` exposes the engine over MCP so an assistant (e.g. Claude Code) can
+call it directly and **see** the rendered result, instead of writing throwaway
+scripts. Tools: `outline_debug` (returns the labelled pipeline-stage sheet),
+`outline_info` (the derived values as text), `outline_apply` (process + save), and
+`split_preview` (contact sheet of a split).
+
+```
+python -m pip install -r tools/spritekit/requirements-mcp.txt
+```
+
+It's registered in the repo's `.mcp.json`, so Claude Code offers to load it on
+startup (approve it, or run `/mcp`). After that, asking it to e.g. "debug the rock
+outline" makes one `outline_debug` call and the stages come back as an image.
+
 ## Tests
 
 Full suite with 100% line + branch coverage (pytest + coverage.py):

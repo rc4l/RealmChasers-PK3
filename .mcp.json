@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "spritekit": {
+      "command": "python",
+      "args": ["tools/spritekit/mcp_server.py"]
+    }
+  }
+}

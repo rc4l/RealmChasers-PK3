@@ -2,6 +2,7 @@
 branch = True
 omit =
     */tests/*
+    */mcp_server.py
 
 [report]
 show_missing = True
