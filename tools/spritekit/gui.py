@@ -107,13 +107,26 @@ def labeled_slider(parent, label, var, lo, hi, tip, on_change, unit="", fmt=None
     return scale
 
 
+def _preview_box(pw, ph):
+    """The before/after viewport size, as a pure function of the PREVIEW PANE's own
+    width/height (`pw`,`ph`). Deliberately independent of the rendered image so the
+    viewport can't change with thickness (no layout shift) and can't feed the image
+    height back into its own size (no runaway growth). Floors keep it sane pre-layout."""
+    return (max(pw // 2 - 20, 380), max(ph - 220, 240))
+
+
 def _to_photo(arr, box, bg=CHECK):
+    """Render `arr` centered on a FIXED `box`-sized canvas (nearest-neighbour, integer
+    scale to fit). The canvas is always `box` regardless of the sprite's dimensions, so
+    a changing output size (e.g. a thicker outline) never resizes the widget or shifts
+    the layout -- only the content inside the fixed viewport changes."""
+    box = (max(int(box[0]), 1), max(int(box[1]), 1))
     im = Image.fromarray(arr.astype(np.uint8))
     s = max(1, min(box[0] // max(im.size[0], 1), box[1] // max(im.size[1], 1)))
     im = im.resize((im.size[0] * s, im.size[1] * s), Image.NEAREST)
-    canvas = Image.new("RGBA", im.size, bg)
-    canvas.alpha_composite(im)
-    return ImageTk.PhotoImage(canvas.convert("RGBA"))
+    canvas = Image.new("RGBA", box, bg)
+    canvas.alpha_composite(im, ((box[0] - im.size[0]) // 2, (box[1] - im.size[1]) // 2))
+    return ImageTk.PhotoImage(canvas)
 
 
 def _to_photo_fit(arr, cell, bg=CHECK):
@@ -295,8 +308,7 @@ class App(tk.Tk):
     def _refresh(self):
         if self.cur is not None:
             after = outline_mod.process_array(self.cur, self._params())
-            box = (max(self.o_preview.winfo_width() // 2 - 20, 380),
-                   max(self.gallery_label.winfo_rooty() - self.o_preview.winfo_rooty() - 20, 220))
+            box = _preview_box(self.o_preview.winfo_width(), self.o_preview.winfo_height())
             pb, pa = _to_photo(self.cur, box), _to_photo(after, box)
             self._photos = [pb, pa]
             self.o_before.config(image=pb, text="BEFORE")

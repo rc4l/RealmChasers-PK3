@@ -130,6 +130,28 @@ def test_thickness_slider_reaches_4(app):
     assert app._params().thickness == 4.0
 
 
+def test_preview_box_independent_of_content():
+    # the viewport is a pure function of the preview pane size -- no image input at all,
+    # so it can't shift with thickness or feed image height back into itself (no growth)
+    assert gui._preview_box(1000, 720) == (480, 500)
+    assert gui._preview_box(1, 1) == (380, 240)            # floors hold pre-layout
+    big = gui._preview_box(1000, 5000)
+    assert gui._preview_box(1000, 5000) == big             # deterministic, content-free
+
+
+def test_preview_viewport_fixed_across_thickness(app, png, monkeypatch):
+    # the before/after preview must NOT resize when thickness changes (no layout shift)
+    monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
+    app._open_file()
+    app.thick_idx.set(2); app._on_thickness()                            # 1 px
+    b1, a1 = app._photos
+    sz = (a1.width(), a1.height())
+    app.thick_idx.set(len(gui.THICKNESS_STOPS) - 1); app._on_thickness()  # 4 px -> larger output
+    b2, a2 = app._photos
+    assert (a2.width(), a2.height()) == sz                               # after viewport unchanged
+    assert (b1.width(), b1.height()) == sz == (b2.width(), b2.height())  # and matches before
+
+
 def test_thickness_warning_toggles(app, png, monkeypatch):
     monkeypatch.setattr(gui.filedialog, "askopenfilename", lambda **k: str(png))
     app._open_file()
