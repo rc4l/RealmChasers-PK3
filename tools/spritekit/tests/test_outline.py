@@ -105,8 +105,20 @@ def test_4conn_outline_is_cardinal_only():
     assert not g1[1, 1] and not g1[3, 3]                     # diagonal corners stay EMPTY
     g2 = o._grow_outline(sil, 2, 4)
     assert g2[0, 2] and g2[2, 0]                             # protrudes 2 straight out
-    assert not g2[1, 1]                                      # still no diagonal protrusion
+    assert not g2[1, 1]                                      # lone pixel: no corner to square
     assert o._grow_outline(sil, 1, 8)[1, 1]                  # 8-conn fills the corner (rounded)
+
+
+def test_4conn_squares_true_corners_not_staircases():
+    # a real 90-degree convex corner gets a SQUARE outer corner (not a diagonal chip)
+    sq = np.zeros((9, 9), bool); sq[2:7, 2:7] = True
+    g = o._grow_outline(sq, 2, 4)
+    assert g[0, 0] and g[1, 1]                               # outer 2x2 corner filled -> square
+    # a diagonal staircase has NO true corners -> stays a pure cardinal cross (no seal)
+    st = np.zeros((9, 9), bool)
+    for i in range(7):
+        st[i, i] = True; st[i, min(i + 1, 8)] = True
+    assert not o._convex_corner_fill(st, 2).any()           # nothing added on a sloped run
 
 
 def test_reprocessing_outlines_base_not_outline():

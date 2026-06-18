@@ -84,19 +84,49 @@ def _darken_to_lum(c, target):
     return np.clip((c * scale[..., None]).round(), 0, 255).astype(np.uint8)
 
 
+def _shift(s, dr, dc):
+    """Shift a boolean array by (dr, dc), vacated cells become False (no wrap-around)."""
+    out = np.zeros_like(s)
+    H, W = s.shape
+    out[max(0, -dr):H + min(0, -dr), max(0, -dc):W + min(0, -dc)] = \
+        s[max(0, dr):H + min(0, dr), max(0, dc):W + min(0, dc)]
+    return out
+
+
+def _convex_corner_fill(sil, n):
+    """Square off TRUE convex 90-degree corners so a thick cardinal outline isn't chipped
+    into a diagonal notch there -- WITHOUT sealing sloped/staircase edges. A corner only
+    qualifies when BOTH its edges run straight (the diagonally-opposite cell is empty, so
+    the edge doesn't immediately step); a staircase step fails that test and stays a
+    cardinal step. Each qualifying corner fills its outer n x n block."""
+    s = sil
+    U, D, L, R = _shift(s, -1, 0), _shift(s, 1, 0), _shift(s, 0, -1), _shift(s, 0, 1)
+    UL, UR, DL, DR = _shift(s, -1, -1), _shift(s, -1, 1), _shift(s, 1, -1), _shift(s, 1, 1)
+    TL = s & ~U & ~L & R & D & ~UR & ~DL          # top-left corner  -> fill up-left
+    TR = s & ~U & ~R & L & D & ~UL & ~DR          # top-right corner -> fill up-right
+    BL = s & ~D & ~L & R & U & ~DR & ~UL          # bottom-left      -> fill down-left
+    BR = s & ~D & ~R & L & U & ~DL & ~UR          # bottom-right     -> fill down-right
+    fill = np.zeros_like(s)
+    for dr in range(1, n + 1):
+        for dc in range(1, n + 1):
+            fill |= (_shift(TL, dr, dc) | _shift(TR, dr, -dc)
+                     | _shift(BL, -dr, dc) | _shift(BR, -dr, -dc))
+    return fill & ~sil
+
+
 def _grow_outline(sil, iters, connectivity):
-    """Grow the silhouette to place the outline. ONE dilation straight from the base
-    (never layering outline onto outline): 4-conn uses a cardinal cross of arm `iters`
-    -- the outline protrudes only up/down/left/right, square and blocky, never
-    diagonally. 8-conn uses a square (corners filled = rounded)."""
+    """Place the outline with ONE dilation from the base (never layering outline onto
+    outline). 8-conn: a full square (every corner filled = rounded). 4-conn: a cardinal
+    cross of arm `iters` -- protrudes only up/down/left/right, no seal on sloped edges --
+    PLUS squared-off true convex corners so a thick outline isn't chipped at 90-degree
+    corners."""
     n = iters
     if connectivity == 8:
-        struct = np.ones((2 * n + 1, 2 * n + 1), bool)            # square (rounded)
-    else:
-        struct = np.zeros((2 * n + 1, 2 * n + 1), bool)           # cross (cardinal only)
-        struct[n, :] = True
-        struct[:, n] = True
-    return ndimage.binary_dilation(sil, struct)
+        return ndimage.binary_dilation(sil, np.ones((2 * n + 1, 2 * n + 1), bool))
+    cross = np.zeros((2 * n + 1, 2 * n + 1), bool)
+    cross[n, :] = True
+    cross[:, n] = True
+    return ndimage.binary_dilation(sil, cross) | _convex_corner_fill(sil, n)
 
 
 def _add_tinted_outline(a, iters, connectivity, target_lum):
