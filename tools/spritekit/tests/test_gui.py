@@ -139,6 +139,14 @@ def test_preview_box_independent_of_content():
     assert gui._preview_box(1000, 5000) == big             # deterministic, content-free
 
 
+def test_preview_scales_match_sprite():
+    box = (400, 400)
+    sb, sa = gui._preview_scales((60, 60), box, 2)    # sub-pixel: after upscaled 2x...
+    assert sa >= 1 and sb == sa * 2                    # ...so render before 2x to match sprite
+    sb1, sa1 = gui._preview_scales((60, 60), box, 1)   # normal thickness -> identical scale
+    assert sb1 == sa1
+
+
 def test_fit_scale_never_crops():
     assert gui._fit_scale(50, 50, (400, 300)) >= 1.0        # room to enlarge -> integer
     assert gui._fit_scale(600, 200, (400, 300)) < 1.0       # too big -> shrink to fit

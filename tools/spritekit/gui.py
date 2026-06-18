@@ -129,6 +129,16 @@ def _fit_scale(w, h, box, pad=PREVIEW_PAD):
     return float(int(fit)) if fit >= 1 else fit
 
 
+def _preview_scales(after_shape, box, sub):
+    """Scales for the (before, after) preview pair. The after image is fit to the box.
+    A sub-pixel outline upscales the OUTLINED image by `sub` (so a fractional outline
+    can be drawn), which would otherwise make the same sprite look `sub` times bigger in
+    the after panel. Render the before at `after_scale * sub` so the SPRITE is the same
+    on-screen size in both panels -- only the outline differs."""
+    sa = _fit_scale(after_shape[1], after_shape[0], box)
+    return sa * sub, sa
+
+
 def _to_photo(arr, box, scale, bg=CHECK):
     """Render `arr` at `scale`, centered on a FIXED `box`-sized canvas. The canvas is
     always `box` regardless of the sprite's dimensions, so a changing output size (e.g.
@@ -400,14 +410,12 @@ class App(tk.Tk):
 
     def _refresh(self):
         if self.cur is not None:
-            after = outline_mod.process_array(self.cur, self._params())
+            p = self._params()
+            after = outline_mod.process_array(self.cur, p)
             box = _preview_box(self.o_preview.winfo_width(), self.o_preview.winfo_height())
-            # one scale, sized so the LARGER (outlined) image fits -> neither is cropped
-            # and before/after stay 1:1 comparable.
-            w = max(self.cur.shape[1], after.shape[1])
-            h = max(self.cur.shape[0], after.shape[0])
-            scale = _fit_scale(w, h, box)
-            pb, pa = _to_photo(self.cur, box, scale), _to_photo(after, box, scale)
+            sub = outline_mod.image_growth(p.thickness)
+            sb, sa = _preview_scales(after.shape, box, sub)
+            pb, pa = _to_photo(self.cur, box, sb), _to_photo(after, box, sa)
             self._photos = [pb, pa]
             self.o_before.config(image=pb, text="BEFORE")
             self.o_after.config(image=pa, text="AFTER")
