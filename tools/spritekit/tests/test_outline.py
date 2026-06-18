@@ -90,32 +90,25 @@ def test_run_pipeline_stages():
     assert info["scale"] == 5 and "iters" in info
 
 
-def test_connectivity_8_fills_corners():
-    out4 = o.process_array(block_sprite(5), o.OutlineParams(connectivity=4))
-    out8 = o.process_array(block_sprite(5), o.OutlineParams(connectivity=8))
-    n4 = (out4[:, :, 3] > 0).sum()
-    n8 = (out8[:, :, 3] > 0).sum()
-    assert n8 >= n4   # filled corners add at least as many pixels
+def test_outline_corners_closed_sharp_square_rounded_disk():
+    sq = np.zeros((15, 15), bool); sq[5:10, 5:10] = True
+    sharp = o._grow_outline(sq, 3, 4)        # Chebyshev square
+    rounded = o._grow_outline(sq, 3, 8)      # Euclidean disk
+    # both CLOSE the loop: the diagonal apex next to the base corner is filled (no gap)
+    assert sharp[4, 4] and rounded[4, 4]
+    # corner STYLE differs: sharp fills the extreme outer corner (square); disk clips it
+    assert sharp[2, 2] and not rounded[2, 2]
 
 
-def test_4conn_outline_is_cardinal_only():
-    sil = np.zeros((5, 5), bool); sil[2, 2] = True
-    g1 = o._grow_outline(sil, 1, 4)
-    assert g1[1, 2] and g1[3, 2] and g1[2, 1] and g1[2, 3]   # cardinal neighbours filled
-    assert not g1[1, 1] and not g1[3, 3]                     # diagonal corners stay EMPTY
-    g2 = o._grow_outline(sil, 2, 4)
-    assert g2[0, 2] and g2[2, 0]                             # protrudes 2 straight out
-    assert not g2[1, 1]                                      # still no diagonal protrusion
-    assert o._grow_outline(sil, 1, 8)[1, 1]                  # 8-conn fills the corner (rounded)
-
-
-def test_4conn_leaves_convex_corners_open():
-    # 4-conn must NOT fill corners (that would look like 8-conn). A square outline stays
-    # a plus -- the outer corner blocks are empty.
-    sq = np.zeros((11, 11), bool); sq[3:8, 3:8] = True
-    g = o._grow_outline(sq, 2, 4)
-    assert not g[1, 1] and not g[1, 9] and not g[9, 1] and not g[9, 9]   # corners stay open
-    assert o._grow_outline(sq, 2, 8)[1, 1]                  # 8-conn DOES fill them
+def test_outline_even_thickness_disk():
+    # EVEN perpendicular width: the disk reaches the full radius on a 45-degree edge just
+    # like on a flat one (a cardinal cross falls short on the diagonal -- the old bug).
+    from scipy import ndimage
+    flat = np.zeros((40, 40), bool); flat[:20, :] = True
+    assert (o._grow_outline(flat, 6, 8) & ~flat)[:, 20].sum() == 6     # flat: exactly 6 rows
+    diag = np.fromfunction(lambda i, j: i + j < 40, (60, 60))
+    ring = o._grow_outline(diag, 6, 8) & ~diag
+    assert ndimage.distance_transform_edt(~diag)[ring].max() >= 5.5    # diagonal: ~full radius 6
 
 
 def test_reprocessing_outlines_base_not_outline():

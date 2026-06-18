@@ -95,9 +95,10 @@ sprite they sit beside, regardless of color.
      (incl. the tool's own output) is rebuilt — so re-applying and **thickening
      outline the base, never the previous outline**, and changing Darkness only ever
      affects the outline.
-3. **Rebuild** the outline as ONE dilation straight from the base (4-conn = a
-   cardinal cross, so it protrudes only up/down/left/right — square pixel-art edges,
-   never layering onto outline already placed), and color each pixel as the
+3. **Rebuild** the outline with an **even** perpendicular width that closes fully
+   around corners — Sharp = a Chebyshev **square** (blocky, square corners), Rounded =
+   a Euclidean **disk** (round corners). (A cardinal cross is deliberately avoided: it
+   is thin on diagonal edges and leaves convex corners open.) Each pixel is colored the
    strongest (highest-chroma) neighboring fill color, **darkened to a fixed
    luminance** so light source colors get a properly dark outline while keeping
    their hue.

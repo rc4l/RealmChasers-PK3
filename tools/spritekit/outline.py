@@ -85,17 +85,15 @@ def _darken_to_lum(c, target):
 
 
 def _grow_outline(sil, iters, connectivity):
-    """Place the outline with ONE dilation from the base. 4-conn uses a cardinal cross of
-    arm `iters` -- the outline protrudes ONLY up/down/left/right, so corners are left open
-    (no diagonal fill, no seal). 8-conn uses a full square (corners filled = rounded)."""
+    """Place an EVEN-width outline that closes fully around corners. A cardinal cross is
+    NOT used: it is thin on diagonal edges (only ~iters/sqrt(2) perpendicular) and leaves
+    convex corners open. Instead grow by a fixed radius so the band has constant
+    perpendicular width everywhere. 4-conn (Sharp) uses a Chebyshev square -> square
+    corners; 8-conn (Rounded) uses a Euclidean disk -> round corners. Returns base+ring."""
     n = iters
     if connectivity == 8:
-        struct = np.ones((2 * n + 1, 2 * n + 1), bool)            # square (rounded)
-    else:
-        struct = np.zeros((2 * n + 1, 2 * n + 1), bool)           # cross (cardinal only)
-        struct[n, :] = True
-        struct[:, n] = True
-    return ndimage.binary_dilation(sil, struct)
+        return ndimage.distance_transform_edt(~sil) <= n          # disk: even, round corners
+    return ndimage.binary_dilation(sil, np.ones((2 * n + 1, 2 * n + 1), bool))  # square: sharp
 
 
 def _add_tinted_outline(a, iters, connectivity, target_lum):

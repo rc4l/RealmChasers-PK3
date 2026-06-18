@@ -175,9 +175,8 @@ def _to_photo_fit(arr, cell, bg=CHECK):
 TIPS = {
     "lum": "How dark the outline is. 0 = pure black; higher keeps more of the\n"
            "tint. Each outline pixel is a darkened shade of the fill color it borders.",
-    "conn": "Sharp (4-conn): the outline protrudes only up/down/left/right -- square,\n"
-            "blocky pixel-art edges (default). Rounded (8-conn): also fills diagonal\n"
-            "corners for a softer, rounded outline.",
+    "conn": "Both draw an EVEN-width outline that closes fully around corners. Sharp keeps\n"
+            "square, blocky corners (default); Rounded uses a disk for soft, round corners.",
     "thick": "Outline thickness in ART pixels (auto-scaled to the sprite's upscale\n"
              "factor). 1 = one art pixel. 0.5 / 0.25 draw a thinner sub-pixel outline\n"
              "by enlarging the image (2x / 4x) so the thin line can be drawn crisply.",
@@ -322,8 +321,8 @@ class App(tk.Tk):
         cf = ttk.Frame(side); cf.pack(fill="x", pady=(12, 0))
         clab = ttk.Label(cf, text="Corners"); clab.pack(anchor="w")
         row = ttk.Frame(cf); row.pack(anchor="w")
-        r1 = ttk.Radiobutton(row, text="Sharp (4-conn)", variable=self.conn, value=4, command=self._refresh)
-        r2 = ttk.Radiobutton(row, text="Rounded (8-conn)", variable=self.conn, value=8, command=self._refresh)
+        r1 = ttk.Radiobutton(row, text="Sharp (square)", variable=self.conn, value=4, command=self._refresh)
+        r2 = ttk.Radiobutton(row, text="Rounded (disk)", variable=self.conn, value=8, command=self._refresh)
         r1.pack(side="left"); r2.pack(side="left")
         for w in (clab, r1, r2):
             ToolTip(w, TIPS["conn"])
