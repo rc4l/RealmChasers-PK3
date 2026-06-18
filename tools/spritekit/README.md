@@ -60,7 +60,7 @@ python tools/spritekit debug sprites/rock/rock_10_w.png --target-lum 16 --thickn
 | flag | default | meaning |
 |---|---|---|
 | `--target-lum` | 16 | outline darkness (0 = black, higher = more visible tint) |
-| `--conn` | 8 | 8 = seal diagonals (clean sloped edges), 4 = sharp corners but thin/notched diagonals |
+| `--conn` | 4 | corner style — both seal sloped edges; 4 = sharp 90° corners (default), 8 = rounded |
 | `--thickness` | 1 | outline thickness in **art** pixels. `0.5` / `0.25` draw a thinner sub-pixel outline by enlarging the output image **2× / 4×** (a warning is printed) |
 | `--scale` | 0 | upscale factor; 0 = auto-detect per sprite |
 | `--recursive` | off | recurse into subfolders |

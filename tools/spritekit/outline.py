@@ -19,7 +19,7 @@ DEFAULT_OUTLINE_COLORS = [
 @dataclass
 class OutlineParams:
     target_lum: int = 16          # outline pixels darkened to this luminance
-    connectivity: int = 8         # 8 = seal diagonals (default), 4 = sharp corners but thin diagonals
+    connectivity: int = 4         # 4 = sharp corners + sealed diagonals (default); 8 = rounded corners
     thickness: float = 1.0        # outline thickness in ART pixels (0.25/0.5 enlarge the image)
     scale: int = 0                # upscale factor; 0 = auto-detect per sprite
     outline_colors: list = field(default_factory=lambda: list(DEFAULT_OUTLINE_COLORS))
@@ -84,12 +84,40 @@ def _darken_to_lum(c, target):
     return np.clip((c * scale[..., None]).round(), 0, 255).astype(np.uint8)
 
 
+def _diagonal_seal(sil):
+    """Fill the outer-corner gaps along sloped (diagonal) edges so a 4-conn outline
+    reads as a solid line there, WITHOUT rounding true convex corners. A body pixel
+    is only treated as a diagonal edge when the diagonal CONTINUES through it (body on
+    both sides); an isolated 90-degree corner has no such continuation, so its outer
+    corner is left empty (stays sharp)."""
+    seal = np.zeros_like(sil)
+    # mid "\" edge: body continues up-left and down-right -> seal the two side corners
+    bk = sil & np.roll(np.roll(sil, 1, 0), 1, 1) & np.roll(np.roll(sil, -1, 0), -1, 1)
+    seal |= np.roll(np.roll(bk, -1, 0), 1, 1) | np.roll(np.roll(bk, 1, 0), -1, 1)
+    # mid "/" edge: body continues up-right and down-left
+    fw = sil & np.roll(np.roll(sil, 1, 0), -1, 1) & np.roll(np.roll(sil, -1, 0), 1, 1)
+    seal |= np.roll(np.roll(fw, -1, 0), -1, 1) | np.roll(np.roll(fw, 1, 0), 1, 1)
+    return seal & ~sil
+
+
+def _grow_outline(sil, iters, connectivity):
+    """Grow the silhouette by `iters` outline layers. 4-conn keeps corners sharp and
+    seals diagonals (per layer); 8-conn fills every corner (rounded)."""
+    g = sil
+    for _ in range(iters):
+        d = ndimage.binary_dilation(g, conn_structure(connectivity))
+        if connectivity == 4:
+            d = d | _diagonal_seal(g)
+        g = d
+    return g
+
+
 def _add_tinted_outline(a, iters, connectivity, target_lum):
     """Add an `iters`-px ring. Each ring pixel is a darkened shade of the strongest
     (highest-chroma) fill color among its neighbors."""
     a = np.pad(a, ((iters, iters), (iters, iters), (0, 0)))
     sil = a[:, :, 3] > 0
-    grown = ndimage.binary_dilation(sil, conn_structure(connectivity), iterations=iters)
+    grown = _grow_outline(sil, iters, connectivity)
     ring = grown & ~sil
 
     rgb = a[:, :, :3].astype(np.int16)

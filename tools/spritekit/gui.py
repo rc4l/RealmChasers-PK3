@@ -119,9 +119,9 @@ def _to_photo_fit(arr, cell, bg=CHECK):
 TIPS = {
     "lum": "How dark the outline is. 0 = pure black; higher keeps more of the\n"
            "tint. Each outline pixel is a darkened shade of the fill color it borders.",
-    "conn": "Seal (8-connected): fills diagonal corners so sloped edges get a clean,\n"
-            "solid outline (recommended). Sharp (4-connected): leaves corners empty for\n"
-            "crisp straight edges, but the outline looks thin/notched on diagonals.",
+    "conn": "Both seal sloped edges into a solid outline. Sharp (4-conn) keeps 90-degree\n"
+            "corners crisp (default). Rounded (8-conn) also fills the corner pixel for a\n"
+            "softer, rounded look.",
     "thick": "Outline thickness in ART pixels (auto-scaled to the sprite's upscale\n"
              "factor). 1 = one art pixel. 0.5 / 0.25 draw a thinner sub-pixel outline\n"
              "by enlarging the image (2x / 4x) so the thin line can be drawn crisply.",
@@ -183,14 +183,14 @@ class App(tk.Tk):
         self.o_status.pack(fill="x")
 
         self.target_lum = tk.IntVar(value=16)
-        self.conn = tk.IntVar(value=8)
+        self.conn = tk.IntVar(value=4)
         labeled_slider(side, "Darkness", self.target_lum, 0, 80, TIPS["lum"], self._refresh)
 
         cf = ttk.Frame(side); cf.pack(fill="x", pady=(12, 0))
-        clab = ttk.Label(cf, text="Diagonal edges"); clab.pack(anchor="w")
+        clab = ttk.Label(cf, text="Corners"); clab.pack(anchor="w")
         row = ttk.Frame(cf); row.pack(anchor="w")
-        r1 = ttk.Radiobutton(row, text="Seal (8-conn)", variable=self.conn, value=8, command=self._refresh)
-        r2 = ttk.Radiobutton(row, text="Sharp (4-conn)", variable=self.conn, value=4, command=self._refresh)
+        r1 = ttk.Radiobutton(row, text="Sharp (4-conn)", variable=self.conn, value=4, command=self._refresh)
+        r2 = ttk.Radiobutton(row, text="Rounded (8-conn)", variable=self.conn, value=8, command=self._refresh)
         r1.pack(side="left"); r2.pack(side="left")
         for w in (clab, r1, r2):
             ToolTip(w, TIPS["conn"])
