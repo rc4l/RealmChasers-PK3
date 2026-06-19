@@ -85,14 +85,16 @@ def _darken_to_lum(c, target):
 
 
 def _grow_outline(sil, iters, connectivity):
-    """Place an EVEN-width outline that closes fully around corners. A cardinal cross is
-    NOT used: it is thin on diagonal edges (only ~iters/sqrt(2) perpendicular) and leaves
-    convex corners open. Instead grow by a fixed radius so the band has constant
-    perpendicular width everywhere. 4-conn (Sharp) uses a Chebyshev square -> square
-    corners; 8-conn (Rounded) uses a Euclidean disk -> round corners. Returns base+ring."""
+    """Place the outline. `connectivity` 4 = CARDINAL ONLY: a cross of arm `iters` -- the
+    outline protrudes only up/down/left/right, NO diagonal pixels at all (convex corners
+    are left open). 8 = SHARP SQUARE: a Chebyshev square -- even width, square corners,
+    closed. Returns base+ring."""
     n = iters
-    if connectivity == 8:
-        return ndimage.distance_transform_edt(~sil) <= n          # disk: even, round corners
+    if connectivity == 4:
+        struct = np.zeros((2 * n + 1, 2 * n + 1), bool)           # cross: cardinal only
+        struct[n, :] = True
+        struct[:, n] = True
+        return ndimage.binary_dilation(sil, struct)
     return ndimage.binary_dilation(sil, np.ones((2 * n + 1, 2 * n + 1), bool))  # square: sharp
 
 

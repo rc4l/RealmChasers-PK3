@@ -90,25 +90,22 @@ def test_run_pipeline_stages():
     assert info["scale"] == 5 and "iters" in info
 
 
-def test_outline_corners_closed_sharp_square_rounded_disk():
+def test_sharp_square_even_and_closed():
     sq = np.zeros((15, 15), bool); sq[5:10, 5:10] = True
-    sharp = o._grow_outline(sq, 3, 4)        # Chebyshev square
-    rounded = o._grow_outline(sq, 3, 8)      # Euclidean disk
-    # both CLOSE the loop: the diagonal apex next to the base corner is filled (no gap)
-    assert sharp[4, 4] and rounded[4, 4]
-    # corner STYLE differs: sharp fills the extreme outer corner (square); disk clips it
-    assert sharp[2, 2] and not rounded[2, 2]
+    g = o._grow_outline(sq, 3, 8)            # 8 = sharp square (Chebyshev)
+    assert g[2, 2] and g[4, 4]               # square outer corner filled -> closed, no gap
+    flat = np.zeros((30, 30), bool); flat[:15, :] = True
+    assert (o._grow_outline(flat, 5, 8) & ~flat)[:, 15].sum() == 5     # even: flat edge = 5 rows
 
 
-def test_outline_even_thickness_disk():
-    # EVEN perpendicular width: the disk reaches the full radius on a 45-degree edge just
-    # like on a flat one (a cardinal cross falls short on the diagonal -- the old bug).
-    from scipy import ndimage
-    flat = np.zeros((40, 40), bool); flat[:20, :] = True
-    assert (o._grow_outline(flat, 6, 8) & ~flat)[:, 20].sum() == 6     # flat: exactly 6 rows
-    diag = np.fromfunction(lambda i, j: i + j < 40, (60, 60))
-    ring = o._grow_outline(diag, 6, 8) & ~diag
-    assert ndimage.distance_transform_edt(~diag)[ring].max() >= 5.5    # diagonal: ~full radius 6
+def test_cardinal_only_has_no_diagonal_pixels():
+    sil = np.zeros((9, 9), bool); sil[4, 4] = True
+    g = o._grow_outline(sil, 2, 4)           # 4 = cardinal only (cross)
+    assert g[2, 4] and g[6, 4] and g[4, 2] and g[4, 6]    # protrudes up/down/left/right
+    assert not (g[2, 2] or g[6, 6] or g[2, 6] or g[3, 3])  # ZERO diagonal pixels
+    sq = np.zeros((11, 11), bool); sq[3:8, 3:8] = True
+    gc = o._grow_outline(sq, 2, 4)
+    assert not (gc[1, 1] or gc[1, 9] or gc[9, 1] or gc[9, 9])  # convex corners stay OPEN
 
 
 def test_reprocessing_outlines_base_not_outline():
