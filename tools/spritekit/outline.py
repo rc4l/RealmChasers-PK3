@@ -151,20 +151,27 @@ def run_pipeline(arr, params=None):
     stages.append(("after dark-border peel", art.copy()))
 
     # On chunky-but-imperfect art (e.g. rocks) the apparent block is bigger than the
-    # exact scale, so widen the outline to match instead of drawing a too-thin 1px.
+    # exact scale. Quantize to that block grid and run the outline THERE -- the same
+    # blocky grid a clean sprite uses -- so the cross is even and clean. Tracing a thick
+    # cross over the fine 1px edges instead (an iters multiplier) looks jagged/uneven.
     # Measured on the peeled BASE so re-processing an outlined sprite stays stable.
-    factor = 1 if p.scale else detect_visual_block(art)
+    block = 1 if p.scale else detect_visual_block(art)
+    if block > 1:
+        art = downscale(art, block)               # -> the block grid (like a clean sprite)
+        stages.append(("block grid", art.copy()))
+    grid = s * block                              # total factor back to output resolution
+
     sub = image_growth(p.thickness)               # 2 for 0.5, 4 for 0.25, else 1
     work = upscale(art, sub) if sub > 1 else art   # subdivide each art pixel
-    iters = max(1, round(p.thickness * sub * factor))   # outline thickness in work pixels
+    iters = max(1, round(p.thickness * sub))       # outline thickness in block pixels
     work = _add_tinted_outline(work, iters, p.connectivity, p.target_lum)
     stages.append(("after outline", work.copy()))
 
-    big = upscale(work, s) if s > 1 else work      # back to (enlarged) output resolution
+    big = upscale(work, grid) if grid > 1 else work   # back to (enlarged) output resolution
     final = crop_tight(big)
     stages.append(("final", final))
-    info = {"scale": s, "visual_block": factor if not p.scale else s, "factor": factor,
-            "sub": sub, "iters": iters, "connectivity": p.connectivity,
+    info = {"scale": s, "visual_block": block if not p.scale else s, "block": block,
+            "grid": grid, "sub": sub, "iters": iters, "connectivity": p.connectivity,
             "target_lum": p.target_lum, "thickness": p.thickness,
             "input_size": (arr.shape[1], arr.shape[0]),
             "output_size": (final.shape[1], final.shape[0])}
