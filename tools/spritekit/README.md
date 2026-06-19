@@ -96,9 +96,10 @@ sprite they sit beside, regardless of color.
      outline the base, never the previous outline**, and changing Darkness only ever
      affects the outline.
 3. **Rebuild** the outline. **Sharp (square)** = a Chebyshev **square** grow — even,
-   blocky, square corners that close fully (default). **Cardinal only** = a **cross**
-   that protrudes only up/down/left/right — **no diagonal pixels at all** (convex
-   corners stay open; thinner on diagonal edges by nature). Each pixel is colored the
+   blocky, square corners (default). **Cardinal** = a **cross** that protrudes only
+   up/down/left/right, then its diagonal corner **gaps are closed** (fill any background
+   cell with outline on two perpendicular sides) so the outline is a connected blocky
+   band — without the square's corner bulk. Each pixel is colored the
    strongest (highest-chroma) neighboring fill color, **darkened to a fixed
    luminance** so light source colors get a properly dark outline while keeping
    their hue.

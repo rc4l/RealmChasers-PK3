@@ -84,17 +84,39 @@ def _darken_to_lum(c, target):
     return np.clip((c * scale[..., None]).round(), 0, 255).astype(np.uint8)
 
 
+def _shift(s, dr, dc):
+    """Shift a boolean array by (dr, dc), vacated cells become False (no wrap-around)."""
+    out = np.zeros_like(s)
+    H, W = s.shape
+    out[max(0, -dr):H + min(0, -dr), max(0, -dc):W + min(0, -dc)] = \
+        s[max(0, dr):H + min(0, dr), max(0, dc):W + min(0, dc)]
+    return out
+
+
+def _close_ring(grown, base):
+    """Close diagonal corner GAPS in the outline RING so it reads as a connected band, not
+    blocks that touch only at a corner. In one pass off the original ring, fill any
+    background cell that has ring on two PERPENDICULAR sides (right+down, right+up, etc.) --
+    the corner the two protrusions leave open. One pass (not iterated) so it bridges the
+    gap without bulking into the 8-conn square."""
+    ring = grown & ~base
+    R, L = _shift(ring, 0, 1), _shift(ring, 0, -1)
+    U, D = _shift(ring, -1, 0), _shift(ring, 1, 0)
+    bridge = ~grown & ((R & D) | (R & U) | (L & D) | (L & U))
+    return grown | bridge
+
+
 def _grow_outline(sil, iters, connectivity):
-    """Place the outline. `connectivity` 4 = CARDINAL ONLY: a cross of arm `iters` -- the
-    outline protrudes only up/down/left/right, NO diagonal pixels at all (convex corners
-    are left open). 8 = SHARP SQUARE: a Chebyshev square -- even width, square corners,
-    closed. Returns base+ring."""
+    """Place the outline. `connectivity` 4 = CARDINAL: a cross of arm `iters` (protrudes
+    only up/down/left/right) whose diagonal corner GAPS are then closed so the outline is a
+    connected band -- without bulking it into a square. 8 = SHARP SQUARE: a Chebyshev
+    square (even width, square corners). Returns base+ring."""
     n = iters
     if connectivity == 4:
         struct = np.zeros((2 * n + 1, 2 * n + 1), bool)           # cross: cardinal only
         struct[n, :] = True
         struct[:, n] = True
-        return ndimage.binary_dilation(sil, struct)
+        return _close_ring(ndimage.binary_dilation(sil, struct), sil)
     return ndimage.binary_dilation(sil, np.ones((2 * n + 1, 2 * n + 1), bool))  # square: sharp
 
 

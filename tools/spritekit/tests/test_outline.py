@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+from scipy import ndimage
 
 import outline as o
 import core
@@ -98,14 +99,25 @@ def test_sharp_square_even_and_closed():
     assert (o._grow_outline(flat, 5, 8) & ~flat)[:, 15].sum() == 5     # even: flat edge = 5 rows
 
 
-def test_cardinal_only_has_no_diagonal_pixels():
+def test_cardinal_protrudes_cardinally():
     sil = np.zeros((9, 9), bool); sil[4, 4] = True
-    g = o._grow_outline(sil, 2, 4)           # 4 = cardinal only (cross)
+    g = o._grow_outline(sil, 2, 4)           # 4 = cardinal
     assert g[2, 4] and g[6, 4] and g[4, 2] and g[4, 6]    # protrudes up/down/left/right
-    assert not (g[2, 2] or g[6, 6] or g[2, 6] or g[3, 3])  # ZERO diagonal pixels
-    sq = np.zeros((11, 11), bool); sq[3:8, 3:8] = True
-    gc = o._grow_outline(sq, 2, 4)
-    assert not (gc[1, 1] or gc[1, 9] or gc[9, 1] or gc[9, 9])  # convex corners stay OPEN
+
+
+def test_cardinal_closes_corner_gaps_without_bulking():
+    # a diagonal staircase: a bare cardinal cross gaps at every step (touches only at the
+    # corner). Cardinal mode must CLOSE those gaps (ring 4-connected == 8-connected) while
+    # staying lighter than the full square (no 8-conn bulk).
+    sil = np.zeros((14, 14), bool)
+    for i in range(11):
+        sil[i, i] = True; sil[i, min(i + 1, 13)] = True
+    ring4 = o._grow_outline(sil, 1, 4) & ~sil
+    card = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]]); full = np.ones((3, 3))
+    assert ndimage.label(ring4, card)[1] == ndimage.label(ring4, full)[1]   # no diagonal-only gaps
+    # on a square sprite the cardinal outline stays lighter than the bulky Chebyshev square
+    box = np.zeros((15, 15), bool); box[5:10, 5:10] = True
+    assert o._grow_outline(box, 3, 4).sum() < o._grow_outline(box, 3, 8).sum()
 
 
 def test_reprocessing_outlines_base_not_outline():
